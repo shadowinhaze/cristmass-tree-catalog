@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -32,9 +32,8 @@ module.exports = {
     main: './index.js'
   },
   output: {
-    filename: filename('js'),
-    path: path.resolve(__dirname, 'art-quiz'),
-    publicPath: ''
+    filename: filename('ts'),
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     port: 4200,
@@ -72,18 +71,14 @@ module.exports = {
       }
     }),
     new CleanWebpackPlugin(),
-    // new CopyWebpackPlugin({
-    //     patterns: [
-    //         {
-    //             from: path.resolve(__dirname, 'src/assets/favicon'),
-    //             to: path.resolve(__dirname, 'momentum/assets/favicon')
-    //         },
-    //         {
-    //             from: path.resolve(__dirname, 'src/assets/sounds'),
-    //             to: path.resolve(__dirname, 'momentum/assets/sounds')
-    //         }
-    //     ]
-    // })
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets/favicon.ico'),
+          to: path.resolve(__dirname, 'dist/assets/favicon.ico')
+        }
+      ]
+    })
   ],
   module: {
     rules: [
