@@ -1,0 +1,15 @@
+$green: #04290d;
+$red: #c01919;
+
+@mixin defFont {
+  font-family: 'Montserrat';
+  font-weight: 400;
+}
+
+@mixin defSize {
+  font-size: 1rem;
+}
+
+@mixin defAnimation($prop) {
+  transition: $prop .3s ease;
+}

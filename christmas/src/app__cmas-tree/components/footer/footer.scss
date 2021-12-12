@@ -1,0 +1,54 @@
+@import '../../app.scss';
+
+.app-footer {
+  background: $green;
+}
+
+.footer__items {
+  display: flex;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1em;
+  list-style-type: none;
+  
+  @media screen and (max-width: 560px) {
+    padding: 2em 1em;
+    flex-direction: column;
+    row-gap: 1.5rem;
+  }
+}
+
+.rss-logo {
+  display: block;
+  background: url('@svg/rss-logo.svg') no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 6rem;
+  height: 3rem;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(100%) contrast(103%);
+  @include defAnimation(filter);
+
+  &:hover {
+    filter: invert(15%) sepia(99%) saturate(6849%) hue-rotate(359deg) brightness(93%) contrast(91%);
+  }
+}
+
+.footer__item__link {
+  @include defFont;
+  @include defSize;
+  color: white;
+  text-decoration: none;
+  @include defAnimation(color);
+  
+  &:hover {
+    color: $red;
+  }
+}
+
+.footer__item__text {
+  margin: 0;
+  @include defFont;
+  @include defSize;
+  color: white;
+}

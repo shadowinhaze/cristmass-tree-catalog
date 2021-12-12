@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable prettier/prettier */
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -29,12 +31,13 @@ module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
-    main: './index.js'
+    main: './index.ts',
   },
   output: {
-    filename: filename('ts'),
+    filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
   },
+  stats: 'none',
   devServer: {
     port: 4200,
     hot: isDev,
@@ -49,19 +52,6 @@ module.exports = {
       watch: true,
     }
   },
-
-  stats: 'none',
-  resolve: {
-    extensions: ['.js', '.html', '.css', '.scss', '.png', '.jpg', '.svg', '.jpeg'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      // '@scss': path.resolve(__dirname, 'src/styles'),
-      // '@img': path.resolve(__dirname, 'src/assets/img'),
-      // '@modules': path.resolve(__dirname, 'src/modules'),
-      // '@svg': path.resolve(__dirname, 'src/assets/svg'),
-      // '@fonts': path.resolve(__dirname, 'src/assets/fonts'),
-    }
-  },
   optimization: optimization(),
   plugins: [
     new HTMLWebpackPlugin({
@@ -71,19 +61,28 @@ module.exports = {
       }
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'src/assets/favicon.ico'),
-          to: path.resolve(__dirname, 'dist/assets/favicon.ico')
-        }
-      ]
-    })
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(__dirname, 'src/assets/favicon.ico'),
+    //       to: path.resolve(__dirname, 'dist/assets/favicon.ico')
+    //     }
+    //   ]
+    // })
   ],
+  resolve: {
+    extensions: ['.js', '.ts', '.html', '.css', '.scss', '.png', '.jpg', '.svg', '.jpeg'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@svg': path.resolve(__dirname, 'src/assets/svg'),
+      '@img': path.resolve(__dirname, 'src/assets/img'),
+    }
+  },
   module: {
     rules: [
       {
         test: /\.html$/i,
+        exclude: /node_modules/,
         loader: 'html-loader',
       },
       {

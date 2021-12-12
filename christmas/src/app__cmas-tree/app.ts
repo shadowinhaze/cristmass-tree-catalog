@@ -1,19 +1,28 @@
-import { MainPage } from './pages/main';
+import './app.scss';
+import { HomePage } from './pages/home/home';
 
-export enum PageIds {
+enum PageIds {
   main = 'main',
+  catalog = 'catalog',
+  showroom = 'showroom',
 }
 
-export default class App {
+enum PageIdsRU {
+  main = 'домашняя',
+  catalog = 'каталог',
+  showroom = 'шоу-рум',
+}
+
+class ChristmasApp {
   private renderNewPage(pageID: string): void {
-    let page: null | MainPage = null;
+    let page: null | HomePage = null;
     switch (pageID) {
       case PageIds.main:
-        page = new MainPage(pageID);
+        page = new HomePage();
         break;
     }
     if (page) {
-      page.render();
+      page.generate();
     }
   }
 
@@ -36,3 +45,5 @@ export default class App {
     this.enableRouter();
   }
 }
+
+export { PageIds, PageIdsRU, ChristmasApp };
