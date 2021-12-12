@@ -1,14 +1,21 @@
-<div class="logo"></div>
-<nav class="app-header__nav nav">
-  <ul class="nav__items">
-    <li class="nav__item"><a href="#" class="nav__item_link"></a></li>
-  </ul>
-</nav>
-<div class="app-header__search search">
-  <div class="search__input">
-    <input class="input__line" type="text" placeholder="Найти украшение...">
-    <i class="input__icon"></i>
+<div class="app-header__wrapper">
+  <div class="app-logo"></div>
+  <div class="app-header__hideble-items app-header__hideble-items_hidden">
+    <nav class="app-header__nav page-nav">
+      <ul class="page-nav__items">
+        <li class="page-nav__item"><button class="page-nav__item__button page-nav__item__button_active">Каталог</a></li>
+        <li class="page-nav__item"><button class="page-nav__item__button">Шоу-рум</a></li>
+      </ul>
+    </nav>
+    <div class="app-header__search search">
+      <div class="search__input">
+        <input class="input__line" type="text" placeholder="Найти украшение...">
+        <i class="input__icon"></i>
+      </div>
+      <div class="search__results"></div>
+    </div>
   </div>
-  <div class="search__results"></div>
+  <button class="app-header__favorites favorites">
+    <span class="favorites__display">3 / 20</span>
+  </button>
 </div>
-<button class="app-header__cart cart"></button>

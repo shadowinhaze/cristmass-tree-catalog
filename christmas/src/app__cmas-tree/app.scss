@@ -1,6 +1,9 @@
 $green: #04290d;
 $red: #c01919;
 
+$toWhite: invert(100%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(100%) contrast(103%);
+$toRed: invert(15%) sepia(99%) saturate(6849%) hue-rotate(359deg) brightness(93%) contrast(91%);
+
 @mixin defFont {
   font-family: 'Montserrat';
   font-weight: 400;
@@ -11,5 +14,6 @@ $red: #c01919;
 }
 
 @mixin defAnimation($prop) {
-  transition: $prop .3s ease;
+  transition: $prop .1s ease;
 }
+

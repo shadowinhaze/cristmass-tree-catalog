@@ -14,7 +14,9 @@ export class Footer {
 
   private render(): void {
     if (this.container) {
-      this.container.innerHTML = html;
+      if (this.container.innerText === '') {
+        this.container.innerHTML = html;
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import './app.scss';
 import { HomePage } from './pages/home/home';
+import { Catalog } from './pages/catalog/catalog';
 
 enum PageIds {
   main = 'main',
@@ -15,10 +16,13 @@ enum PageIdsRU {
 
 class ChristmasApp {
   private renderNewPage(pageID: string): void {
-    let page: null | HomePage = null;
+    let page: null | HomePage | Catalog = null;
     switch (pageID) {
       case PageIds.main:
         page = new HomePage();
+        break;
+      case PageIds.catalog:
+        page = new Catalog();
         break;
     }
     if (page) {

@@ -6,8 +6,9 @@
 
 .footer__items {
   display: flex;
-  margin: 0;
-  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 1440px;
+  justify-content: space-between;
   align-items: center;
   padding: 1em;
   list-style-type: none;
@@ -26,11 +27,11 @@
   background-position: center center;
   width: 6rem;
   height: 3rem;
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(100%) contrast(103%);
+  filter: $toWhite;
   @include defAnimation(filter);
 
   &:hover {
-    filter: invert(15%) sepia(99%) saturate(6849%) hue-rotate(359deg) brightness(93%) contrast(91%);
+    filter: $toRed;
   }
 }
 
@@ -39,10 +40,11 @@
   @include defSize;
   color: white;
   text-decoration: none;
-  @include defAnimation(color);
+  @include defAnimation(all);
   
   &:hover {
     color: $red;
+    font-weight: bold;
   }
 }
 

@@ -33,8 +33,8 @@ export class HomePage {
     this.footer.show();
     this.genMain();
     this.buttons.render(this.main, 'buttons-container_home-theme', [
-      { name: PageIdsRU.catalog, link: `'#${PageIds.catalog}'` },
-      { name: PageIdsRU.showroom, link: `'#${PageIds.showroom}'` },
+      { name: PageIdsRU.catalog, link: PageIds.catalog },
+      { name: PageIdsRU.showroom, link: PageIds.showroom },
     ]);
   }
 }
