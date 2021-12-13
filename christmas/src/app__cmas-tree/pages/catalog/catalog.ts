@@ -1,7 +1,26 @@
 import './catalog.scss';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
-// import { PageIds, PageIdsRU } from '../../app';
+import { BtnsCollection } from '../../components/button/button';
+import { PageIds, PageIdsRU } from '../../app';
+
+const navLinks: BtnsCollection = [
+  {
+    name: 'дом',
+    link: '',
+    current: false,
+  },
+  {
+    name: 'каталог',
+    link: 'catalog',
+    current: true,
+  },
+  {
+    name: 'шоу-рум',
+    link: 'showroom',
+    current: false,
+  },
+];
 
 export class Catalog {
   static readonly ClassNames: { [prop: string]: string } = {
@@ -13,23 +32,14 @@ export class Catalog {
 
   private footer: Footer;
 
-  // private main: HTMLElement | null;
-
   constructor() {
     this.header = new Header();
     this.footer = new Footer();
-    // this.main = document.querySelector(`.${Catalog.ClassNames.main}`);
   }
-
-  // private genMain() {
-  //   if (this.main) {
-  //     this.main.classList.add(HomePage.ClassNames.mainHomeTheme);
-  //     this.main.innerHTML = html;
-  //   }
-  // }
 
   generate(): void {
     this.header.show();
+    this.header.genNav(navLinks);
     this.footer.show();
   }
 }

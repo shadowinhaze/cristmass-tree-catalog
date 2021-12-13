@@ -1,5 +1,6 @@
 import html from './header.html';
 import './header.scss';
+import { BtnsCollection, Button } from '../button/button';
 
 export class Header {
   static readonly ClassNames: { [prop: string]: string } = {
@@ -8,12 +9,31 @@ export class Header {
     mobileMenuHiddenMod: 'app-header__hideble-items_hidden',
     mobileMenuActivator: 'app-logo',
     mobileMenuActiveMod: 'app-logo_active',
+    navigation: 'app-header__nav',
+  };
+
+  static readonly navInfo = {
+    parent: 'ul',
+    parentClassName: 'page-nav__items',
+    childContainer: 'li',
+    childContainerClassName: 'page-nav__item',
+    child: 'button',
+    childClassName: 'page-nav__item__button',
+    activeChildClassName: 'page-nav__item__button_active',
   };
 
   private container: HTMLElement | null;
 
+  private buttons: Button;
+
   constructor() {
     this.container = document.querySelector(`.${Header.ClassNames.container}`);
+    this.buttons = new Button();
+  }
+
+  genNav(navCollection: BtnsCollection): void {
+    const place = this.container?.querySelector(`.${Header.ClassNames.navigation}`);
+    place?.append(this.buttons.genNavBtns(navCollection, Header.navInfo));
   }
 
   private render(): void {

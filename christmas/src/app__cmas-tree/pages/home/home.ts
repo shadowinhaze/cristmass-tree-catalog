@@ -8,6 +8,7 @@ export class HomePage {
   static readonly ClassNames: { [prop: string]: string } = {
     main: 'app-main',
     mainHomeTheme: 'app-main_home-theme',
+    mainModificator: 'buttons-container_home-theme',
   };
 
   private buttons: Button;
@@ -32,7 +33,7 @@ export class HomePage {
   generate(): void {
     this.footer.show();
     this.genMain();
-    this.buttons.render(this.main, 'buttons-container_home-theme', [
+    this.buttons.render(this.main, HomePage.ClassNames.mainModificator, [
       { name: PageIdsRU.catalog, link: PageIds.catalog },
       { name: PageIdsRU.showroom, link: PageIds.showroom },
     ]);
