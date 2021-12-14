@@ -11,7 +11,7 @@ export class Footer extends Component {
     super(true, Footer.ClassNames.container);
   }
 
-  show(): void {
+  show() {
     this.parseFromTemplate(html);
   }
 }

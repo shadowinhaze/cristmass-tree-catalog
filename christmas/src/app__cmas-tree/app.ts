@@ -1,6 +1,6 @@
 import './app.scss';
-import { HomePage } from './pages/home/home';
-import { Catalog } from './pages/catalog/catalog';
+import { HomePage } from './pages/home';
+import { Catalog } from './pages/catalog';
 
 const enum PageIds {
   main = 'main',

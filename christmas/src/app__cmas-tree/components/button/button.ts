@@ -59,7 +59,7 @@ class Button extends Component {
     return parent;
   }
 
-  private addLocator(parent: HTMLElement, ...args: Array<string>): void {
+  private addLocator(parent: HTMLElement | null, ...args: Array<string>): void {
     const goTo = function (this: HTMLElement, event: Event): void {
       const target = <HTMLElement>event.target;
       if (target.classList.contains(args[1])) return;
@@ -69,18 +69,16 @@ class Button extends Component {
       }
     };
 
-    parent.addEventListener('click', goTo);
+    parent?.addEventListener('click', goTo);
   }
 
-  renderDefBtns(targetParent: HTMLElement | null, modificator: string | null, data: BtnsRequest): void {
+  renderDefBtns(modificator: string | null, data: BtnsRequest): HTMLElement | null {
     this.genDefBtns(data);
-    if (this.container) {
-      if (modificator) {
-        this.container?.classList.add(modificator);
-      }
-      this.addLocator(this.container, Button.ClassNames.button);
-      targetParent?.appendChild(this.container);
+    if (modificator) {
+      this.container?.classList.add(modificator);
     }
+    this.addLocator(this.container, Button.ClassNames.button);
+    return this.container;
   }
 
   renderNav(data: BtnsRequest): HTMLElement {

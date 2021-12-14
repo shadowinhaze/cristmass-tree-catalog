@@ -5,7 +5,6 @@ import { PageIds, PageIdsRU } from '../../app';
 
 export class HomePage extends Page {
   static readonly ClassNames = {
-    main: 'app-main',
     mainHomeTheme: 'app-main_home-theme',
     mainModificator: 'buttons-container_home-theme',
   };
@@ -21,17 +20,16 @@ export class HomePage extends Page {
     },
   ];
 
-  private genMain(): void {
-    const main = <HTMLElement>document.querySelector(`.${HomePage.ClassNames.main}`);
-    if (main) {
-      main.classList.add(HomePage.ClassNames.mainHomeTheme);
-      main.innerHTML = html;
-      this.buttons.renderDefBtns(main, HomePage.ClassNames.mainModificator, { buttons: HomePage.homeButtons });
-    }
+  private customizeMain(): void {
+    this.main.customize(HomePage.ClassNames.mainHomeTheme);
+    this.main.addContent(html);
+    this.main.addContent(
+      this.buttons.renderDefBtns(HomePage.ClassNames.mainModificator, { buttons: HomePage.homeButtons })
+    );
   }
 
   renderPage() {
+    this.customizeMain();
     this.footer.show();
-    this.genMain();
   }
 }
