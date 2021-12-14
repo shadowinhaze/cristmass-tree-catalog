@@ -1,45 +1,33 @@
 import './catalog.scss';
-import { Header } from '../../components/header/header';
-import { Footer } from '../../components/footer/footer';
-import { BtnsCollection } from '../../components/button/button';
+import { Page } from '../../templates/page';
 import { PageIds, PageIdsRU } from '../../app';
 
-const navLinks: BtnsCollection = [
-  {
-    name: 'дом',
-    link: '',
-    current: false,
-  },
-  {
-    name: 'каталог',
-    link: 'catalog',
-    current: true,
-  },
-  {
-    name: 'шоу-рум',
-    link: 'showroom',
-    current: false,
-  },
-];
-
-export class Catalog {
-  static readonly ClassNames: { [prop: string]: string } = {
+export class Catalog extends Page {
+  static readonly ClassNames = {
     main: 'app-main',
     mainHomeTheme: 'app-main_catalog-theme',
   };
 
-  private header: Header;
+  static navInfo = [
+    {
+      name: PageIdsRU.main,
+      link: PageIds.main,
+      current: false,
+    },
+    {
+      name: PageIdsRU.catalog,
+      link: PageIds.catalog,
+      current: true,
+    },
+    {
+      name: PageIdsRU.showroom,
+      link: PageIds.showroom,
+      current: false,
+    },
+  ];
 
-  private footer: Footer;
-
-  constructor() {
-    this.header = new Header();
-    this.footer = new Footer();
-  }
-
-  generate(): void {
-    this.header.show();
-    this.header.genNav(navLinks);
+  renderPage() {
+    this.header.show(Catalog.navInfo);
     this.footer.show();
   }
 }

@@ -1,26 +1,17 @@
 import html from './footer.html';
 import './footer.scss';
+import { Component } from '../../templates/component';
 
-export class Footer {
-  static readonly ClassNames: { [prop: string]: string } = {
+export class Footer extends Component {
+  static readonly ClassNames = {
     container: 'app-footer',
   };
 
-  private container: HTMLElement | null;
-
   constructor() {
-    this.container = document.querySelector(`.${Footer.ClassNames.container}`);
-  }
-
-  private render(): void {
-    if (this.container) {
-      if (this.container.innerText === '') {
-        this.container.innerHTML = html;
-      }
-    }
+    super(true, Footer.ClassNames.container);
   }
 
   show(): void {
-    this.render();
+    this.parseFromTemplate(html);
   }
 }

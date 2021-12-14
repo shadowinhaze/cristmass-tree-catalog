@@ -1,41 +1,37 @@
 import './home.scss';
 import html from './home.html';
-import { Button } from '../../components/button/button';
-import { Footer } from '../../components/footer/footer';
+import { Page } from '../../templates/page';
 import { PageIds, PageIdsRU } from '../../app';
 
-export class HomePage {
-  static readonly ClassNames: { [prop: string]: string } = {
+export class HomePage extends Page {
+  static readonly ClassNames = {
     main: 'app-main',
     mainHomeTheme: 'app-main_home-theme',
     mainModificator: 'buttons-container_home-theme',
   };
 
-  private buttons: Button;
+  static homeButtons = [
+    {
+      name: PageIdsRU.catalog,
+      link: PageIds.catalog,
+    },
+    {
+      name: PageIdsRU.showroom,
+      link: PageIds.showroom,
+    },
+  ];
 
-  private footer: Footer;
-
-  private main: HTMLElement | null;
-
-  constructor() {
-    this.buttons = new Button();
-    this.footer = new Footer();
-    this.main = document.querySelector(`.${HomePage.ClassNames.main}`);
-  }
-
-  private genMain() {
-    if (this.main) {
-      this.main.classList.add(HomePage.ClassNames.mainHomeTheme);
-      this.main.innerHTML = html;
+  private genMain(): void {
+    const main = <HTMLElement>document.querySelector(`.${HomePage.ClassNames.main}`);
+    if (main) {
+      main.classList.add(HomePage.ClassNames.mainHomeTheme);
+      main.innerHTML = html;
+      this.buttons.renderDefBtns(main, HomePage.ClassNames.mainModificator, { buttons: HomePage.homeButtons });
     }
   }
 
-  generate(): void {
+  renderPage() {
     this.footer.show();
     this.genMain();
-    this.buttons.render(this.main, HomePage.ClassNames.mainModificator, [
-      { name: PageIdsRU.catalog, link: PageIds.catalog },
-      { name: PageIdsRU.showroom, link: PageIds.showroom },
-    ]);
   }
 }

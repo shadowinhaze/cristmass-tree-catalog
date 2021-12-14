@@ -1,4 +1,5 @@
 import './button.scss';
+import { Component } from '../../templates/component';
 
 type BtnsCollection = Array<{
   name: string;
@@ -6,28 +7,56 @@ type BtnsCollection = Array<{
   current?: boolean;
 }>;
 
-class Button {
-  static readonly ClassNames: { [prop: string]: string } = {
+type BtnsRequest = {
+  buttons: BtnsCollection;
+  options?: { [prop: string]: string };
+};
+
+class Button extends Component {
+  static readonly ClassNames = {
     container: 'buttons-container',
     button: 'buttons-container__button',
   };
 
-  private container: HTMLElement;
-
   constructor() {
-    this.container = document.createElement('div');
-    this.container.classList.add(Button.ClassNames.container);
+    super(false);
+    this.container?.classList.add(Button.ClassNames.container);
   }
 
-  private genDefBtns(arr: BtnsCollection): void {
-    arr.forEach((item) => {
+  private genDefBtns(data: BtnsRequest): void {
+    data.buttons.forEach((btn) => {
       const button = document.createElement('button');
       button.classList.add(Button.ClassNames.button);
-      button.innerText = item.name;
-      button.title = item.name;
-      button.dataset.toLocal = item.link;
-      this.container.appendChild(button);
+      button.innerText = btn.name;
+      button.title = btn.name;
+      button.dataset.toLocal = btn.link;
+      this.container?.appendChild(button);
     });
+  }
+
+  private genNavBtns(data: BtnsRequest): HTMLElement {
+    const { buttons, options } = data;
+    const error = document.createElement('div');
+    error.innerText = 'Пункты меню отсутствуют';
+    if (!options) return error;
+    const parent = document.createElement(options.parent);
+    parent.classList.add(options.parentClassName);
+    buttons.forEach((item) => {
+      const childContainer = document.createElement(options.childContainer);
+      const child = document.createElement(options.child);
+      childContainer.classList.add(options.childContainerClassName);
+      child.classList.add(options.childClassName);
+      if (item.current) {
+        child.classList.add(options.activeChildClassName);
+      }
+      child.dataset.toLocal = item.link;
+      child.innerText = item.name;
+      child.title = item.name;
+      childContainer.appendChild(child);
+      parent.appendChild(childContainer);
+    });
+    this.addLocator(parent, options.childClassName, options.activeChildClassName);
+    return parent;
   }
 
   private addLocator(parent: HTMLElement, ...args: Array<string>): void {
@@ -43,35 +72,22 @@ class Button {
     parent.addEventListener('click', goTo);
   }
 
-  genNavBtns(arr: BtnsCollection, info: { [prop: string]: string }): HTMLElement {
-    const parent = document.createElement(info.parent);
-    parent.classList.add(info.parentClassName);
-    arr.forEach((item) => {
-      const childContainer = document.createElement(info.childContainer);
-      const child = document.createElement(info.child);
-      childContainer.classList.add(info.childContainerClassName);
-      child.classList.add(info.childClassName);
-      if (item.current) {
-        child.classList.add(info.activeChildClassName);
+  renderDefBtns(targetParent: HTMLElement | null, modificator: string | null, data: BtnsRequest): void {
+    this.genDefBtns(data);
+    if (this.container) {
+      if (modificator) {
+        this.container?.classList.add(modificator);
       }
-      child.dataset.toLocal = item.link;
-      child.innerText = item.name;
-      child.title = item.name;
-      childContainer.appendChild(child);
-      parent.appendChild(childContainer);
-    });
-    this.addLocator(parent, info.childClassName, info.activeChildClassName);
-    return parent;
+      this.addLocator(this.container, Button.ClassNames.button);
+      targetParent?.appendChild(this.container);
+    }
   }
 
-  render(targetParent: HTMLElement | null, modificator: string | null, btns: BtnsCollection): void {
-    this.genDefBtns(btns);
-    if (modificator) {
-      this.container.classList.add(modificator);
-    }
-    this.addLocator(this.container, Button.ClassNames.button);
-    targetParent?.appendChild(this.container);
+  renderNav(data: BtnsRequest): HTMLElement {
+    return this.genNavBtns(data);
   }
+
+  show() {}
 }
 
-export { BtnsCollection, Button };
+export { BtnsCollection, BtnsRequest, Button };

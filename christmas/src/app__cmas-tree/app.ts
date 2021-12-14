@@ -2,14 +2,14 @@ import './app.scss';
 import { HomePage } from './pages/home/home';
 import { Catalog } from './pages/catalog/catalog';
 
-enum PageIds {
+const enum PageIds {
   main = 'main',
   catalog = 'catalog',
   showroom = 'showroom',
 }
 
-enum PageIdsRU {
-  main = 'домашняя',
+const enum PageIdsRU {
+  main = 'дом',
   catalog = 'каталог',
   showroom = 'шоу-рум',
 }
@@ -26,7 +26,7 @@ class ChristmasApp {
         break;
     }
     if (page) {
-      page.generate();
+      page.renderPage();
     }
   }
 
