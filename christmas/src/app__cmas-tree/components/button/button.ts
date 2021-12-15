@@ -19,7 +19,7 @@ class Button extends Component {
   };
 
   constructor() {
-    super(false);
+    super({ isExist: false, tag: 'div' });
     this.container?.classList.add(Button.ClassNames.container);
   }
 

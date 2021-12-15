@@ -7,7 +7,7 @@ export class Main extends Component {
   };
 
   constructor() {
-    super(true, Main.ClassNames.container);
+    super({ isExist: true, className: Main.ClassNames.container });
   }
 
   customize(className: string): void {

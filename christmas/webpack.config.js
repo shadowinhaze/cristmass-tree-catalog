@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -61,14 +61,14 @@ module.exports = {
       }
     }),
     new CleanWebpackPlugin(),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, 'src/assets/favicon.ico'),
-    //       to: path.resolve(__dirname, 'dist/assets/favicon.ico')
-    //     }
-    //   ]
-    // })
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets/data/cm-toys.json'),
+          to: path.resolve(__dirname, 'dist/assets/data/cm-toys.json')
+        }
+      ]
+    })
   ],
   resolve: {
     extensions: ['.js', '.ts', '.html', '.css', '.scss', '.png', '.jpg', '.svg', '.jpeg'],

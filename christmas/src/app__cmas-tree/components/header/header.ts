@@ -26,7 +26,7 @@ export class Header extends Component {
   private buttons: Button;
 
   constructor() {
-    super(true, Header.ClassNames.container);
+    super({ isExist: true, className: Header.ClassNames.container });
     this.buttons = new Button();
   }
 

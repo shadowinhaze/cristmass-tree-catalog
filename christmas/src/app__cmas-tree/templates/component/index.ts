@@ -3,8 +3,12 @@ export abstract class Component {
 
   protected container: HTMLElement | null;
 
-  constructor(is: boolean, cont?: string) {
-    this.container = is ? document.querySelector('.' + cont) : document.createElement('div');
+  constructor(data: { isExist: boolean; className?: string; tag?: string }) {
+    this.container = data.isExist
+      ? document.querySelector('.' + data.className)
+      : data.tag
+      ? document.createElement(data.tag)
+      : null;
   }
 
   protected parseFromTemplate(html: string): void {

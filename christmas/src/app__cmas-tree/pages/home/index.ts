@@ -23,9 +23,8 @@ export class HomePage extends Page {
   private customizeMain(): void {
     this.main.customize(HomePage.ClassNames.mainHomeTheme);
     this.main.addContent(html);
-    this.main.addContent(
-      this.buttons.renderDefBtns(HomePage.ClassNames.mainModificator, { buttons: HomePage.homeButtons })
-    );
+    const btns = this.buttons.renderDefBtns(HomePage.ClassNames.mainModificator, { buttons: HomePage.homeButtons });
+    this.main.addContent(btns);
   }
 
   renderPage() {

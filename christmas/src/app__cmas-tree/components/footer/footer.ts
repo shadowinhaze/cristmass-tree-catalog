@@ -8,7 +8,7 @@ export class Footer extends Component {
   };
 
   constructor() {
-    super(true, Footer.ClassNames.container);
+    super({ isExist: true, className: Footer.ClassNames.container });
   }
 
   show() {
