@@ -47,11 +47,14 @@ export class Cart extends Component {
   }
 
   updateCart(id: string, mode: string): void {
+    const size = <number>this.cart?.size;
     switch (mode) {
       case 'decr':
+        if (size < 1) break;
         this.cart?.delete(id);
         break;
       case 'incr':
+        if (size === 20) break;
         this.cart?.add(id);
         break;
     }
