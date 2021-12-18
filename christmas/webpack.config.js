@@ -66,6 +66,10 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'src/assets/data/cm-toys.json'),
           to: path.resolve(__dirname, 'dist/assets/data/cm-toys.json')
+        },
+        {
+          from: path.resolve(__dirname, 'src/assets/img/toys'),
+          to: path.resolve(__dirname, 'dist/assets/img/toys')
         }
       ]
     })

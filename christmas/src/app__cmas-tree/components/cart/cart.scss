@@ -1,0 +1,24 @@
+@import '../../app.scss';
+
+.favorites {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  background: center / contain no-repeat url(@svg/toy-box.svg);
+  border: none;
+
+  &__display {
+    position: absolute;
+    top: -60%;
+    right: -80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2em .5em;
+    @include defFont;
+    color: white;
+    background: $red;
+    border-radius: 1rem;
+  }
+}

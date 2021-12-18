@@ -1,7 +1,9 @@
 import './catalog.scss';
 import { Page } from '../../templates/page';
 import { PageIds, PageIdsRU } from '../../app';
-import { CatalogItem } from '../../components/catalog-item/catalog-item';
+import { DataGrabber } from '../../components/data-grabber/data-grabber';
+import { Cart } from '../../components/cart/cart';
+import { CatalogItems } from '../../components/catalog-item/catalog-item';
 
 export class Catalog extends Page {
   static readonly ClassNames = {
@@ -10,8 +12,6 @@ export class Catalog extends Page {
   };
 
   private CatalogPath = '../../../assets/data/cm-toys.json';
-
-  private CatalogItem: CatalogItem = new CatalogItem(this.CatalogPath);
 
   static navInfo = [
     {
@@ -31,14 +31,18 @@ export class Catalog extends Page {
     },
   ];
 
-  private customizeMain(): void {
-    const content = this.CatalogItem.getContent();
+  private async getMain(): Promise<void> {
+    const miner = new DataGrabber();
+    const data = miner.getData(this.CatalogPath);
+    const cart = new Cart(await data);
+    const contMaker = new CatalogItems(await data, cart);
+    const content = contMaker.getContent();
     this.main.addContent(content);
   }
 
-  renderPage() {
+  async renderPage() {
     this.header.show(Catalog.navInfo);
-    this.customizeMain();
+    this.getMain();
     this.footer.show();
   }
 }

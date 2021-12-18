@@ -1,0 +1,111 @@
+@import '../../app.scss';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+
+.catalog-toys {
+  display: grid;
+  padding: 1.5em 1em;
+  max-width: 1440px;
+  margin: 0px auto;
+  grid: auto-flow minmax(300px, 1fr) / repeat(auto-fill, minmax(250px, 1fr));
+  justify-items: center;
+  gap: 1em 1em;
+  list-style-type: none;
+}
+
+.toy-card {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 1em;
+  @include defFont;
+  border-radius: 10px;
+  overflow: hidden;
+
+  background: rgb(248, 248, 248);
+  background-size: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(128, 128, 128, 0.301);
+
+  transition: all .5s ease-in-out;
+
+  &__header {
+    width: 80%;
+    margin: 0;
+    color: white;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+  }
+
+  &__favorites {
+    width: 20%;
+    text-align: right;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+
+    &__checkbox {
+      visibility: hidden;
+      &:checked ~ .toy-card__favorites__icon {
+        color: $gold;
+      }
+    }
+
+    &__icon {
+      color: #838383;
+      font-size: 22px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+  }
+
+  &__characteristics {
+    align-self: flex-end;
+    display: grid;
+    grid-template-columns: max-content auto;
+    gap: .5em 1em;
+    width: 100%;
+    max-width: 100%;
+    font-size: 14px;
+    color: white;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($green, .9);
+    background-size: 400px;
+    background-position: left center;
+    background-blend-mode: multiply;
+
+    .toy-card__header,
+    .toy-card__favorites,
+    .toy-card__characteristics {
+      opacity: 1;
+    }
+
+  }
+
+  &_favorite {
+    border-color: $gold;
+    border-width: 3px;
+  }
+
+}
+
+.characteristics__title {
+  font-weight: bold;
+}
+
+.characteristics__defenition {
+  margin-left: 0;
+  word-break: break-word;
+  overflow: hidden;
+}
