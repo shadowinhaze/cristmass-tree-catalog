@@ -1,4 +1,4 @@
-// import html from './catalog-item.html';
+import cartHtml from './catalog-item.html';
 import './catalog-item.scss';
 import { Component } from '../../templates/component';
 import { Cart } from '../cart/cart';
@@ -8,6 +8,7 @@ export class CatalogItems extends Component {
   static readonly ClassNames = {
     container: 'catalog',
     containerTag: 'ul',
+    containerClassName: 'catalog-toys',
   };
 
   static readonly CardStructure = {
@@ -16,6 +17,7 @@ export class CatalogItems extends Component {
     cardBemClassName: 'catalog-toys__toy-card',
     favoriteCardClassName: 'toy-card_favorite',
     cardImgPath: './assets/img/toys/',
+    cardStar: 'toy-card__favorites__checkbox',
   };
 
   private itemsList: DataItems;
@@ -24,37 +26,21 @@ export class CatalogItems extends Component {
 
   constructor(items: DataItems, cart: Cart) {
     super({ isExist: false, tag: CatalogItems.ClassNames.containerTag });
-    this.container?.classList.add('catalog-toys');
+    this.container?.classList.add(CatalogItems.ClassNames.containerClassName);
     this.itemsList = items;
     this.cart = cart;
   }
 
-  private async genList(): Promise<void> {
+  private async genList(html: string): Promise<void> {
     this.itemsList.forEach((item) => {
       const card = <HTMLElement>document.createElement(CatalogItems.CardStructure.cardTag);
       card.classList.add(CatalogItems.CardStructure.cardBemClassName, CatalogItems.CardStructure.cardClassName);
       card.style.backgroundImage = `url("${CatalogItems.CardStructure.cardImgPath}${item.id}.png")`;
       card.dataset.cardId = item.id;
-
-      card.innerHTML = `
-      <h3 class="toy-card__header">${item.name}</h3>
-      <label class="toy-card__favorites" title="Довить в избранное">
-      <input type="checkbox" class="toy-card__favorites__checkbox"><i class="toy-card__favorites__icon fa fa-star"></i>
-      </label>
-      <dl class="toy-card__characteristics">
-      <dt class="toy-card__characteristics__count-title characteristics__title">На складе</dt>
-      <dd class="toy-card__characteristics__count-defenition characteristics__defenition">${item.count}</dd>
-      <dt class="toy-card__characteristics__year-title characteristics__title">Год выпуска</dt>
-      <dd class="toy-card__characteristics__year-defenition characteristics__defenition">${item.year}</dd>
-      <dt class="toy-card__characteristics__shape-title characteristics__title">Форма</dt>
-      <dd class="toy-card__characteristics__shape-defenition characteristics__defenition">${item.shape}</dd>
-      <dt class="toy-card__characteristics__color-title characteristics__title">Цвет</dt>
-      <dd class="toy-card__characteristics__color-defenition characteristics__defenition">${item.color}</dd>
-      <dt class="toy-card__characteristics__size-title characteristics__title">Размер</dt>
-      <dd class="toy-card__characteristics__size-defenition characteristics__defenition">${item.size}</dd>
-      </dl>
-      `;
-
+      card.innerHTML = html;
+      Object.keys(item).forEach((chunk) => {
+        card.innerHTML = card.innerHTML.replace(`***${chunk}***`, `${item[chunk]}`);
+      });
       if (this.cart.cart?.has(item.id)) this.changeCatalogItemStatus(card, true);
       this.container?.appendChild(card);
     });
@@ -67,7 +53,7 @@ export class CatalogItems extends Component {
   }
 
   private changeCatalogItemStatus(item: HTMLElement, activate: boolean): void {
-    const star = <HTMLInputElement>item.querySelector('.toy-card__favorites__checkbox');
+    const star = <HTMLInputElement>item.querySelector('.' + CatalogItems.CardStructure.cardStar);
     if (activate) {
       item.classList.add(CatalogItems.CardStructure.favoriteCardClassName);
       star.checked = true;
@@ -102,7 +88,7 @@ export class CatalogItems extends Component {
   }
 
   getContent(): HTMLElement | null {
-    this.genList();
+    this.genList(cartHtml);
     return this.container;
   }
 
