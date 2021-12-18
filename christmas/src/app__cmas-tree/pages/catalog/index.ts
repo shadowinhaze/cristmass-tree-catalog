@@ -3,7 +3,7 @@ import { Page } from '../../templates/page';
 import { PageIds, PageIdsRU } from '../../app';
 import { DataGrabber } from '../../components/data-grabber/data-grabber';
 import { Cart } from '../../components/cart/cart';
-import { CatalogItems } from '../../components/catalog-item/catalog-item';
+import { CatalogItems } from '../../components/catalog-items/catalog-item';
 
 export class Catalog extends Page {
   static readonly ClassNames = {
