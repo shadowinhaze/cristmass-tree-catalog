@@ -19,5 +19,7 @@ export abstract class Component {
     }
   }
 
-  public abstract show(data?: Array<object>): void;
+  getContent(): HTMLElement | null {
+    return this.container;
+  }
 }

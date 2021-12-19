@@ -1,4 +1,4 @@
-import cartHtml from './catalog-item.html';
+import cardHtml from './catalog-item.html';
 import './catalog-item.scss';
 import { Component } from '../../templates/component';
 import { Cart } from '../cart/cart';
@@ -31,7 +31,7 @@ export class CatalogItems extends Component {
     this.cart = cart;
   }
 
-  private async genList(html: string): Promise<void> {
+  private genList(html: string): void {
     this.itemsList.forEach((item) => {
       const card = <HTMLElement>document.createElement(CatalogItems.CardStructure.cardTag);
       card.classList.add(CatalogItems.CardStructure.cardBemClassName, CatalogItems.CardStructure.cardClassName);
@@ -44,12 +44,6 @@ export class CatalogItems extends Component {
       if (this.cart.cart?.has(item.id)) this.changeCatalogItemStatus(card, true);
       this.container?.appendChild(card);
     });
-
-    this.addSavingDevice(
-      this.container,
-      CatalogItems.CardStructure.cardClassName,
-      CatalogItems.CardStructure.favoriteCardClassName
-    );
   }
 
   private changeCatalogItemStatus(item: HTMLElement, activate: boolean): void {
@@ -90,10 +84,18 @@ export class CatalogItems extends Component {
     );
   }
 
-  getContent(): HTMLElement | null {
-    this.genList(cartHtml);
+  getContent(data?: DataItems): HTMLElement | null {
+    if (!this.container) return null;
+    this.container.innerHTML = '';
+    if (data) {
+      this.itemsList = data;
+    }
+    this.genList(cardHtml);
+    this.addSavingDevice(
+      this.container,
+      CatalogItems.CardStructure.cardClassName,
+      CatalogItems.CardStructure.favoriteCardClassName
+    );
     return this.container;
   }
-
-  show() {}
 }

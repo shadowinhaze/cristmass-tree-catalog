@@ -84,8 +84,6 @@ class Button extends Component {
   renderNav(data: BtnsRequest): HTMLElement {
     return this.genNavBtns(data);
   }
-
-  show() {}
 }
 
 export { BtnsCollection, BtnsRequest, Button };

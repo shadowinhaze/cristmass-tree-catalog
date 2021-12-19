@@ -48,7 +48,7 @@ export class Header extends Component {
     place?.appendChild(navBtns);
   }
 
-  show(data: BtnsCollection) {
+  show(data: BtnsCollection): void {
     this.parseFromTemplate(html);
     this.genNavBtns(data);
     this.activateMobileMenu();

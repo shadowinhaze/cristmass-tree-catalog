@@ -61,6 +61,4 @@ export class Cart extends Component {
     this.saveCartToLocalStorage();
     this.updateDisplay();
   }
-
-  show() {}
 }

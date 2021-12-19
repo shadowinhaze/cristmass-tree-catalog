@@ -24,5 +24,12 @@ export class Main extends Component {
     }
   }
 
-  show() {}
+  updateContent(placeClassName: string, data: HTMLElement | null): void {
+    const placeNode = this.container?.querySelector('.' + placeClassName);
+    if (placeNode) {
+      placeNode.innerHTML = '';
+      if (!data) return;
+      placeNode.append(data);
+    }
+  }
 }
