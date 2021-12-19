@@ -59,8 +59,6 @@ export class Catalog extends Page {
     this.main.customize('app-main_catalog');
     this.main.addContent(filtersContent);
     this.main.addContent(catContainer);
-
-    this.filter?.addDoubleSlider();
   }
 
   async renderPage() {

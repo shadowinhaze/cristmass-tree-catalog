@@ -17,59 +17,100 @@ export class Filter extends Component {
 
   private defaultData: DataItems;
 
-  public static extremaDots = {
+  public static extremaDots = <{ [prop: string]: { min: number; max: number } }>{
+    count: { min: 0, max: 0 },
     year: { min: 0, max: 0 },
+  };
+
+  public static filtersConfig = <{ [prop: string]: Array<number> }>{
+    count: [],
+    year: [],
   };
 
   constructor(data: DataItems) {
     super({ isExist: false, tag: Filter.ClassNames.containerTag });
     this.container?.classList.add(Filter.ClassNames.containerClassName);
-    this.parseFromTemplate(html);
     this.data = data;
     this.defaultData = data;
-    this.countYears(data);
+    this.countExtremaForDoubleSliders(data);
   }
 
-  private countYears(arr: DataItems): void {
-    const births: Set<number> = new Set();
-    arr.forEach((item) => births.add(+item.year));
-    const birthsSorted = [...births].sort((a, b) => (a < b ? -1 : 1));
-    Filter.extremaDots.year.min = birthsSorted[0];
-    Filter.extremaDots.year.max = birthsSorted[birthsSorted.length - 1];
+  private countExtremaForDoubleSliders(arr: DataItems): void {
+    Object.keys(Filter.extremaDots).forEach((extremum) => {
+      const allValues: Set<number> = new Set();
+      arr.forEach((item) => allValues.add(+item[extremum]));
+      const allValuesSorted = [...allValues].sort((a, b) => (a < b ? -1 : 1));
+      Filter.extremaDots[extremum].min = allValuesSorted[0];
+      Filter.extremaDots[extremum].max = allValuesSorted[allValuesSorted.length - 1];
+    });
   }
 
-  addDoubleSlider(): void {
-    const doubleYearSlider = <target>document.querySelector('.double-filter__slider');
-    const minBirth = Filter.extremaDots.year.min;
-    const maxBirth = Filter.extremaDots.year.max;
-    noUiSlider.create(doubleYearSlider, {
-      start: [minBirth, maxBirth],
+  private genDoubleSlider(element: target, min: number, max: number): void {
+    noUiSlider.create(element, {
+      start: [min, max],
       tooltips: {
         to: (value) => Math.round(value),
       },
       animate: false,
       connect: true,
       range: {
-        min: minBirth,
-        max: maxBirth,
+        min: min,
+        max: max,
       },
     });
-
-    if (doubleYearSlider.noUiSlider) {
-      this.addDataUpdater(doubleYearSlider.noUiSlider);
-    }
   }
 
-  private addDataUpdater(slider: API): void {
+  private addDataUpdater(slider: API, prop: string): void {
     slider.on('change', () => {
-      const actualExtrema = <Array<number>>slider.get(true);
-      this.data = this.defaultData.filter((item) => +item.year >= actualExtrema[0] && +item.year <= actualExtrema[1]);
+      let actualValues = <Array<number>>slider.get(true);
+      actualValues = actualValues.map((item) => Math.round(item));
+      Filter.filtersConfig[prop] = actualValues;
+      this.dataFilter();
       this.updateFilteredContent();
     });
   }
 
-  private updateFilteredContent() {
+  private dataFilter(): void {
+    const filterIt = (arr: DataItems, prop: string): DataItems => {
+      if (Filter.filtersConfig[prop].length === 0) return arr;
+      return arr.filter(
+        (item) => +item[prop] >= Filter.filtersConfig[prop][0] && +item[prop] <= Filter.filtersConfig[prop][1]
+      );
+    };
+
+    Object.keys(Filter.filtersConfig).forEach((filterName, index) => {
+      if (index === 0) {
+        this.data = filterIt(this.defaultData, filterName);
+      } else {
+        this.data = filterIt(this.data, filterName);
+      }
+    });
+  }
+
+  private updateFilteredContent(): void {
     const newCatalogContent = new Catalog();
     newCatalogContent.updateCatalog(this.data);
+  }
+
+  private addDoubleSliders(): void {
+    const doubleSliders = <Array<target>>(<unknown>this.container?.querySelectorAll('.double-filter__slider'));
+    doubleSliders.forEach((slider) => {
+      Object.keys(Filter.extremaDots).forEach((extremum) => {
+        if (slider.classList.contains(`${extremum}-filter__slider`)) {
+          const min = Filter.extremaDots[extremum].min;
+          const max = Filter.extremaDots[extremum].max;
+          this.genDoubleSlider(slider, min, max);
+          if (slider.noUiSlider) {
+            this.addDataUpdater(slider.noUiSlider, extremum);
+          }
+        }
+      });
+    });
+  }
+
+  getContent(): HTMLElement | null {
+    this.parseFromTemplate(html);
+    this.addDoubleSliders();
+    return this.container;
   }
 }
