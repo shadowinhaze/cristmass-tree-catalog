@@ -1,7 +1,132 @@
 @import '../../app.scss';
 
 .sidebar-catalog__navigation {
-  &__filters {
+  &__range-filters {
+    padding-left: 0;
     list-style-type: none;
   }
+  &__value-filters {
+    padding-left: 0;
+    list-style-type: none;
+  }
+}
+
+.value-filter__items {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.value-filter__item {
+  display: block;
+  width: 2em;
+  height: 2em;
+  border: 1px solid transparent;
+  outline: none;
+
+  @include defAnimation(all);
+
+  @mixin shape($path) {
+    background: center / contain no-repeat url($path);
+    filter: $toGrey;
+  }
+
+  @mixin size($content) {
+    position: relative;
+    &:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      content: $content;
+      transform: translate(-50%, -50%);
+    }
+    &.value-filter__item_active {
+      color: $green;
+      font-weight: 600;
+      border-color: $green;
+      filter: none;
+    }
+  }
+
+  @mixin color($color) {
+    background: $color;
+    opacity: .3;
+    &.value-filter__item_active {
+      opacity: 1;
+      filter: none;
+    }
+    &:hover {
+      border-color: $green;
+    }
+  }
+
+  &_ball {
+    @include shape('@svg/toy-shapes/ball.svg');
+  }
+
+  &_bell {
+    @include shape('@svg/toy-shapes/bell.svg');
+  }
+
+  &_figure {
+    @include shape('@svg/toy-shapes/figure.svg');
+  }
+
+  &_cone {
+    @include shape('@svg/toy-shapes/cone.svg');
+  }
+
+  &_snowflake {
+    @include shape('@svg/toy-shapes/snowflake.svg');
+  }
+
+  &_red {
+    @include color(red);
+  }
+
+  &_yellow {
+    @include color(yellow);
+  }
+
+  &_green {
+    @include color(green);
+  }
+
+  &_darkblue {
+    @include color(darkblue);
+  }
+
+  &_white {
+    @include color(white);
+    border-color: #ebebeb;
+  }
+
+  &_xl {
+    @include size('XL');
+  }
+
+  &_m {
+    @include size('M');
+  }
+
+  &_s {
+    @include size('S');
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: .2;
+  }
+
+  &_active {
+    filter: $toGreen;
+  }
+
+}
+
+.size-filter__items {
+  justify-content: flex-start;
+  column-gap: 1.3em;
 }
