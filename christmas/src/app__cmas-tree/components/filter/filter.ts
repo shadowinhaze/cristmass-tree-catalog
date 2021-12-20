@@ -331,11 +331,32 @@ export class Filter extends Component {
 
   private addSearchListener(): void {
     const search = this.search.getContent();
+    const searchCleaner = search?.nextElementSibling;
+
+    const update = (str: string) => {
+      Filter.filtersConfig.search[0] = str;
+      this.dataChanger();
+      this.updateFilteredContent();
+    };
+
+    const searchClean = () => {
+      if (search instanceof HTMLInputElement) {
+        search.value = '';
+        update(search.value);
+        searchCleaner?.classList.remove('search__input__icon_close');
+      }
+    };
+
     search?.addEventListener('input', () => {
       if (search instanceof HTMLInputElement) {
-        Filter.filtersConfig.search[0] = search?.value;
-        this.dataChanger();
-        this.updateFilteredContent();
+        if (search?.value.length > 0) {
+          searchCleaner?.classList.add('search__input__icon_close');
+          searchCleaner?.addEventListener('click', searchClean);
+        } else {
+          searchCleaner?.classList.remove('search__input__icon_close');
+          searchCleaner?.removeEventListener('click', searchClean);
+        }
+        update(search.value);
       }
     });
   }

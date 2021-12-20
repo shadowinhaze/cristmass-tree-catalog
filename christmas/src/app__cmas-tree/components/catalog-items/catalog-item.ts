@@ -3,6 +3,7 @@ import './catalog-item.scss';
 import { Component } from '../../templates/component';
 import { Cart } from '../cart/cart';
 import { DataItems } from '../data-grabber/data-grabber';
+import { Message } from '../message/message';
 
 export class CatalogItems extends Component {
   static readonly ClassNames = {
@@ -74,7 +75,12 @@ export class CatalogItems extends Component {
             this.cart.updateCart(cardId, 'decr');
             this.changeCatalogItemStatus(card, false);
           } else {
-            if (size === 20) return;
+            if (size === 20) {
+              const message = new Message();
+              message.genMessage('overflow');
+              message.addTopLevelMessage();
+              return;
+            }
             this.cart.updateCart(cardId, 'incr');
             this.changeCatalogItemStatus(card, true);
           }

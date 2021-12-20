@@ -25,6 +25,9 @@
 
     &_close{
       background-image: url(@svg/close.svg);
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
