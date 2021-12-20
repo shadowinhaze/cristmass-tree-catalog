@@ -12,7 +12,7 @@ export class Catalog extends Page {
     mainHomeTheme: 'app-main_catalog-theme',
   };
 
-  private CatalogPath = '../../../assets/data/cm-toys.json';
+  private CatalogPath = './assets/data/cm-toys.json';
 
   private cart: Cart | undefined;
 
