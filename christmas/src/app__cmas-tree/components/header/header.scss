@@ -21,6 +21,7 @@
     align-items: center;
     background: $green;
     border-radius: 2rem;
+    z-index: 100;
 
     @media screen and (max-width: 900px) {
       position: absolute;

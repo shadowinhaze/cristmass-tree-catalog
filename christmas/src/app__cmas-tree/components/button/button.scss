@@ -56,3 +56,26 @@
     width: 100%;
   }
 }
+
+.default-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 2em;
+  width: 100%;
+  @include defFont;
+  background: white;
+  border: 2px solid $green;
+  border-radius: 2rem;
+  @include defAnimation(all);
+  
+  &:hover {
+    cursor: pointer;
+    background: $green;
+    color: white;
+  }
+
+  &:active {
+    background: $red;
+  }
+}

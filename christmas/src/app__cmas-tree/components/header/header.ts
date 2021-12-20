@@ -33,10 +33,31 @@ export class Header extends Component {
   private activateMobileMenu(): void {
     const mobileMenu = this.container?.querySelector(`.${Header.ClassNames.mobileMenu}`);
     const activator = this.container?.querySelector(`.${Header.ClassNames.mobileMenuActivator}`);
+
+    const toggle = () => {
+      mobileMenu?.classList.toggle(Header.ClassNames.mobileMenuHiddenMod);
+      activator?.classList.toggle(Header.ClassNames.mobileMenuActiveMod);
+    };
+
+    const hideMobile = (e: Event): void => {
+      const target = <HTMLElement>e.target;
+      if (
+        !target?.classList.contains(Header.ClassNames.mobileMenu) &&
+        !target?.classList.contains(Header.ClassNames.mobileMenuActivator) &&
+        !target?.classList.contains('search__input__line') &&
+        !target?.classList.contains('search__input__icon')
+      ) {
+        if (mobileMenu?.classList.contains(Header.ClassNames.mobileMenuHiddenMod)) return;
+        toggle();
+      }
+    };
+
     const mobilize = (): void => {
       if (window.screen.width < 900) {
-        mobileMenu?.classList.toggle(Header.ClassNames.mobileMenuHiddenMod);
-        activator?.classList.toggle(Header.ClassNames.mobileMenuActiveMod);
+        toggle();
+        document.addEventListener('click', hideMobile);
+      } else {
+        document.removeEventListener('click', hideMobile);
       }
     };
     activator?.addEventListener('click', mobilize);

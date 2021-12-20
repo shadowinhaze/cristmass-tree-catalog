@@ -260,8 +260,7 @@ export class Filter extends Component {
       const valueFilter = document.createElement('li');
       valueFilter.classList.add(
         `sidebar-catalog__navigation__value-filters__${collectionName}-filter`,
-        `${collectionName}-filter`,
-        'list-filter'
+        `${collectionName}-filter`
       );
       valueFilter.innerHTML = `<h3 class="filter-header ${collectionName}-filter__header">${this.valueTranslator(
         collectionName

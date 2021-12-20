@@ -1,14 +1,32 @@
 @import '../../app.scss';
 
+.catalog-sidebar {
+  @include defFont;
+}
+
 .sidebar-catalog__navigation {
-  &__range-filters {
-    padding-left: 0;
-    list-style-type: none;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: 2em;
+
+  &__range-filters,
   &__value-filters {
+    width: 100%;
+    margin: 0;
     padding-left: 0;
     list-style-type: none;
   }
+
+  @media screen and (max-width: 900px) {
+    column-gap: 3em;
+  }
+}
+
+.double-filter,
+.shape-filter,
+.color-filter {
+  margin-bottom: 2em;
 }
 
 .value-filter__items {
@@ -26,6 +44,16 @@
   border: 1px solid transparent;
   outline: none;
 
+  @media screen and (max-width: 900px) {
+    width: 4em;
+    height: 4em;
+  }
+
+  @media screen and (max-width: 530px) {
+    width: 3em;
+    height: 3em;
+  }
+
   @include defAnimation(all);
 
   @mixin shape($path) {
@@ -35,6 +63,7 @@
 
   @mixin size($content) {
     position: relative;
+
     &:after {
       position: absolute;
       top: 50%;
@@ -42,10 +71,12 @@
       content: $content;
       transform: translate(-50%, -50%);
     }
+    
     &.value-filter__item_active {
       color: $green;
       font-weight: 600;
       border-color: $green;
+      border-radius: .3rem;
       filter: none;
     }
   }
@@ -53,12 +84,13 @@
   @mixin color($color) {
     background: $color;
     opacity: .3;
+    border-radius: .3rem;
     &.value-filter__item_active {
       opacity: 1;
       filter: none;
     }
     &:hover {
-      border-color: $green;
+      border-color: $red;
     }
   }
 
@@ -122,6 +154,9 @@
 
   &_active {
     filter: $toGreen;
+    &:hover {
+      opacity: .8;
+    }
   }
 
 }
@@ -153,4 +188,57 @@
     font-size: 2.5em;
   }
 
+}
+
+.filter-header {
+  color: $green;
+  margin: 0 0 2em;
+  font-size: 25px;
+}
+
+.shape-filter__header,
+.color-filter__header,
+.size-filter__header,
+.sorter__header,
+.favorites-selector__header {
+  margin-bottom: 1em;
+}
+
+.sidebar-catalog__navigation__reset {
+  width: 100%;
+}
+
+.sidebar-catalog__navigation__sorter,
+.sidebar-catalog__navigation__favorites-selector {
+  @media screen and (max-width: 900px) {
+    width: auto;
+  }
+}
+
+.sorter__select-list {
+  background: none;
+  justify-content: flex-start;
+  padding: 1em 1em;
+}
+
+.noUi-handle {
+  height: 2em !important;
+  width: 2em !important;
+  border-radius: 50% !important;
+  transform: translateY(-.2em);
+  &::before,
+  &::after {
+    display: none !important;
+  }
+  &:hover {
+    cursor: e-resize;
+  }
+}
+
+.noUi-horizontal {
+  height: 1em !important;
+}
+
+.noUi-connects {
+  transform: translateY(-.5px);
 }
