@@ -132,36 +132,3 @@
     }
   }
 }
-
-.search__input {
-  position: relative;
-}
-
-.input {
-  &__line {
-    box-sizing: border-box;
-    height: 39px;
-    width: 100%;
-    padding: .5em 1em;
-    @include defFont;
-    border: none;
-    border-radius: 2rem;
-    outline: none;
-  }
-
-  &__icon {
-    position: absolute;
-    top: 50%;
-    right: .7rem;
-    display: block;
-    height: 1rem;
-    width: 1rem;
-    background: center / contain no-repeat url(@svg/search.svg);
-    transform: translateY(-50%);
-
-    &_close{
-      background-image: url(@svg/close.svg);
-    }
-  }
-
-}

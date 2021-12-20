@@ -6,12 +6,15 @@ import 'nouislider/dist/nouislider.css';
 import { Component } from '../../templates/component';
 import { DataItems } from '../data-grabber/data-grabber';
 import { Catalog } from '../../pages/catalog';
+import { Search } from '../search/search';
 
 export class Filter extends Component {
   static readonly ClassNames = {
     containerTag: 'sidebar',
     containerClassName: 'catalog-sidebar',
   };
+
+  private search: Search;
 
   private data: DataItems;
 
@@ -36,6 +39,7 @@ export class Filter extends Component {
     size: [],
     sorter: [],
     favorites: [false],
+    search: [''],
   };
 
   constructor(data: DataItems) {
@@ -45,6 +49,7 @@ export class Filter extends Component {
     this.defaultData = data;
     this.grubExtremaForDoubleSliders(data);
     this.grubValuesForValuesCollection(data);
+    this.search = new Search();
   }
 
   private grubExtremaForDoubleSliders(arr: DataItems): void {
@@ -149,6 +154,18 @@ export class Filter extends Component {
       return arr;
     };
 
+    const searchFilterIt = (arr: DataItems): DataItems => {
+      const searchValue = <string>Filter.filtersConfig.search[0];
+      if (searchValue.length > 0) {
+        return arr.filter((item) => {
+          if (typeof item.name === 'string') {
+            return item.name.toLowerCase().includes(searchValue.toLowerCase());
+          }
+        });
+      }
+      return arr;
+    };
+
     const filterIt = (arr: DataItems, prop: string): DataItems => {
       if (Filter.filtersConfig[prop].length === 0) return arr;
       if (prop === 'count' || prop === 'year') {
@@ -159,6 +176,8 @@ export class Filter extends Component {
         return sortIt(arr);
       } else if (prop === 'favorites') {
         return isFavoriteList(arr);
+      } else if (prop === 'search') {
+        return searchFilterIt(arr);
       } else {
         return arr.filter((item) => Filter.filtersConfig[prop].some((_item) => _item === item[prop]));
       }
@@ -310,6 +329,17 @@ export class Filter extends Component {
     });
   }
 
+  private addSearchListener(): void {
+    const search = this.search.getContent();
+    search?.addEventListener('input', () => {
+      if (search instanceof HTMLInputElement) {
+        Filter.filtersConfig.search[0] = search?.value;
+        this.dataChanger();
+        this.updateFilteredContent();
+      }
+    });
+  }
+
   getContent(): HTMLElement | null {
     this.parseFromTemplate(html);
     this.addDoubleSliders();
@@ -317,6 +347,7 @@ export class Filter extends Component {
     this.addSorter();
     this.showFavorites();
     this.addResetListener();
+    this.addSearchListener();
     return this.container;
   }
 }

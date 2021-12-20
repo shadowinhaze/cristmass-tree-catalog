@@ -1,7 +1,7 @@
 export abstract class Component {
   static readonly ClassNames: { [prop: string]: string };
 
-  protected container: HTMLElement | null;
+  protected container: HTMLElement | HTMLInputElement | null;
 
   constructor(data: { isExist: boolean; className?: string; tag?: string }) {
     this.container = data.isExist
@@ -19,7 +19,7 @@ export abstract class Component {
     }
   }
 
-  getContent(): HTMLElement | null {
+  getContent(): HTMLElement | HTMLInputElement | null {
     return this.container;
   }
 }
