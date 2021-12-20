@@ -8,13 +8,27 @@
       <h3 class="filter-header count-filter__header">Количество на складе</h3>
       <div class="double-filter__slider count-filter__slider"></div>
     </li>
-    <!-- <li class="sidebar-catalog__navigation__filters__shape-filter list-filter shape-filter">
-      <h3 class="filter-header shape-filter__header">Форма игрушки</h3>
-      <ul class="list-filter__items shape-list">
-        <li class="shape-list__item shape-list__item"></li>
-      </ul>
-    </li> -->
   </ul>
-  <ul class="sidebar-catalog__navigation__value-filters">
-  </ul>
+  <ul class="sidebar-catalog__navigation__value-filters"></ul>
+  <div class="sidebar-catalog__navigation__reset">
+    <button class="sidebar-catalog__navigation__reset__button default-button">Сбросить фильтры</button>
+  </div>
+  <div class="sidebar-catalog__navigation__sorter">
+    <h3 class="filter-header sorter__header">Способ сортировки</h3>
+    <label class="filter-header sidebar-catalog__navigation__sorter__label sorter__label">
+      <select class="sidebar-catalog__navigation__sorter__select-list sorter__select-list">
+        <option value="" disabled selected>Выберите способ сортировки</option>
+        <option value="name-ascending">Наименования от А до Я</option>
+        <option value="name-descending">Наименования от Я до А</option>
+        <option value="count-ascending">По количеству - возрастание</option>
+        <option value="count-descending">По количеству - убывание</option>
+      </select>
+    </label>
+  </div>
+  <div class="sidebar-catalog__navigation__favorites-selector">
+    <h3 class="filter-header favorites-selector__header">Только избранное</h3>
+    <label class="favorites-selector__label" title="Только избранное">
+      <input type="checkbox" class="favorites-selector__checkbox"><i class="favorites-selector__icon fa fa-star"></i>
+    </label>
+  </div>
 </nav>

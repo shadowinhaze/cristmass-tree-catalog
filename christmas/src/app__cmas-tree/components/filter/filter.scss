@@ -130,3 +130,27 @@
   justify-content: flex-start;
   column-gap: 1.3em;
 }
+
+.favorites-selector {
+  &__label {
+    display: flex;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__checkbox {
+    order: 2;
+    visibility: hidden;
+    &:checked + .favorites-selector__icon {
+      color: $gold;
+    }
+  }
+
+  &__icon {
+    order: 1;
+    color: $grey;
+    font-size: 2.5em;
+  }
+
+}
