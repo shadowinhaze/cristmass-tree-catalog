@@ -190,6 +190,8 @@ export class Filter extends Component {
         this.data = filterIt(this.data, filterName);
       }
     });
+
+    this.saveUserSettingsToLocal();
   }
 
   private updateFilteredContent(): void {
@@ -313,12 +315,34 @@ export class Filter extends Component {
   }
 
   private addResetListener(): void {
-    const favoritesInput = <HTMLInputElement>(
-      this.container?.querySelector('.sidebar-catalog__navigation__reset__button')
-    );
-    favoritesInput.addEventListener('click', () => {
+    const resetButton = <HTMLInputElement>this.container?.querySelector('.sidebar-catalog__navigation__reset__button');
+    resetButton.addEventListener('click', () => {
       Object.keys(Filter.filtersConfig).forEach((item) => {
         if (item !== 'sorter' && item !== 'favorites') {
+          Filter.filtersConfig[item] = [];
+        }
+      });
+      this.resetTags();
+      this.dataChanger();
+      this.updateFilteredContent();
+    });
+  }
+
+  private addResetAllListener(): void {
+    const resetAllButton = <HTMLInputElement>(
+      this.container?.querySelector('.sidebar-catalog__navigation__reset-all__button')
+    );
+    resetAllButton.addEventListener('click', () => {
+      Object.keys(Filter.filtersConfig).forEach((item) => {
+        if (item === 'sorter') {
+          Filter.filtersConfig[item] = [''];
+          this.setSorter();
+        } else if (item === 'favorites') {
+          Filter.filtersConfig[item] = [false];
+          this.setFavorites();
+        } else if (item === 'search') {
+          Filter.filtersConfig[item] = [''];
+        } else {
           Filter.filtersConfig[item] = [];
         }
       });
@@ -360,6 +384,71 @@ export class Filter extends Component {
     });
   }
 
+  private saveUserSettingsToLocal(): void {
+    localStorage.userSettings = JSON.stringify(Filter.filtersConfig);
+  }
+
+  private getUserSettingsFromLocal(): void {
+    Filter.filtersConfig = localStorage.userSettings ? JSON.parse(localStorage.userSettings) : Filter.filtersConfig;
+  }
+
+  private setDoubleSlider(key: string): void {
+    const doubleSlider = <target>this.container?.querySelector(`.${key}-filter__slider`);
+    if (Filter.filtersConfig[key].length > 0) {
+      doubleSlider.noUiSlider?.set(<Array<number>>Filter.filtersConfig[key]);
+    }
+  }
+
+  private setValueFilters(key: string): void {
+    const keyItems = <Array<HTMLElement>>(<unknown>this.container?.querySelectorAll('.value-filter__item'));
+    if (Filter.filtersConfig[key].length > 0) {
+      keyItems?.forEach((item) => {
+        const filterType = item.dataset.filterType;
+        const filterValue = item.dataset.filterValue;
+        if (filterType && filterValue) {
+          if (Filter.filtersConfig[filterType].some((_item) => _item === filterValue)) {
+            item.classList.add('value-filter__item_active');
+          }
+        }
+      });
+    }
+  }
+
+  private setSorter() {
+    const sorterList = <HTMLInputElement>this.container?.querySelector('.sorter__select-list');
+    if (Filter.filtersConfig.sorter.length > 0) {
+      sorterList.value = <string>Filter.filtersConfig.sorter[0];
+    } else {
+      sorterList.value = '';
+    }
+  }
+
+  private setFavorites() {
+    const checkbox = <HTMLInputElement>this.container?.querySelector('.favorites-selector__checkbox');
+    checkbox.checked = <boolean>Filter.filtersConfig.favorites[0];
+  }
+
+  private firstStartCheckItems(): void {
+    Object.keys(Filter.filtersConfig).forEach((key) => {
+      if (key === 'count' || key === 'year') {
+        this.setDoubleSlider(key);
+      } else if (key === 'shape' || key === 'color' || key === 'size') {
+        this.setValueFilters(key);
+      } else if (key === 'sorter') {
+        this.setSorter();
+      } else if (key === 'favorites') {
+        this.setFavorites();
+      }
+    });
+  }
+
+  private firstStart() {
+    this.getUserSettingsFromLocal();
+    this.firstStartCheckItems();
+    this.dataChanger();
+    this.updateFilteredContent();
+  }
+
   getContent(): HTMLElement | null {
     this.parseFromTemplate(html);
     this.addDoubleSliders();
@@ -367,7 +456,9 @@ export class Filter extends Component {
     this.addSorter();
     this.showFavorites();
     this.addResetListener();
+    this.addResetAllListener();
     this.addSearchListener();
+    this.firstStart();
     return this.container;
   }
 }
