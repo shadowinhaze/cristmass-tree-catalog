@@ -1,7 +1,9 @@
 $green: #04290d;
-$red: #c01919;
+$red: rgb(192, 25, 25);
 $gold: #e7b100;
 $grey: #cacaca;
+$darkGrey: #808080;
+$cardGrey: #f8f8f8;
 
 $toWhite: invert(100%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(100%) contrast(103%);
 $toRed: invert(15%) sepia(99%) saturate(6849%) hue-rotate(359deg) brightness(93%) contrast(91%);
@@ -19,5 +21,11 @@ $toGrey: invert(77%) sepia(75%) saturate(10%) hue-rotate(338deg) brightness(90%)
 
 @mixin defAnimation($prop) {
   transition: $prop .1s ease;
+}
+
+@mixin fontAwesome($code, $weight) {
+  content: $code;
+  font-family: 'Font Awesome 6 Free';
+  font-weight: $weight;
 }
 

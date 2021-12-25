@@ -1,5 +1,4 @@
 @import '../../app.scss';
-@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
 
 .toy-card {
   position: relative;
@@ -14,11 +13,11 @@
   border-radius: 10px;
   overflow: hidden;
 
-  background: rgb(248, 248, 248);
+  background: $cardGrey;
   background-size: 200px;
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid rgba(128, 128, 128, 0.301);
+  border: 1px solid rgba($darkGrey, 0.301);
 
   transition: all .5s ease-in-out;
 
@@ -31,8 +30,9 @@
   }
 
   &__favorites {
+    display: flex;
+    justify-content: flex-end;
     width: 20%;
-    text-align: right;
     opacity: 0;
     transition: opacity .5s ease-in-out;
 
@@ -44,7 +44,7 @@
     }
 
     &__icon {
-      color: #838383;
+      color: $darkGrey;
       font-size: 22px;
     }
 

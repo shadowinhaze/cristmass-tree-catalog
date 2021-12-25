@@ -1,11 +1,10 @@
 import './catalog.scss';
 import { Page } from '../../templates/page';
-import { PageIds, PageIdsRU } from '../../app';
+import { PageIds, PageIdsRU, ChristmasAppPathsAndParams } from '../../app';
 import { DataGrabber, DataItems } from '../../components/data-grabber/data-grabber';
 import { Cart } from '../../components/cart/cart';
 import { CatalogItems } from '../../components/catalog-items/catalog-item';
 import { Filter } from '../../components/filter/filter';
-import { Message } from '../../components/message/message';
 
 export class Catalog extends Page {
   static readonly ClassNames = {
@@ -13,15 +12,11 @@ export class Catalog extends Page {
     mainHomeTheme: 'app-main_catalog-theme',
   };
 
-  private CatalogPath = './assets/data/cm-toys.json';
-
   private cart: Cart | undefined;
 
   private filter: Filter | undefined;
 
   private catalogItems: CatalogItems | undefined;
-
-  private message: Message | undefined;
 
   static navInfo = [
     {
@@ -43,11 +38,10 @@ export class Catalog extends Page {
 
   private async setDefaultComponents(): Promise<void> {
     const dataGrabber = new DataGrabber();
-    const defaultData = await dataGrabber.getData(this.CatalogPath);
+    const defaultData = await dataGrabber.getData(<string>ChristmasAppPathsAndParams.catalogData);
     this.cart = new Cart(defaultData);
     this.filter = new Filter(defaultData);
     this.catalogItems = new CatalogItems(defaultData, this.cart);
-    this.message = new Message();
   }
 
   private getMain(): void {
@@ -66,7 +60,7 @@ export class Catalog extends Page {
   }
 
   async renderPage() {
-    this.header.show(Catalog.navInfo);
+    this.header.show(Catalog.navInfo, true);
     await this.setDefaultComponents();
     this.getMain();
     this.footer.show();

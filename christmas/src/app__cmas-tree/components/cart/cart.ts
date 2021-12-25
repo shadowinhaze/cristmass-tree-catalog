@@ -40,9 +40,9 @@ export class Cart extends Component {
   }
 
   private updateDisplay(): void {
-    const amount = this.cart?.size;
+    const newDisplayAmount = `${this.cart?.size} / 20`;
     if (this.container) {
-      this.container.innerText = `${amount} / 20`;
+      this.container.innerText = newDisplayAmount;
     }
   }
 

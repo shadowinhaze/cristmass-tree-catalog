@@ -68,8 +68,12 @@ module.exports = {
           to: path.resolve(__dirname, 'dist/assets/data/cm-toys.json')
         },
         {
-          from: path.resolve(__dirname, 'src/assets/img/toys'),
-          to: path.resolve(__dirname, 'dist/assets/img/toys')
+          from: path.resolve(__dirname, 'src/assets/img'),
+          to: path.resolve(__dirname, 'dist/assets/img')
+        },
+        {
+          from: path.resolve(__dirname, 'src/assets/audio'),
+          to: path.resolve(__dirname, 'dist/assets/audio')
         }
       ]
     })

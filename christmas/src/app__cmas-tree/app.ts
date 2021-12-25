@@ -1,7 +1,7 @@
 import './app.scss';
 import { HomePage } from './pages/home';
 import { Catalog } from './pages/catalog';
-import { ShowRoom } from './pages/show-room';
+import { ShowRoom } from './pages/showroom';
 
 const enum PageIds {
   main = 'main',
@@ -15,9 +15,21 @@ const enum PageIdsRU {
   showroom = 'шоу-рум',
 }
 
+const ChristmasAppPathsAndParams: { [prop: string]: string | number } = {
+  catalogData: './assets/data/cm-toys.json',
+  audio: './assets/audio/audio.mp3',
+  treeCollection: './assets/img/trees',
+  treeCollectionAmount: 6,
+  treeCollectionFormat: 'png',
+  bgCollection: './assets/img/backgrounds',
+  bgCollectionAmount: 10,
+  bgCollectionFormat: 'jpg',
+};
+
 class ChristmasApp {
   private renderNewPage(pageID: string): void {
-    let page: null | HomePage | Catalog | ShowRoom = null;
+    let page = undefined;
+
     switch (pageID) {
       case PageIds.main:
         page = new HomePage();
@@ -29,6 +41,7 @@ class ChristmasApp {
         page = new ShowRoom();
         break;
     }
+
     if (page) {
       page.renderPage();
     }
@@ -54,4 +67,4 @@ class ChristmasApp {
   }
 }
 
-export { PageIds, PageIdsRU, ChristmasApp };
+export { PageIds, PageIdsRU, ChristmasAppPathsAndParams, ChristmasApp };

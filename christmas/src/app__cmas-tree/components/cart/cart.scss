@@ -5,12 +5,12 @@
   width: 2rem;
   height: 2rem;
   margin-right: 1rem;
-  background: center / contain no-repeat url(@svg/toy-box.svg);
+  background: transparent;
   border: none;
 
   &__display {
     position: absolute;
-    top: -60%;
+    top: -50%;
     right: -80%;
     display: flex;
     align-items: center;
@@ -20,5 +20,13 @@
     color: white;
     background: $red;
     border-radius: 1rem;
+  }
+
+  &::after {
+    content: '\f79c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 30px;
   }
 }

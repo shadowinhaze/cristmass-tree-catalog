@@ -10,7 +10,10 @@ export class Header extends Component {
     mobileMenuHiddenMod: 'app-header__hideble-items_hidden',
     mobileMenuActivator: 'app-logo',
     mobileMenuActiveMod: 'app-logo_active',
+    wrapper: 'app-header__wrapper',
     navigation: 'app-header__nav',
+    search: 'app-header__search',
+    cart: 'app-header__favorites',
   };
 
   static readonly navParams = {
@@ -60,18 +63,43 @@ export class Header extends Component {
         document.removeEventListener('click', hideMobile);
       }
     };
+
     activator?.addEventListener('click', mobilize);
   }
 
   private genNavBtns(btns: BtnsCollection): void {
-    const place = this.container?.querySelector(`.${Header.ClassNames.navigation}`);
+    const nav = this.container?.querySelector(`.${Header.ClassNames.navigation}`);
     const navBtns = this.buttons.renderNav({ buttons: btns, options: Header.navParams });
-    place?.appendChild(navBtns);
+    if (nav) {
+      nav.innerHTML = '';
+      nav.appendChild(navBtns);
+    }
   }
 
-  show(data: BtnsCollection): void {
+  private genSearch() {
+    const search = this.container?.querySelector(`.${Header.ClassNames.search}`);
+    const searchContent = document.createElement('div');
+    searchContent.classList.add('search__input');
+    searchContent.innerHTML = `<input class="search__input__line" type="text" placeholder="Найти украшение..." autofocus><span class="search__input__icon"></span>`;
+    search?.appendChild(searchContent);
+  }
+
+  private genCart() {
+    const place = this.container?.querySelector(`.${Header.ClassNames.wrapper}`);
+    const cart = this.container?.querySelector(`.${Header.ClassNames.cart}`);
+    if (!cart) {
+      const newCart = document.createElement('button');
+      newCart.classList.add('app-header__favorites', 'favorites');
+      newCart.innerHTML = '<span class="favorites__display"></span>';
+      place?.appendChild(newCart);
+    }
+  }
+
+  show(data: BtnsCollection, withSearch: boolean): void {
     this.parseFromTemplate(html);
     this.genNavBtns(data);
     this.activateMobileMenu();
+    if (withSearch) this.genSearch();
+    this.genCart();
   }
 }

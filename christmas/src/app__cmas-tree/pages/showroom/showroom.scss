@@ -1,0 +1,10 @@
+.app-main_showroom {
+  display: grid;
+  grid-template-columns: 30% 50% 20%;
+  gap: 1em 1em;
+  max-width: 1440px;
+  @media screen and (max-width: 900px) {
+    grid-template-columns: 100%;
+    row-gap: 5em;
+  }
+}

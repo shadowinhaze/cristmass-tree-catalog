@@ -1,13 +1,8 @@
 .app-main_catalog {
-  box-sizing: border-box;
   display: grid;
   grid-template-columns: 20% auto;
   gap: 1em 3em;
-  width: 100%;
   max-width: 1440px;
-  padding: 2em 2em;
-  margin: 0 auto;
-
   @media screen and (max-width: 900px) {
     grid-template-columns: 100%;
     row-gap: 5em;
