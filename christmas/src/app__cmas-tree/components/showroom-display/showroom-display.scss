@@ -11,12 +11,14 @@
 }
 
 .showroom__display {
+  box-sizing: border-box;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  width: 100%;
   padding: 2em;
-  border: 2px solid $green;
+  border: 2px solid $grey;
   border-radius: 2rem;
   background: $grey;
   background-position: left;
@@ -31,8 +33,6 @@
     height: 100%;
   }
 }
-
-// let it snow!
 
 .showroom__display__snow-container {
   position: absolute;
@@ -49,33 +49,33 @@
   height: var(--size);
   background: white;
   border-radius: 50%;
+
+  @for $i from 1 through 50 {
+    &:nth-child(#{$i}) {
+      --size: #{random(5) * 0.3}em;
+      --left-ini: #{percentage(random(100) / 100)};
+      --left-end: #{percentage(random(100) / 100)};
+      left: #{percentage(random(100) / 100)};
+      animation: snowfall #{5 + random(15)}s linear infinite;
+      animation-delay: -#{random(2)}s;
+    }
+  }
+  
+  @keyframes snowfall {
+    0% {
+      transform: translate3d(var(--left-ini), 0, 0);
+    }
+    100% {
+      transform: translate3d(var(--left-end), 100em, 0);
+    }
+  }
 }
 
-@keyframes snowfall {
-  0% {
-    transform: translate3d(var(--left-ini), 0, 0);
-  }
-  100% {
-    transform: translate3d(var(--left-end), 100em, 0);
-  }
-}
-
-@for $i from 1 through 50 {
-  .showroom__display__snow-container__snowflake:nth-child(#{$i}) {
-    --size: #{random(5) * 0.3}em;
-    --left-ini: #{percentage(random(100) / 100)};
-    --left-end: #{percentage(random(100) / 100)};
-    left: #{percentage(random(100) / 100)};
-    animation: snowfall #{5 + random(20)}s linear infinite;
-    animation-delay: -#{random(3)}s;
-  }
-}
 
 .showroom__display__snow-container__snowflake:nth-child(6n) {
   filter: blur(1px);
 }
 
-// let it fire!
 .showroom__display__lights-container {
   $diametr: 7px;
   position: absolute;

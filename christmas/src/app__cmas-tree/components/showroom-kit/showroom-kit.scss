@@ -1,0 +1,61 @@
+@import '../../app.scss';
+
+.showroom__kit {
+  padding: 0 1em;
+  &__header {
+    @include defFont;
+    font-weight: 600;
+    color: #04290d;
+    margin: 0 0 1em;
+    font-size: 25px;
+  }
+
+  &__items {
+    display: grid;
+    grid: auto-flow minmax(80px, 1fr) / repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px 10px;
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+    align-items: flex-end;
+    background: $cardGrey;
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba($darkGrey, 0.301);
+    border-radius: 10px;
+    
+    transition: all .5s ease-in-out;
+    aspect-ratio: 1;
+
+    &:hover {
+      background: $grey;
+      background-size: 70px;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: grab;
+    }
+
+    &__amount {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 1.5em;
+      width: 1.5em;
+      padding: .3em;
+      @include defFont; 
+      color: white;
+      background: $red;
+      border-radius: 50%;
+    }
+
+  }
+
+}

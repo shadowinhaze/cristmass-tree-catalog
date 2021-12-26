@@ -1,24 +1,17 @@
 import './showroom.scss';
 import { Page } from '../../templates/page';
-import { PageIds, PageIdsRU } from '../../app';
+import { PageIds, PageIdsRU, ChristmasAppPathsAndParams } from '../../app';
 import { DataGrabber } from '../../components/data-grabber/data-grabber';
 import { Cart } from '../../components/cart/cart';
 import { ShowRoomSettings } from '../../components/showroom-settings/showroom-settings';
 import { ShowRoomDisplay } from '../../components/showroom-display/showroom-display';
+import { ShowRoomKit } from '../../components/showroom-kit/showroom-kit';
 
 export class ShowRoom extends Page {
   static readonly ClassNames = {
     main: 'app-main',
     mainHomeTheme: 'app-main_showroom-theme',
   };
-
-  private CatalogPath = './assets/data/cm-toys.json';
-
-  private cart: Cart | undefined;
-
-  private settings = new ShowRoomSettings();
-
-  private display = new ShowRoomDisplay();
 
   static navInfo = [
     {
@@ -38,24 +31,37 @@ export class ShowRoom extends Page {
     },
   ];
 
+  private cart: Cart | undefined;
+
+  private settings = new ShowRoomSettings();
+
+  private display = new ShowRoomDisplay();
+
+  private kit: ShowRoomKit | undefined;
+
   private async setDefaultComponents(): Promise<void> {
     const dataGrabber = new DataGrabber();
-    const defaultData = await dataGrabber.getData(this.CatalogPath);
+    const defaultData = await dataGrabber.getData(<string>ChristmasAppPathsAndParams.catalogData);
     this.cart = new Cart(defaultData);
+    this.kit = new ShowRoomKit(defaultData, this.cart);
   }
 
   private getMain(): void {
     const customizer = <HTMLElement>this.settings?.getContent();
     const display = <HTMLElement>this.display?.getContent();
+    const kit = <HTMLElement>this.kit?.getContent();
+
     this.main.customize('app-main_showroom');
     this.main.addContent(customizer);
     this.main.addContent(display);
+    this.main.addContent(kit);
   }
 
   async renderPage() {
     this.header.show(ShowRoom.navInfo, false);
     await this.setDefaultComponents();
     this.getMain();
+    this.settings.firstStart();
     this.footer.show();
   }
 }

@@ -18,6 +18,8 @@ const enum PageIdsRU {
 const ChristmasAppPathsAndParams: { [prop: string]: string | number } = {
   catalogData: './assets/data/cm-toys.json',
   audio: './assets/audio/audio.mp3',
+  toysImg: './assets/img/toys/',
+  toysImgFormat: 'png',
   treeCollection: './assets/img/trees',
   treeCollectionAmount: 6,
   treeCollectionFormat: 'png',

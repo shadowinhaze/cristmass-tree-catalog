@@ -4,6 +4,7 @@ import { Component } from '../../templates/component';
 import { Cart } from '../cart/cart';
 import { DataItems } from '../data-grabber/data-grabber';
 import { Message } from '../message/message';
+import { ChristmasAppPathsAndParams } from '../../app';
 
 export class CatalogItems extends Component {
   static readonly ClassNames = {
@@ -36,7 +37,7 @@ export class CatalogItems extends Component {
     this.itemsList.forEach((item) => {
       const card = <HTMLElement>document.createElement(CatalogItems.CardStructure.cardTag);
       card.classList.add(CatalogItems.CardStructure.cardBemClassName, CatalogItems.CardStructure.cardClassName);
-      card.style.backgroundImage = `url("${CatalogItems.CardStructure.cardImgPath}${item.id}.png")`;
+      card.style.backgroundImage = `url("${ChristmasAppPathsAndParams.toysImg}${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}")`;
       card.dataset.cardId = item.id;
       card.innerHTML = html;
       Object.keys(item).forEach((chunk) => {

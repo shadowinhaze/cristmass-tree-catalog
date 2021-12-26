@@ -219,7 +219,7 @@ export class ShowRoomSettings extends Component {
     }
   }
 
-  private addListener() {
+  private addListener(): void {
     const lightsActivator = <HTMLInputElement>(
       this.container?.querySelector('.showroom__settings__section_lights__activator')
     );
@@ -271,6 +271,13 @@ export class ShowRoomSettings extends Component {
           break;
       }
     });
+  }
+
+  firstStart(): void {
+    const tree = <HTMLLIElement>this.container?.querySelector(`[data-item-id="${ShowRoomSettings.Config.tree}"]`);
+    const bg = <HTMLLIElement>this.container?.querySelector(`[data-item-id="${ShowRoomSettings.Config.background}"]`);
+    tree.click();
+    bg.click();
   }
 
   getContent() {

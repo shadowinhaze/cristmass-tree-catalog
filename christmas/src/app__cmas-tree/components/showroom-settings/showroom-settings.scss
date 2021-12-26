@@ -1,7 +1,9 @@
 @import '../../app.scss';
 
 .showroom__settings {
+  padding: 0 1em;
   @include defFont;
+
   &__section {
     margin-bottom: 4em;
 
