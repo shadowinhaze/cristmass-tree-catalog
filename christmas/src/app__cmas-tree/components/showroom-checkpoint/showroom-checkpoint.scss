@@ -5,4 +5,18 @@
   grid-area: checkpoint;
   width: 100%;
   padding: 0 1em;
+
+  &__save-list {
+    padding-left: 0;
+    list-style: none;
+    @include defFont;
+
+    &__item {
+      text-align: center;
+      &:hover {
+        cursor: pointer;
+        color: $red;
+      }
+    }
+  }
 }

@@ -17,7 +17,7 @@ export class ShowRoomSettings extends Component {
   private static Config: Config = {
     tree: 'tree-1',
     background: 'bg-1',
-    light: 'light-red',
+    light: '',
     lightsON: false,
     lightsFirstLauch: true,
     music: false,
@@ -165,12 +165,12 @@ export class ShowRoomSettings extends Component {
 
   private musicControl(): void {
     if (ShowRoomSettings.Config.music) {
-      this.container?.appendChild(this.music);
+      document.body.appendChild(this.music);
       this.music.load();
       this.music.play();
     } else {
       this.music.pause();
-      this.container?.removeChild(this.music);
+      document.body.removeChild(this.music);
     }
   }
 
@@ -222,8 +222,9 @@ export class ShowRoomSettings extends Component {
 
   private addListener(): void {
     const lightsActivator = <HTMLInputElement>(
-      this.container?.querySelector('.showroom__settings__section_lights__activator')
+      this.container?.querySelector(`.${ShowRoomSettings.ClassNames.lightsActivator}`)
     );
+
     lightsActivator?.addEventListener('change', () => {
       ShowRoomSettings.Config.lightsON = !ShowRoomSettings.Config.lightsON;
       this.display.turnOffLights();
@@ -255,7 +256,7 @@ export class ShowRoomSettings extends Component {
           this.treeControl();
           break;
         case target.classList.contains('showroom__settings__section__item_light'):
-          if (!ShowRoomSettings.Config.lightsFirstLauch && !lightsActivator.checked) break;
+          if (!ShowRoomSettings.Config.lightsFirstLauch && !ShowRoomSettings.Config.lightsON) break;
           if (!target.classList.contains('showroom__settings__section__item_light_active')) {
             this.cleanItemsList('showroom__settings__section__item_light');
             target.classList.add('showroom__settings__section__item_light_active');
@@ -265,7 +266,6 @@ export class ShowRoomSettings extends Component {
               ShowRoomSettings.Config.lightsON = !ShowRoomSettings.Config.lightsON;
               lightsActivator.checked = true;
             }
-
             this.lightControl();
           }
 
@@ -274,15 +274,52 @@ export class ShowRoomSettings extends Component {
     });
   }
 
-  firstStart(): void {
-    const tree = <HTMLLIElement>this.container?.querySelector(`[data-item-id="${ShowRoomSettings.Config.tree}"]`);
-    const bg = <HTMLLIElement>this.container?.querySelector(`[data-item-id="${ShowRoomSettings.Config.background}"]`);
+  virtualStart(): void {
+    const tree = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.tree}"]`);
+    const bg = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.background}"]`);
     tree.click();
     bg.click();
+
+    this.virtualStartLight();
+    if (ShowRoomSettings.Config.music) {
+      const music = <HTMLElement>document.querySelector('.' + 'showroom__settings__section__item_eq_music');
+      if (music.classList.contains('showroom__settings__section__item_eq_active')) return;
+      ShowRoomSettings.Config.music = false;
+      music.click();
+    }
+
+    if (ShowRoomSettings.Config.snow) {
+      const snow = <HTMLElement>document.querySelector('.' + 'showroom__settings__section__item_eq_snow');
+      if (snow.classList.contains('showroom__settings__section__item_eq_active')) return;
+      ShowRoomSettings.Config.snow = false;
+      snow.click();
+    }
+  }
+
+  private virtualStartLight(): void {
+    if (ShowRoomSettings.Config.light) {
+      const light = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.light}"]`);
+      const lightsActivator = <HTMLInputElement>(
+        document.querySelector(`.${ShowRoomSettings.ClassNames.lightsActivator}`)
+      );
+
+      if (ShowRoomSettings.Config.lightsON) {
+        light.click();
+        const lightColor = (<string>ShowRoomSettings.Config.light).split('-')[1];
+        this.display.setLights(lightColor);
+        lightsActivator.checked = <boolean>ShowRoomSettings.Config.lightsON;
+      }
+    }
   }
 
   getState(): Config {
     return ShowRoomSettings.Config;
+  }
+
+  changeConfig(obj: Config): void {
+    ShowRoomSettings.Config = {
+      ...obj,
+    };
   }
 
   getContent() {

@@ -122,6 +122,7 @@ export class ShowRoomDisplay extends Component {
   }
 
   turnOffLights(): void {
+    this.lights = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.lightsContainer);
     if (this.lights) {
       this.lights.classList.toggle(`${ShowRoomDisplay.ClassNames.lightsContainer}_off`);
     }
@@ -238,6 +239,13 @@ export class ShowRoomDisplay extends Component {
 
       toysContainer.append(area);
     }, 1000);
+  }
+
+  static updateToysContainer(oldContainer: string): void {
+    const toysContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
+    if (toysContainer) {
+      toysContainer.outerHTML = oldContainer;
+    }
   }
 
   getContent(): HTMLElement {

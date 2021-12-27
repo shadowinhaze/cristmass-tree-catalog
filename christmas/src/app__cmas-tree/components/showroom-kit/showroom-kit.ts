@@ -97,6 +97,13 @@ export class ShowRoomKit extends Component {
     this.container?.append(kitList);
   }
 
+  static updateKitContainer(oldContent: string) {
+    const kit = document.querySelector('.showroom__kit__items');
+    if (kit) {
+      kit.outerHTML = oldContent;
+    }
+  }
+
   getContent(): HTMLElement {
     this.genHeader();
     this.genList();

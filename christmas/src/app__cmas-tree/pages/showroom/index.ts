@@ -66,7 +66,7 @@ export class ShowRoom extends Page {
     this.header.show(ShowRoom.navInfo, false);
     await this.setDefaultComponents();
     this.getMain();
-    this.settings.firstStart();
+    this.settings.virtualStart();
     this.footer.show();
   }
 }
