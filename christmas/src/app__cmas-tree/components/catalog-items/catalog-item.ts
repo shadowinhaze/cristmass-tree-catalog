@@ -37,7 +37,7 @@ export class CatalogItems extends Component {
     this.itemsList.forEach((item) => {
       const card = <HTMLElement>document.createElement(CatalogItems.CardStructure.cardTag);
       card.classList.add(CatalogItems.CardStructure.cardBemClassName, CatalogItems.CardStructure.cardClassName);
-      card.style.backgroundImage = `url("${ChristmasAppPathsAndParams.toysImg}${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}")`;
+      card.style.backgroundImage = `url("${ChristmasAppPathsAndParams.toysImg}/${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}")`;
       card.dataset.cardId = item.id;
       card.innerHTML = html;
       Object.keys(item).forEach((chunk) => {

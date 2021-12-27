@@ -171,3 +171,23 @@
   }
 }
 
+.showroom__display__toys-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+
+  &__toy {
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    background-size: contain;
+    &:hover {
+      cursor: grab;
+    }
+    &_grabbing {
+      filter: $toGreen;
+    }
+  }
+}

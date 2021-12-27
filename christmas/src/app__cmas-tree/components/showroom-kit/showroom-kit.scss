@@ -19,15 +19,12 @@
   }
 
   &__item {
+    position: relative;
     display: flex;
-    justify-content: flex-end;
-    padding: .5em;
+    justify-content: center;
     align-items: flex-end;
+    padding: .5em;
     background: $cardGrey;
-    background-size: 70px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-repeat: no-repeat;
     border: 1px solid rgba($darkGrey, 0.301);
     border-radius: 10px;
     
@@ -43,6 +40,8 @@
     }
 
     &__amount {
+      position: absolute;
+      right: .5em;
       box-sizing: border-box;
       display: flex;
       align-items: center;
@@ -54,6 +53,17 @@
       color: white;
       background: $red;
       border-radius: 50%;
+    }
+
+    &__img {
+      align-self: center;
+      height: 80%;
+      width: 80%;
+    }
+
+    &_out {
+      background: $green;
+      pointer-events: none;
     }
 
   }

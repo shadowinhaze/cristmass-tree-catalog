@@ -28,6 +28,47 @@ export class ShowRoomKit extends Component {
     this.container?.prepend(header);
   }
 
+  private addDragListener(elParent: HTMLElement) {
+    elParent.addEventListener('dragstart', (e): void => {
+      const target = <HTMLImageElement>e.target;
+      if (target.classList.contains('showroom__kit__item__img')) {
+        if (e.dataTransfer) {
+          e.dataTransfer.setData('offsetX', `${e.offsetX}`);
+          e.dataTransfer.setData('offsetY', `${e.offsetY}`);
+          e.dataTransfer.setData('itemID', `${target.dataset.itemId}-${Date.now()}`);
+          e.dataTransfer.setData('img', <string>target.src);
+          e.dataTransfer.setData('mode', 'fromCollection');
+          e.dataTransfer.effectAllowed = 'copy';
+        }
+      }
+    });
+  }
+
+  static badgeUpdater(id: string, mode: string): void {
+    const dockId = id.split('-')[0];
+    const dockAmount = <HTMLSpanElement>document.querySelector(`[data-dock-id="${dockId}"] span`);
+
+    if (dockAmount) {
+      const currentAmount = +dockAmount.innerText;
+      if (mode === 'decr') {
+        if (currentAmount - 1 < 0) return;
+        if (currentAmount - 1 === 0) {
+          if (dockAmount.parentElement) {
+            dockAmount.parentElement.classList.toggle('showroom__kit__item_out');
+          }
+        }
+        dockAmount.innerText = `${+currentAmount - 1}`;
+      } else if (mode === 'incr') {
+        if (currentAmount + 1 === 1) {
+          if (dockAmount.parentElement) {
+            dockAmount.parentElement.classList.remove('showroom__kit__item_out');
+          }
+        }
+        dockAmount.innerText = `${+currentAmount + 1}`;
+      }
+    }
+  }
+
   private genList(): void {
     const kitList = document.createElement('ul');
     kitList.classList.add('showroom__kit__items');
@@ -35,14 +76,24 @@ export class ShowRoomKit extends Component {
       if (this.cart.cart?.has(item.id)) {
         const card = <HTMLLIElement>document.createElement('li');
         card.classList.add('showroom__kit__item');
-        card.style.backgroundImage = `url("${ChristmasAppPathsAndParams.toysImg}${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}")`;
+        card.dataset.dockId = item.id;
+
+        const img = document.createElement('img');
+        img.src = `${ChristmasAppPathsAndParams.toysImg}/${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}`;
+        img.classList.add('showroom__kit__item__img');
+        img.dataset.itemId = item.id;
+        img.draggable = true;
+
         const cardAmount = document.createElement('span');
         cardAmount.classList.add('showroom__kit__item__amount');
         cardAmount.innerText = `${item.count}`;
+
         card.appendChild(cardAmount);
+        card.appendChild(img);
         kitList.appendChild(card);
       }
     });
+    this.addDragListener(kitList);
     this.container?.append(kitList);
   }
 
