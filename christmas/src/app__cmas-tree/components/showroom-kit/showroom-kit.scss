@@ -1,6 +1,7 @@
 @import '../../app.scss';
 
 .showroom__kit {
+  grid-area: kit;
   padding: 0 1em;
   &__header {
     @include defFont;

@@ -1,6 +1,9 @@
 .app-main_showroom {
   display: grid;
   grid-template-columns: 30% 45% 25%;
+  grid-template-areas: 
+  "settings display kit"
+  "settings display checkpoint";
   row-gap: 1em;
   justify-items: center;
   max-width: 1440px;

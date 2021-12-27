@@ -4,6 +4,7 @@ import { ChristmasAppPathsAndParams } from '../../app';
 import { ShowRoomDisplay } from '../showroom-display/showroom-display';
 
 type TransObject = { [prop: string]: string | number };
+export type Config = { [prop: string]: string | boolean | number };
 
 export class ShowRoomSettings extends Component {
   static readonly ClassNames = {
@@ -13,7 +14,7 @@ export class ShowRoomSettings extends Component {
     lightsActivator: 'showroom__settings__section_lights__activator',
   };
 
-  private static Config: { [prop: string]: string | boolean | number } = {
+  private static Config: Config = {
     tree: 'tree-1',
     background: 'bg-1',
     light: 'light-red',
@@ -278,6 +279,10 @@ export class ShowRoomSettings extends Component {
     const bg = <HTMLLIElement>this.container?.querySelector(`[data-item-id="${ShowRoomSettings.Config.background}"]`);
     tree.click();
     bg.click();
+  }
+
+  getState(): Config {
+    return ShowRoomSettings.Config;
   }
 
   getContent() {

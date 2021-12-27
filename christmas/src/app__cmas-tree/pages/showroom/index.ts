@@ -6,6 +6,7 @@ import { Cart } from '../../components/cart/cart';
 import { ShowRoomSettings } from '../../components/showroom-settings/showroom-settings';
 import { ShowRoomDisplay } from '../../components/showroom-display/showroom-display';
 import { ShowRoomKit } from '../../components/showroom-kit/showroom-kit';
+import { ShowRoomCheckpoint } from '../../components/showroom-checkpoint/showroom-checkpoint';
 
 export class ShowRoom extends Page {
   static readonly ClassNames = {
@@ -39,6 +40,8 @@ export class ShowRoom extends Page {
 
   private kit: ShowRoomKit | undefined;
 
+  private checkpoint = new ShowRoomCheckpoint();
+
   private async setDefaultComponents(): Promise<void> {
     const dataGrabber = new DataGrabber();
     const defaultData = await dataGrabber.getData(<string>ChristmasAppPathsAndParams.catalogData);
@@ -50,11 +53,13 @@ export class ShowRoom extends Page {
     const customizer = <HTMLElement>this.settings?.getContent();
     const display = <HTMLElement>this.display?.getContent();
     const kit = <HTMLElement>this.kit?.getContent();
+    const checkpoint = <HTMLElement>this.checkpoint?.getContent();
 
     this.main.customize('app-main_showroom');
     this.main.addContent(customizer);
     this.main.addContent(display);
     this.main.addContent(kit);
+    this.main.addContent(checkpoint);
   }
 
   async renderPage() {

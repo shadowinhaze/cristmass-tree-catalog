@@ -180,7 +180,6 @@ export class ShowRoomDisplay extends Component {
 
   private removeToy(ev: DragEvent): void {
     const toysContainer = document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
-    console.log('im called');
     const toy = toysContainer?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('itemID')}"]`);
     if (toy) {
       toysContainer?.removeChild(toy);
@@ -234,7 +233,6 @@ export class ShowRoomDisplay extends Component {
 
       poly.addEventListener('dragleave', (e) => {
         e.preventDefault();
-        console.log('im here');
         this.removeToy(e);
       });
 
