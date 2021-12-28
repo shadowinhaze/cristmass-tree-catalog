@@ -28,22 +28,6 @@ export class ShowRoomKit extends Component {
     this.container?.prepend(header);
   }
 
-  private addDragListener(elParent: HTMLElement) {
-    elParent.addEventListener('dragstart', (e): void => {
-      const target = <HTMLImageElement>e.target;
-      if (target.classList.contains('showroom__kit__item__img')) {
-        if (e.dataTransfer) {
-          e.dataTransfer.setData('offsetX', `${e.offsetX}`);
-          e.dataTransfer.setData('offsetY', `${e.offsetY}`);
-          e.dataTransfer.setData('itemID', `${target.dataset.itemId}-${Date.now()}`);
-          e.dataTransfer.setData('img', <string>target.src);
-          e.dataTransfer.setData('mode', 'fromCollection');
-          e.dataTransfer.effectAllowed = 'copy';
-        }
-      }
-    });
-  }
-
   static badgeUpdater(id: string, mode: string): void {
     const dockId = id.split('-')[0];
     const dockAmount = <HTMLSpanElement>document.querySelector(`[data-dock-id="${dockId}"] span`);
@@ -100,8 +84,24 @@ export class ShowRoomKit extends Component {
   static updateKitContainer(oldContent: string) {
     const kit = document.querySelector('.showroom__kit__items');
     if (kit) {
-      kit.outerHTML = oldContent;
+      kit.innerHTML = oldContent;
     }
+  }
+
+  private addDragListener(elParent: HTMLElement) {
+    elParent.addEventListener('dragstart', (e): void => {
+      const target = <HTMLImageElement>e.target;
+      if (target.classList.contains('showroom__kit__item__img')) {
+        if (e.dataTransfer) {
+          e.dataTransfer.setData('offsetX', `${e.offsetX}`);
+          e.dataTransfer.setData('offsetY', `${e.offsetY}`);
+          e.dataTransfer.setData('toy', `${target.dataset.itemId}-${Date.now()}`);
+          e.dataTransfer.setData('img', <string>target.src);
+          e.dataTransfer.setData('mode', 'fromCollection');
+          e.dataTransfer.effectAllowed = 'copy';
+        }
+      }
+    });
   }
 
   getContent(): HTMLElement {

@@ -128,32 +128,10 @@ export class ShowRoomDisplay extends Component {
     }
   }
 
-  private addRelocator(item: HTMLElement) {
-    item.addEventListener('dragstart', (e) => {
-      if (e.dataTransfer) {
-        e.dataTransfer.setData('offsetX', `${e.offsetX}`);
-        e.dataTransfer.setData('offsetY', `${e.offsetY}`);
-        e.dataTransfer.setData('className', item.className);
-        e.dataTransfer.setData('itemID', <string>item.dataset.itemId);
-        e.dataTransfer.setData('mode', 'relocate');
-        e.dataTransfer.effectAllowed = 'move';
-        item.classList.toggle('showroom__display__toys-container__toy_grabbing');
-      }
-    });
-
-    item.addEventListener('dragend', () => {
-      item.classList.toggle('showroom__display__toys-container__toy_grabbing');
-    });
-  }
-
-  updateRelocator(items: Array<HTMLElement>) {
-    items.forEach((item) => this.addRelocator(item));
-  }
-
   private relocate(ev: Client): void {
     const toysContainer = document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
     const movingChild = <HTMLElement>(
-      toysContainer?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('itemID')}"]`)
+      toysContainer?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('toy')}"]`)
     );
     const offsetX = <string>ev.dataTransfer?.getData('offsetX');
     const offsetY = <string>ev.dataTransfer?.getData('offsetY');
@@ -171,24 +149,23 @@ export class ShowRoomDisplay extends Component {
 
     toyClone.classList.add('showroom__display__toys-container__toy');
     toyClone.style.backgroundImage = `url("${ev.dataTransfer?.getData('img')}")`;
-    toyClone.dataset.itemId = ev.dataTransfer?.getData('itemID');
+    toyClone.dataset.itemId = ev.dataTransfer?.getData('toy');
     toyClone.style.left = `${ev.layerX - +offsetX / 2}px`;
     toyClone.style.top = `${ev.layerY - +offsetY / 2}px`;
     toyClone.draggable = true;
 
-    this.addRelocator(toyClone);
-    ShowRoomKit.badgeUpdater(<string>ev.dataTransfer?.getData('itemID'), 'decr');
+    ShowRoomKit.badgeUpdater(<string>ev.dataTransfer?.getData('toy'), 'decr');
     if (toysContainer) {
       toysContainer.appendChild(toyClone);
     }
   }
 
-  private removeToy(ev: DragEvent): void {
-    const toysContainer = document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
-    const toy = toysContainer?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('itemID')}"]`);
+  private removeToy(parent: HTMLElement, ev: DragEvent): void {
+    console.log(ev.dataTransfer?.getData('toy'));
+    const toy = parent?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('toy')}"]`);
     if (toy) {
-      toysContainer?.removeChild(toy);
-      ShowRoomKit.badgeUpdater(<string>ev.dataTransfer?.getData('itemID'), 'incr');
+      parent?.removeChild(toy);
+      ShowRoomKit.badgeUpdater(<string>ev.dataTransfer?.getData('toy'), 'incr');
     }
   }
 
@@ -197,6 +174,8 @@ export class ShowRoomDisplay extends Component {
 
     const toysContainer = <HTMLElement>document.createElement('div');
     toysContainer.classList.add(ShowRoomDisplay.ClassNames.toysContainer);
+
+    this.addDragListener(toysContainer);
 
     treeContainer?.appendChild(toysContainer);
   }
@@ -215,43 +194,74 @@ export class ShowRoomDisplay extends Component {
       area.setAttribute('opacity', '0');
 
       area.innerHTML = `<polygon points="${width / 2},0,0,${height},${width},${height}" />`;
-      const poly = <SVGPolygonElement>area.querySelector('polygon');
-      this.addListenersToDropArea(poly);
+
       toysContainer.append(area);
     }, 1000);
   }
 
-  addListenersToDropArea(element: SVGPolygonElement) {
-    element.addEventListener('dragover', (e): void => {
-      e.preventDefault();
-    });
-
-    element.addEventListener('drop', (e) => {
-      e.preventDefault();
-      const dropAreaMemberMode = e.dataTransfer?.getData('mode');
-      if (dropAreaMemberMode === 'fromCollection') {
+  private addDragListener(elParent: HTMLElement): void {
+    elParent.addEventListener('dragstart', (e): void => {
+      const target = <HTMLElement>e.target;
+      if (target.classList.contains('showroom__display__toys-container__toy')) {
         if (e.dataTransfer) {
-          e.dataTransfer.dropEffect = 'copy';
-          this.cloneToy(<Client>e);
-        }
-      } else if (dropAreaMemberMode === 'relocate') {
-        if (e.dataTransfer) {
-          e.dataTransfer.dropEffect = 'move';
-          this.relocate(<Client>e);
+          e.dataTransfer.setData('offsetX', `${e.offsetX}`);
+          e.dataTransfer.setData('offsetY', `${e.offsetY}`);
+          e.dataTransfer.setData('className', target.className);
+          e.dataTransfer.setData('toy', <string>target.dataset.itemId);
+          e.dataTransfer.setData('mode', 'relocate');
+          e.dataTransfer.setData('text/html', 'dragstart');
+          e.dataTransfer.effectAllowed = 'move';
+          target.classList.toggle('showroom__display__toys-container__toy_grabbing');
         }
       }
     });
 
-    element.addEventListener('dragleave', (e) => {
-      e.preventDefault();
-      this.removeToy(e);
+    elParent.addEventListener('dragend', (e): void => {
+      const target = <HTMLElement>e.target;
+      if (target.classList.contains('showroom__display__toys-container__toy')) {
+        target.classList.toggle('showroom__display__toys-container__toy_grabbing');
+      }
+    });
+
+    elParent.addEventListener('dragover', (e): void => {
+      const target = <SVGPolygonElement>e.target;
+      if (target.tagName === 'polygon') {
+        e.preventDefault();
+      }
+    });
+
+    elParent.addEventListener('drop', (e): void => {
+      const target = <SVGPolygonElement>e.target;
+      if (target.tagName === 'polygon') {
+        e.preventDefault();
+        const dropAreaMemberMode = e.dataTransfer?.getData('mode');
+        if (dropAreaMemberMode === 'fromCollection') {
+          if (e.dataTransfer) {
+            e.dataTransfer.dropEffect = 'copy';
+            this.cloneToy(<Client>e);
+          }
+        } else if (dropAreaMemberMode === 'relocate') {
+          if (e.dataTransfer) {
+            e.dataTransfer.dropEffect = 'move';
+            this.relocate(<Client>e);
+          }
+        }
+      }
+    });
+
+    elParent.addEventListener('dragleave', (e): void => {
+      const target = <SVGPolygonElement>e.target;
+      if (target.tagName === 'polygon') {
+        e.preventDefault();
+        this.removeToy(elParent, e);
+      }
     });
   }
 
-  static updateToysContainer(oldContainer: string): void {
+  updateToysContainer(oldContainer: string): void {
     const toysContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
     if (toysContainer) {
-      toysContainer.outerHTML = oldContainer;
+      toysContainer.innerHTML = oldContainer;
     }
   }
 

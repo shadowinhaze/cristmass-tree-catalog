@@ -34,8 +34,8 @@ export class ShowRoomCheckpoint extends Component {
     target.addEventListener('click', async () => {
       const display = <HTMLElement>document.querySelector('.showroom__display');
       const settings = { settings: this.settings.getState() };
-      const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.outerHTML };
-      const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.outerHTML };
+      const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.innerHTML };
+      const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.innerHTML };
       const screenshot = await html2canvas(display);
       const checkpoint = <CheckPointData>(<unknown>{
         screenshot: JSON.stringify(screenshot.toDataURL()),
@@ -43,7 +43,6 @@ export class ShowRoomCheckpoint extends Component {
         ...toys,
         ...settings,
       });
-      console.log(checkpoint);
       this.checkpoints?.add(JSON.stringify(checkpoint));
       this.addItemsToSaveList();
       this.saveToLocalStorage();
@@ -117,12 +116,8 @@ export class ShowRoomCheckpoint extends Component {
     this.settings.virtualStart();
 
     const display = new ShowRoomDisplay();
-    ShowRoomDisplay.updateToysContainer(<string>state.toys);
+    display.updateToysContainer(<string>state.toys);
 
-    const poly = <SVGPolygonElement>document.querySelector('polygon');
-    const toys = <Array<HTMLElement>>(<unknown>document.querySelectorAll('.showroom__display__toys-container__toy'));
-    display.addListenersToDropArea(poly);
-    display.updateRelocator(toys);
     ShowRoomKit.updateKitContainer(<string>state.kit);
   }
 
