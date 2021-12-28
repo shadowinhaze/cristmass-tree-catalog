@@ -3,11 +3,13 @@ import { Component } from '../../templates/component';
 import { Config, ShowRoomSettings } from '../showroom-settings/showroom-settings';
 import { ShowRoomDisplay } from '../../components/showroom-display/showroom-display';
 import { ShowRoomKit } from '../showroom-kit/showroom-kit';
+import html2canvas from 'html2canvas';
 
 interface CheckPointData {
   settings: Config;
   kit: string;
   toys: string;
+  screenshot: CanvasImageData;
 }
 
 export class ShowRoomCheckpoint extends Component {
@@ -29,15 +31,19 @@ export class ShowRoomCheckpoint extends Component {
   }
 
   private addSaveAction(target: HTMLButtonElement): void {
-    target.addEventListener('click', () => {
+    target.addEventListener('click', async () => {
+      const display = <HTMLElement>document.querySelector('.showroom__display');
       const settings = { settings: this.settings.getState() };
       const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.outerHTML };
       const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.outerHTML };
-      const checkpoint = <CheckPointData>{
-        ...settings,
+      const screenshot = await html2canvas(display);
+      const checkpoint = <CheckPointData>(<unknown>{
+        screenshot: JSON.stringify(screenshot.toDataURL()),
         ...kit,
         ...toys,
-      };
+        ...settings,
+      });
+      console.log(checkpoint);
       this.checkpoints?.add(JSON.stringify(checkpoint));
       this.addItemsToSaveList();
       this.saveToLocalStorage();
@@ -52,6 +58,13 @@ export class ShowRoomCheckpoint extends Component {
     this.container?.append(button);
   }
 
+  private cleanItemsList(className: string): void {
+    const allBrothers = document.querySelectorAll('.' + className);
+    allBrothers?.forEach((brother) => {
+      brother.classList.remove(`${className}_active`);
+    });
+  }
+
   private addSaveList(): void {
     const list = document.createElement('ul');
     list.classList.add('showroom__checkpoint__save-list');
@@ -59,6 +72,8 @@ export class ShowRoomCheckpoint extends Component {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('showroom__checkpoint__save-list__item')) {
         this.activeCheckpoint = target.dataset.checkpointState;
+        this.cleanItemsList('showroom__checkpoint__save-list__item');
+        target.classList.add('showroom__checkpoint__save-list__item_active');
         this.loadCheckpoint();
       }
     });
@@ -82,10 +97,12 @@ export class ShowRoomCheckpoint extends Component {
       if (!list) return;
       list.innerHTML = '';
       [...this.checkpoints].forEach((item, index) => {
+        const data = JSON.parse(item);
         const checkpoint = document.createElement('li');
         checkpoint.classList.add('showroom__checkpoint__save-list__item');
+        checkpoint.style.backgroundImage = `url("${JSON.parse(data.screenshot)}")`;
         checkpoint.dataset.checkpointState = `${index++}`;
-        checkpoint.innerText = `Сохранение ${index++}`;
+        checkpoint.title = `Загрузить сохранение ${index++}`;
         list?.append(checkpoint);
       });
     }
@@ -98,7 +115,14 @@ export class ShowRoomCheckpoint extends Component {
     const state = JSON.parse(pull[+this.activeCheckpoint]);
     this.settings.changeConfig(<Config>state.settings);
     this.settings.virtualStart();
+
+    const display = new ShowRoomDisplay();
     ShowRoomDisplay.updateToysContainer(<string>state.toys);
+
+    const poly = <SVGPolygonElement>document.querySelector('polygon');
+    const toys = <Array<HTMLElement>>(<unknown>document.querySelectorAll('.showroom__display__toys-container__toy'));
+    display.addListenersToDropArea(poly);
+    display.updateRelocator(toys);
     ShowRoomKit.updateKitContainer(<string>state.kit);
   }
 

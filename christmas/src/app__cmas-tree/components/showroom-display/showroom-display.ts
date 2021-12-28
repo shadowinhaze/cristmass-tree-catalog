@@ -146,6 +146,10 @@ export class ShowRoomDisplay extends Component {
     });
   }
 
+  updateRelocator(items: Array<HTMLElement>) {
+    items.forEach((item) => this.addRelocator(item));
+  }
+
   private relocate(ev: Client): void {
     const toysContainer = document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
     const movingChild = <HTMLElement>(
@@ -205,40 +209,43 @@ export class ShowRoomDisplay extends Component {
       const height = tree.clientHeight;
 
       const area = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      area.classList.add('svg-drop-area');
       area.setAttribute('width', `${width}`);
       area.setAttribute('height', `${height}`);
       area.setAttribute('opacity', '0');
 
       area.innerHTML = `<polygon points="${width / 2},0,0,${height},${width},${height}" />`;
       const poly = <SVGPolygonElement>area.querySelector('polygon');
-
-      poly.addEventListener('dragover', (e): void => {
-        e.preventDefault();
-      });
-
-      poly.addEventListener('drop', (e) => {
-        e.preventDefault();
-        const dropAreaMemberMode = e.dataTransfer?.getData('mode');
-        if (dropAreaMemberMode === 'fromCollection') {
-          if (e.dataTransfer) {
-            e.dataTransfer.dropEffect = 'copy';
-            this.cloneToy(<Client>e);
-          }
-        } else if (dropAreaMemberMode === 'relocate') {
-          if (e.dataTransfer) {
-            e.dataTransfer.dropEffect = 'move';
-            this.relocate(<Client>e);
-          }
-        }
-      });
-
-      poly.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        this.removeToy(e);
-      });
-
+      this.addListenersToDropArea(poly);
       toysContainer.append(area);
     }, 1000);
+  }
+
+  addListenersToDropArea(element: SVGPolygonElement) {
+    element.addEventListener('dragover', (e): void => {
+      e.preventDefault();
+    });
+
+    element.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const dropAreaMemberMode = e.dataTransfer?.getData('mode');
+      if (dropAreaMemberMode === 'fromCollection') {
+        if (e.dataTransfer) {
+          e.dataTransfer.dropEffect = 'copy';
+          this.cloneToy(<Client>e);
+        }
+      } else if (dropAreaMemberMode === 'relocate') {
+        if (e.dataTransfer) {
+          e.dataTransfer.dropEffect = 'move';
+          this.relocate(<Client>e);
+        }
+      }
+    });
+
+    element.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      this.removeToy(e);
+    });
   }
 
   static updateToysContainer(oldContainer: string): void {

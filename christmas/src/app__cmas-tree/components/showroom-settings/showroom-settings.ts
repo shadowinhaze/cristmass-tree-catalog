@@ -320,6 +320,7 @@ export class ShowRoomSettings extends Component {
     ShowRoomSettings.Config = {
       ...obj,
     };
+    console.log(ShowRoomSettings.Config);
   }
 
   getContent() {

@@ -7,15 +7,37 @@
   padding: 0 1em;
 
   &__save-list {
+    display: flex;
     padding-left: 0;
     list-style: none;
+    overflow-X: auto;
+    column-gap: 1em;
+
     @include defFont;
 
     &__item {
+      height: 8em;
+      width: 8em;
       text-align: center;
+      margin: 2em 0;
+      background: $cardGrey;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      opacity: .5;
+      aspect-ratio: 1;
+      @include defAnimation(all);
       &:hover {
         cursor: pointer;
-        color: $red;
+        border: 2px solid $gold;
+        opacity: 1;
+      }
+      &_active {
+        opacity: 1;
+        pointer-events: none;
+        border: 2px solid $gold;
       }
     }
   }
