@@ -43,16 +43,16 @@ export class ShowRoomCheckpoint extends Component {
       const settings = { settings: this.settings.getState() };
       const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.innerHTML };
       const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.innerHTML };
-      const screenshot = await html2canvas(display);
+      const imgData = await html2canvas(display);
       const checkpoint = <CheckPointData>(<unknown>{
-        screenshot: JSON.stringify(screenshot.toDataURL()),
+        screenshot: <string>imgData.toDataURL('image/jpeg', 0.5),
         ...kit,
         ...toys,
         ...settings,
       });
       this.checkpoints?.add(JSON.stringify(checkpoint));
-      this.addItemsToSaveList();
       this.saveToLocalStorage();
+      this.addItemsToSaveList();
     });
   }
 
@@ -120,7 +120,7 @@ export class ShowRoomCheckpoint extends Component {
         const data = JSON.parse(item);
         const checkpoint = document.createElement('li');
         checkpoint.classList.add('showroom__checkpoint__save-list__item');
-        checkpoint.style.backgroundImage = `url("${JSON.parse(data.screenshot)}")`;
+        checkpoint.style.backgroundImage = `url("${data.screenshot}")`;
         checkpoint.dataset.checkpointState = `${index++}`;
         checkpoint.title = `Загрузить сохранение ${index++}`;
         list?.append(checkpoint);

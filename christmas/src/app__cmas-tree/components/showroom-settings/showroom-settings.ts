@@ -12,6 +12,7 @@ export class ShowRoomSettings extends Component {
     containerTag: 'nav',
     sectionContainer: 'showroom__settings__section',
     lightsActivator: 'showroom__settings__section_lights__activator',
+    eq: 'showroom__settings__section__item_eq',
   };
 
   private static Config: Config = {
@@ -274,28 +275,6 @@ export class ShowRoomSettings extends Component {
     });
   }
 
-  virtualStart(): void {
-    const tree = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.tree}"]`);
-    const bg = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.background}"]`);
-    tree.click();
-    bg.click();
-
-    this.virtualStartLight();
-    if (ShowRoomSettings.Config.music) {
-      const music = <HTMLElement>document.querySelector('.' + 'showroom__settings__section__item_eq_music');
-      if (music.classList.contains('showroom__settings__section__item_eq_active')) return;
-      ShowRoomSettings.Config.music = false;
-      music.click();
-    }
-
-    if (ShowRoomSettings.Config.snow) {
-      const snow = <HTMLElement>document.querySelector('.' + 'showroom__settings__section__item_eq_snow');
-      if (snow.classList.contains('showroom__settings__section__item_eq_active')) return;
-      ShowRoomSettings.Config.snow = false;
-      snow.click();
-    }
-  }
-
   private virtualStartLight(): void {
     if (ShowRoomSettings.Config.light) {
       const light = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.light}"]`);
@@ -350,6 +329,26 @@ export class ShowRoomSettings extends Component {
     });
   }
 
+  virtualStart(): void {
+    const activateEq = (eq: string) => {
+      const target = <HTMLElement>document.querySelector(`.${ShowRoomSettings.ClassNames.eq}_${eq}`);
+      if (ShowRoomSettings.Config[eq]) {
+        if (target.classList.contains(`${ShowRoomSettings.ClassNames.eq}_active`)) return;
+        ShowRoomSettings.Config[eq] = false;
+        target.click();
+      }
+    };
+
+    const chooseGraphics = (type: string) => {
+      const target = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config[type]}"]`);
+      target.click();
+    };
+
+    ['tree', 'background'].forEach((type) => chooseGraphics(type));
+    this.virtualStartLight();
+    ShowRoomSettings.Equipment.forEach((eq) => activateEq(eq));
+  }
+
   getState(): Config {
     return ShowRoomSettings.Config;
   }
@@ -358,6 +357,7 @@ export class ShowRoomSettings extends Component {
     ShowRoomSettings.Config = {
       ...obj,
     };
+    console.log(ShowRoomSettings.Config);
   }
 
   getContent() {
