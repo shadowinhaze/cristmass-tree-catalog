@@ -25,11 +25,23 @@ export class ShowRoomSettings extends Component {
     snow: false,
   };
 
+  get config(): Config {
+    return ShowRoomSettings.Config;
+  }
+
+  set config(obj: Config) {
+    ShowRoomSettings.Config = {
+      ...obj,
+    };
+  }
+
   private static colorfulLightsOn = false;
 
   private static Lights: Array<string> = ['colorful', 'red', 'green', 'yellow', 'blue', 'white'];
 
   private static Equipment: Array<string> = ['music', 'snow'];
+
+  private static LocalFuncions: Array<string> = ['save', 'reset'];
 
   private music: HTMLAudioElement = document.createElement('audio');
 
@@ -269,7 +281,13 @@ export class ShowRoomSettings extends Component {
             }
             this.lightControl();
           }
-
+          break;
+        case target.classList.contains('showroom__settings__save-button'):
+          localStorage.showRoomSettings = JSON.stringify(ShowRoomSettings.Config);
+          break;
+        case target.classList.contains('showroom__settings__reset-button'):
+          localStorage.showRoomSettings = '';
+          location.reload();
           break;
       }
     });
@@ -294,17 +312,12 @@ export class ShowRoomSettings extends Component {
     }
   }
 
-  private addSaveButton(): void {
-    const button = document.createElement('button');
-    button.classList.add('default-button', 'showroom__settings__save-button');
-    button.innerText = 'Cохранить настройки';
-    this.addSaveAction(button);
-    this.container?.append(button);
-  }
-
-  private addSaveAction(target: HTMLButtonElement): void {
-    target.addEventListener('click', () => {
-      localStorage.showRoomSettings = JSON.stringify(ShowRoomSettings.Config);
+  private addSavingsButtons(): void {
+    ShowRoomSettings.LocalFuncions.forEach((func) => {
+      const button = document.createElement('button');
+      button.classList.add('default-button', `showroom__settings__${func}-button`);
+      button.innerText = `${func === 'save' ? 'Сохранить' : 'Сбросить'} настройки`;
+      this.container?.append(button);
     });
   }
 
@@ -312,21 +325,6 @@ export class ShowRoomSettings extends Component {
     ShowRoomSettings.Config = localStorage.showRoomSettings
       ? JSON.parse(localStorage.showRoomSettings)
       : ShowRoomSettings.Config;
-  }
-
-  private addResetButton(): void {
-    const button = document.createElement('button');
-    button.classList.add('default-button', 'showroom__settings__reset-button');
-    button.innerText = 'Сбросить настройки';
-    this.addResetAction(button);
-    this.container?.append(button);
-  }
-
-  private addResetAction(target: HTMLButtonElement): void {
-    target.addEventListener('click', () => {
-      localStorage.showRoomSettings = '';
-      location.reload();
-    });
   }
 
   virtualStart(): void {
@@ -354,23 +352,13 @@ export class ShowRoomSettings extends Component {
     ShowRoomSettings.Equipment.forEach((eq) => activateEq(eq));
   }
 
-  getState(): Config {
-    return ShowRoomSettings.Config;
-  }
-
-  changeConfig(obj: Config): void {
-    ShowRoomSettings.Config = {
-      ...obj,
-    };
-  }
-
   getContent() {
     this.genSettingsSection(false, 'equipments', 'eq', 'Праздничная атмосфера');
     this.genSettingsSection(true, 'models', 'tree', 'Модель');
     this.genSettingsSection(true, 'backgrounds', 'bg', 'Окружение');
     this.genSettingsSection(false, 'lights', 'light', 'Гирлянда');
-    this.addSaveButton();
-    this.addResetButton();
+    this.addSavingsButtons();
+
     this.setMusic();
     this.addListener();
     return this.container;

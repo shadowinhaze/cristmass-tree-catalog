@@ -40,7 +40,7 @@ export class ShowRoomCheckpoint extends Component {
   private addSaveAction(target: HTMLButtonElement): void {
     target.addEventListener('click', async () => {
       const display = <HTMLElement>document.querySelector('.showroom__display');
-      const settings = { settings: this.settings.getState() };
+      const settings = { settings: this.settings.config };
       const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.innerHTML };
       const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.innerHTML };
       const imgData = await html2canvas(display);
@@ -133,7 +133,7 @@ export class ShowRoomCheckpoint extends Component {
     const pull = [...this.checkpoints];
     if (!this.activeCheckpoint) return;
     const state = JSON.parse(pull[+this.activeCheckpoint]);
-    this.settings.changeConfig(<Config>state.settings);
+    this.settings.config = state.settings;
     this.settings.virtualStart();
 
     ShowRoomDisplay.updateToysContainer(<string>state.toys);
