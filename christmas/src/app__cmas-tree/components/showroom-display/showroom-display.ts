@@ -1,6 +1,8 @@
 import './showroom-display.scss';
 import { Component } from '../../templates/component';
 import { ShowRoomKit } from '../showroom-kit/showroom-kit';
+import { SvgMaps } from './svg-maps';
+import { ChristmasAppPathsAndParams } from '../../app';
 
 interface Client extends DragEvent {
   layerX: number;
@@ -47,10 +49,14 @@ export class ShowRoomDisplay extends Component {
     this.container?.append(treeContainer);
   }
 
-  setTree(treePath: string): void {
+  setTree(treeNumber: string): void {
     const tree = <HTMLImageElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.tree);
+    const treeMap = <SVGElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.treeMap);
     if (tree) {
-      tree.src = treePath;
+      tree.src = `${ChristmasAppPathsAndParams.treeCollection}/${treeNumber}.${ChristmasAppPathsAndParams.treeCollectionFormat}`;
+    }
+    if (treeMap) {
+      treeMap.innerHTML = SvgMaps[+treeNumber - 1];
     }
   }
 
@@ -160,8 +166,7 @@ export class ShowRoomDisplay extends Component {
     }
   }
 
-  private removeToy(parent: HTMLElement, ev: DragEvent): void {
-    // const toy = parent?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('toy')}"]`);
+  private removeToy(parent: HTMLElement): void {
     const toy = <HTMLElement>parent.querySelector('.showroom__display__toys-container__toy_grabbing');
     if (toy) {
       parent?.removeChild(toy);
@@ -197,12 +202,13 @@ export class ShowRoomDisplay extends Component {
       const height = tree.clientHeight;
 
       const area = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      area.classList.add('svg-drop-area');
+      area.classList.add(ShowRoomDisplay.ClassNames.treeMap);
       area.setAttribute('width', `${width}`);
       area.setAttribute('height', `${height}`);
       area.setAttribute('opacity', '0');
 
-      area.innerHTML = `<polygon points="${width / 2},0,0,${height},${width},${height}" />`;
+      // area.innerHTML = `<polygon points="${width / 2},0,0,${height},${width},${height}" />`;
+      area.innerHTML = SvgMaps[0];
 
       toysContainer.append(area);
     }, 1000);
@@ -238,7 +244,7 @@ export class ShowRoomDisplay extends Component {
     elParent.addEventListener('drop', (e): void => {
       e.preventDefault();
       const target = <SVGPolygonElement>e.target;
-      if (target.tagName === 'polygon') {
+      if (target.tagName === 'path') {
         const dropAreaMemberMode = e.dataTransfer?.getData('mode');
         if (dropAreaMemberMode === 'fromCollection') {
           if (e.dataTransfer) {
@@ -257,8 +263,8 @@ export class ShowRoomDisplay extends Component {
     elParent.addEventListener('dragleave', (e): void => {
       e.preventDefault();
       const target = <SVGPolygonElement>e.target;
-      if (target.tagName === 'polygon') {
-        this.removeToy(elParent, e);
+      if (target.tagName === 'path') {
+        this.removeToy(elParent);
       }
     });
   }

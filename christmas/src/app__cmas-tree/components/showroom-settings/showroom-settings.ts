@@ -198,8 +198,7 @@ export class ShowRoomSettings extends Component {
 
   private treeControl(): void {
     const treeNumber = (<string>ShowRoomSettings.Config.tree).split('-')[1];
-    const currentPath = `${ChristmasAppPathsAndParams.treeCollection}/${treeNumber}.png`;
-    this.display.setTree(currentPath);
+    this.display.setTree(treeNumber);
   }
 
   private lightControl(): void {
