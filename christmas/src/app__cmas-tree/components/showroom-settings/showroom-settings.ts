@@ -336,6 +336,11 @@ export class ShowRoomSettings extends Component {
         if (target.classList.contains(`${ShowRoomSettings.ClassNames.eq}_active`)) return;
         ShowRoomSettings.Config[eq] = false;
         target.click();
+      } else {
+        if (target.classList.contains(`${ShowRoomSettings.ClassNames.eq}_active`)) {
+          ShowRoomSettings.Config[eq] = true;
+          target.click();
+        }
       }
     };
 
@@ -357,7 +362,6 @@ export class ShowRoomSettings extends Component {
     ShowRoomSettings.Config = {
       ...obj,
     };
-    console.log(ShowRoomSettings.Config);
   }
 
   getContent() {
