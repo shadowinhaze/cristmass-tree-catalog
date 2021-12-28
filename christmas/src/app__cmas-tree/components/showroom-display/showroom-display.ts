@@ -161,11 +161,11 @@ export class ShowRoomDisplay extends Component {
   }
 
   private removeToy(parent: HTMLElement, ev: DragEvent): void {
-    console.log(ev.dataTransfer?.getData('toy'));
-    const toy = parent?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('toy')}"]`);
+    // const toy = parent?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('toy')}"]`);
+    const toy = <HTMLElement>parent.querySelector('.showroom__display__toys-container__toy_grabbing');
     if (toy) {
       parent?.removeChild(toy);
-      ShowRoomKit.badgeUpdater(<string>ev.dataTransfer?.getData('toy'), 'incr');
+      ShowRoomKit.badgeUpdater(<string>toy.dataset.itemId, 'incr');
     }
   }
 
@@ -204,12 +204,11 @@ export class ShowRoomDisplay extends Component {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('showroom__display__toys-container__toy')) {
         if (e.dataTransfer) {
+          e.dataTransfer.clearData();
           e.dataTransfer.setData('offsetX', `${e.offsetX}`);
           e.dataTransfer.setData('offsetY', `${e.offsetY}`);
-          e.dataTransfer.setData('className', target.className);
-          e.dataTransfer.setData('toy', <string>target.dataset.itemId);
+          e.dataTransfer.setData('toy', `${target.dataset.itemId}`);
           e.dataTransfer.setData('mode', 'relocate');
-          e.dataTransfer.setData('text/html', 'dragstart');
           e.dataTransfer.effectAllowed = 'move';
           target.classList.toggle('showroom__display__toys-container__toy_grabbing');
         }
@@ -224,16 +223,13 @@ export class ShowRoomDisplay extends Component {
     });
 
     elParent.addEventListener('dragover', (e): void => {
-      const target = <SVGPolygonElement>e.target;
-      if (target.tagName === 'polygon') {
-        e.preventDefault();
-      }
+      e.preventDefault();
     });
 
     elParent.addEventListener('drop', (e): void => {
+      e.preventDefault();
       const target = <SVGPolygonElement>e.target;
       if (target.tagName === 'polygon') {
-        e.preventDefault();
         const dropAreaMemberMode = e.dataTransfer?.getData('mode');
         if (dropAreaMemberMode === 'fromCollection') {
           if (e.dataTransfer) {
@@ -250,9 +246,9 @@ export class ShowRoomDisplay extends Component {
     });
 
     elParent.addEventListener('dragleave', (e): void => {
+      e.preventDefault();
       const target = <SVGPolygonElement>e.target;
       if (target.tagName === 'polygon') {
-        e.preventDefault();
         this.removeToy(elParent, e);
       }
     });
