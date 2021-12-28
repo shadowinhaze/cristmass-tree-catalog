@@ -56,8 +56,8 @@ export class ShowRoomKit extends Component {
   private genList(): void {
     const kitList = document.createElement('ul');
     kitList.classList.add('showroom__kit__items');
-    this.itemsList.forEach((item) => {
-      if (this.cart.cart?.has(item.id)) {
+    this.itemsList.forEach((item, index) => {
+      const genCard = () => {
         const card = <HTMLLIElement>document.createElement('li');
         card.classList.add('showroom__kit__item');
         card.dataset.dockId = item.id;
@@ -76,6 +76,14 @@ export class ShowRoomKit extends Component {
         card.appendChild(img);
         card.appendChild(cardAmount);
         kitList.appendChild(card);
+      };
+
+      const favs = this.cart.cart?.size;
+
+      if (favs === 0 && index < 21) {
+        genCard();
+      } else if (this.cart.cart?.has(item.id)) {
+        genCard();
       }
     });
     this.addDragListener(kitList);
