@@ -7,8 +7,17 @@
   row-gap: 1em;
   justify-items: center;
   max-width: 1440px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
   @media screen and (max-width: 1230px) {
-    grid-template-columns: 100%;
-    row-gap: 5em;
+    grid-template-columns: 50% 10%;
+    grid-template-areas: 
+    "settings . checkpoint"
+    "display display display"
+    "kit kit kit";
+    row-gap: 1em;
   }
+
 }

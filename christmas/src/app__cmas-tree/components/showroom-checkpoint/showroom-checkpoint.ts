@@ -30,6 +30,13 @@ export class ShowRoomCheckpoint extends Component {
     this.getFromLocalStorage();
   }
 
+  private genHeader(): void {
+    const header = document.createElement('h3');
+    header.classList.add('showroom__checkpoint__header');
+    header.innerText = 'Сохранения';
+    this.container?.prepend(header);
+  }
+
   private addSaveAction(target: HTMLButtonElement): void {
     target.addEventListener('click', async () => {
       const display = <HTMLElement>document.querySelector('.showroom__display');
@@ -49,11 +56,25 @@ export class ShowRoomCheckpoint extends Component {
     });
   }
 
+  private addResetAction(target: HTMLButtonElement): void {
+    target.addEventListener('click', async () => {
+      ShowRoomDisplay.removeAllToys();
+    });
+  }
+
   private addSaveButton(): void {
     const button = document.createElement('button');
     button.classList.add('default-button', 'showroom__checkpoint__save-button');
     button.innerText = 'Сохранить работу';
     this.addSaveAction(button);
+    this.container?.append(button);
+  }
+
+  private addResetButton(): void {
+    const button = document.createElement('button');
+    button.classList.add('default-button', 'showroom__checkpoint__reset-button');
+    button.innerText = 'Снять все игрушки';
+    this.addResetAction(button);
     this.container?.append(button);
   }
 
@@ -115,13 +136,13 @@ export class ShowRoomCheckpoint extends Component {
     this.settings.changeConfig(<Config>state.settings);
     this.settings.virtualStart();
 
-    const display = new ShowRoomDisplay();
-    display.updateToysContainer(<string>state.toys);
-
+    ShowRoomDisplay.updateToysContainer(<string>state.toys);
     ShowRoomKit.updateKitContainer(<string>state.kit);
   }
 
   getContent(): HTMLElement {
+    this.genHeader();
+    this.addResetButton();
     this.addSaveButton();
     this.addSaveList();
     this.addItemsToSaveList();

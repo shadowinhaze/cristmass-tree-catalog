@@ -1,8 +1,11 @@
 @import '../../app.scss';
 
 .showroom__kit {
+  box-sizing: border-box;
   grid-area: kit;
   padding: 0 1em;
+  width: 100%;
+
   &__header {
     @include defFont;
     font-weight: 600;
@@ -14,7 +17,9 @@
   &__items {
     display: grid;
     grid: auto-flow minmax(80px, 1fr) / repeat(auto-fill, minmax(80px, 1fr));
-    gap: 10px 10px;
+    gap: 3% 10px;
+    max-height: 600px;
+    overflow-y: auto;
     list-style-type: none;
     padding-left: 0;
   }

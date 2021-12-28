@@ -169,6 +169,15 @@ export class ShowRoomDisplay extends Component {
     }
   }
 
+  static removeAllToys(): void {
+    const parent = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
+    const toys = <Array<HTMLElement>>(<unknown>parent.querySelectorAll('.showroom__display__toys-container__toy'));
+    toys.forEach((toy) => {
+      parent.removeChild(toy);
+      ShowRoomKit.badgeUpdater(<string>toy.dataset.itemId, 'incr');
+    });
+  }
+
   private addToysContainer(): void {
     const treeContainer = <HTMLElement>this.container?.querySelector('.' + ShowRoomDisplay.ClassNames.treeContainer);
 
@@ -254,7 +263,7 @@ export class ShowRoomDisplay extends Component {
     });
   }
 
-  updateToysContainer(oldContainer: string): void {
+  static updateToysContainer(oldContainer: string): void {
     const toysContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
     if (toysContainer) {
       toysContainer.innerHTML = oldContainer;

@@ -66,14 +66,15 @@ export class ShowRoomKit extends Component {
         img.src = `${ChristmasAppPathsAndParams.toysImg}/${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}`;
         img.classList.add('showroom__kit__item__img');
         img.dataset.itemId = item.id;
+        img.alt = `Игрушка ${item.name}`;
         img.draggable = true;
 
         const cardAmount = document.createElement('span');
         cardAmount.classList.add('showroom__kit__item__amount');
         cardAmount.innerText = `${item.count}`;
 
-        card.appendChild(cardAmount);
         card.appendChild(img);
+        card.appendChild(cardAmount);
         kitList.appendChild(card);
       }
     });
