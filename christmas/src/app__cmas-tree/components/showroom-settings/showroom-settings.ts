@@ -37,6 +37,7 @@ export class ShowRoomSettings extends Component {
   constructor() {
     super({ isExist: false, tag: ShowRoomSettings.ClassNames.containerTag });
     this.container?.classList.add(ShowRoomSettings.ClassNames.container);
+    this.getDataFromLocalStorage();
   }
 
   private genSettingsSection(
@@ -304,12 +305,50 @@ export class ShowRoomSettings extends Component {
       );
 
       if (ShowRoomSettings.Config.lightsON) {
-        light.click();
-        const lightColor = (<string>ShowRoomSettings.Config.light).split('-')[1];
-        this.display.setLights(lightColor);
-        lightsActivator.checked = <boolean>ShowRoomSettings.Config.lightsON;
+        const tree = document.querySelector('.showroom__display__tree-container__tree');
+        tree?.addEventListener('load', () => {
+          light.click();
+          const lightColor = (<string>ShowRoomSettings.Config.light).split('-')[1];
+          this.display.setLights(lightColor);
+          lightsActivator.checked = <boolean>ShowRoomSettings.Config.lightsON;
+        });
       }
     }
+  }
+
+  private addSaveButton(): void {
+    const button = document.createElement('button');
+    button.classList.add('default-button', 'showroom__settings__save-button');
+    button.innerText = 'Cохранить настройки';
+    this.addSaveAction(button);
+    this.container?.append(button);
+  }
+
+  private addSaveAction(target: HTMLButtonElement): void {
+    target.addEventListener('click', () => {
+      localStorage.showRoomSettings = JSON.stringify(ShowRoomSettings.Config);
+    });
+  }
+
+  private getDataFromLocalStorage(): void {
+    ShowRoomSettings.Config = localStorage.showRoomSettings
+      ? JSON.parse(localStorage.showRoomSettings)
+      : ShowRoomSettings.Config;
+  }
+
+  private addResetButton(): void {
+    const button = document.createElement('button');
+    button.classList.add('default-button', 'showroom__settings__reset-button');
+    button.innerText = 'Сбросить настройки';
+    this.addResetAction(button);
+    this.container?.append(button);
+  }
+
+  private addResetAction(target: HTMLButtonElement): void {
+    target.addEventListener('click', () => {
+      localStorage.showRoomSettings = '';
+      location.reload();
+    });
   }
 
   getState(): Config {
@@ -327,6 +366,8 @@ export class ShowRoomSettings extends Component {
     this.genSettingsSection(true, 'models', 'tree', 'Модель');
     this.genSettingsSection(true, 'backgrounds', 'bg', 'Окружение');
     this.genSettingsSection(false, 'lights', 'light', 'Гирлянда');
+    this.addSaveButton();
+    this.addResetButton();
     this.setMusic();
     this.addListener();
     return this.container;
