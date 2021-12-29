@@ -42,6 +42,25 @@ export class Filter extends Component {
     search: [''],
   };
 
+  private static Dictionary = new Map([
+    ['желтый', 'yellow'],
+    ['зелёный', 'green'],
+    ['красный', 'red'],
+    ['белый', 'white'],
+    ['синий', 'darkblue'],
+    ['шар', 'ball'],
+    ['фигурка', 'figure'],
+    ['колокольчик', 'bell'],
+    ['шишка', 'cone'],
+    ['снежинка', 'snowflake'],
+    ['большой', 'xl'],
+    ['средний', 'm'],
+    ['малый', 's'],
+    ['shape', 'Форма'],
+    ['color', 'Цвет'],
+    ['size', 'Размер'],
+  ]);
+
   constructor(data: DataItems) {
     super({ isExist: false, className: Filter.ClassNames.containerClassName, tag: Filter.ClassNames.containerTag });
     this.data = data;
@@ -214,45 +233,6 @@ export class Filter extends Component {
     });
   }
 
-  private valueTranslator(value: string): string {
-    switch (value) {
-      case 'желтый':
-        return 'yellow';
-      case 'зелёный':
-        return 'green';
-      case 'красный':
-        return 'red';
-      case 'белый':
-        return 'white';
-      case 'синий':
-        return 'darkblue';
-      case 'шар':
-        return 'ball';
-      case 'фигурка':
-        return 'figure';
-      case 'колокольчик':
-        return 'bell';
-      case 'шишка':
-        return 'cone';
-      case 'снежинка':
-        return 'snowflake';
-      case 'большой':
-        return 'xl';
-      case 'средний':
-        return 'm';
-      case 'малый':
-        return 's';
-      case 'shape':
-        return 'Форма';
-      case 'color':
-        return 'Цвет';
-      case 'size':
-        return 'Размер';
-    }
-
-    return '';
-  }
-
   private addValueFilters(): void {
     const valueFiltersContainer = <HTMLElement>(
       this.container?.querySelector('.sidebar-catalog__navigation__value-filters')
@@ -263,7 +243,7 @@ export class Filter extends Component {
         `sidebar-catalog__navigation__value-filters__${collectionName}-filter`,
         `${collectionName}-filter`
       );
-      valueFilter.innerHTML = `<h3 class="filter-header ${collectionName}-filter__header">${this.valueTranslator(
+      valueFilter.innerHTML = `<h3 class="filter-header ${collectionName}-filter__header">${Filter.Dictionary.get(
         collectionName
       )} игрушек</h3>`;
       const valueFilterList = document.createElement('ul');
@@ -274,8 +254,8 @@ export class Filter extends Component {
       );
       Filter.valuesCollection[collectionName].forEach((filterValue) => {
         const valueFilterItem = document.createElement('li');
-        valueFilterItem.classList.add('value-filter__item', `value-filter__item_${this.valueTranslator(filterValue)}`);
-        valueFilterItem.title = `Фильтром ${this.valueTranslator(collectionName)} выбрать ${filterValue}`;
+        valueFilterItem.classList.add('value-filter__item', `value-filter__item_${Filter.Dictionary.get(filterValue)}`);
+        valueFilterItem.title = `Фильтром ${Filter.Dictionary.get(collectionName)} выбрать ${filterValue}`;
         valueFilterItem.dataset.filterType = collectionName;
         valueFilterItem.dataset.filterValue = filterValue;
         valueFilterList.appendChild(valueFilterItem);

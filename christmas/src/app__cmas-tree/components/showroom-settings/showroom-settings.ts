@@ -12,7 +12,7 @@ export class ShowRoomSettings extends Component {
     containerTag: 'nav',
     sectionContainer: 'showroom__settings__section',
     lightsActivator: 'showroom__settings__section_lights__activator',
-    eq: 'showroom__settings__section__item_eq',
+    baseItemClassName: 'showroom__settings__section__item',
   };
 
   private static Config: Config = {
@@ -41,7 +41,7 @@ export class ShowRoomSettings extends Component {
 
   private static Equipment: Array<string> = ['music', 'snow'];
 
-  private static LocalFuncions: Array<string> = ['save', 'reset'];
+  private static LocalFunctions: Array<string> = ['save', 'reset'];
 
   private music: HTMLAudioElement = document.createElement('audio');
 
@@ -73,13 +73,13 @@ export class ShowRoomSettings extends Component {
     let sectionItemsCollection: Array<TransObject>;
 
     if (isArtistColleciton) {
-      sectionItemsCollection = this.genItemsCollection(<boolean>true, itemModificator, {
+      sectionItemsCollection = this.genItemsCollection(itemModificator, {
         path: <string>ChristmasAppPathsAndParams[`${itemModificator}Collection`],
         amount: <number>ChristmasAppPathsAndParams[`${itemModificator}CollectionAmount`],
         format: <string>ChristmasAppPathsAndParams[`${itemModificator}CollectionFormat`],
       });
     } else {
-      sectionItemsCollection = this.genItemsCollection(isArtistColleciton, itemModificator);
+      sectionItemsCollection = this.genItemsCollection(itemModificator);
     }
 
     this.genSettingsSectionItems(sectionList, sectionItemsCollection);
@@ -126,7 +126,6 @@ export class ShowRoomSettings extends Component {
   }
 
   private genItemsCollection(
-    modeDefault: boolean,
     itemModificator: string,
     config?: {
       path: string;
@@ -208,7 +207,7 @@ export class ShowRoomSettings extends Component {
 
   private backgroundControl(): void {
     const bgNumber = (<string>ShowRoomSettings.Config.background).split('-')[1];
-    const currentPath = `${ChristmasAppPathsAndParams.bgCollection}/${bgNumber}.jpg`;
+    const currentPath = `${ChristmasAppPathsAndParams.bgCollection}/${bgNumber}.${ChristmasAppPathsAndParams.bgCollectionFormat}`;
     this.display.setBackGround(currentPath);
   }
 
@@ -249,33 +248,33 @@ export class ShowRoomSettings extends Component {
     this.container?.addEventListener('click', (e) => {
       const target = <HTMLElement>e.target;
       switch (true) {
-        case target.classList.contains('showroom__settings__section__item_eq_music'):
-          target.classList.toggle('showroom__settings__section__item_eq_active');
+        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_music`):
+          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`);
           ShowRoomSettings.Config.music = !ShowRoomSettings.Config.music;
           this.musicControl();
           break;
-        case target.classList.contains('showroom__settings__section__item_eq_snow'):
-          target.classList.toggle('showroom__settings__section__item_eq_active');
+        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_snow`):
+          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`);
           ShowRoomSettings.Config.snow = !ShowRoomSettings.Config.snow;
           this.snowControl();
           break;
-        case target.classList.contains('showroom__settings__section__item_bg'):
-          this.cleanItemsList('showroom__settings__section__item_bg');
-          target.classList.toggle('showroom__settings__section__item_bg_active');
+        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_bg`):
+          this.cleanItemsList(`${ShowRoomSettings.ClassNames.baseItemClassName}_bg`);
+          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_bg_active`);
           ShowRoomSettings.Config.background = <string>target.dataset.itemId;
           this.backgroundControl();
           break;
-        case target.classList.contains('showroom__settings__section__item_tree'):
-          this.cleanItemsList('showroom__settings__section__item_tree');
-          target.classList.toggle('showroom__settings__section__item_tree_active');
+        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_tree`):
+          this.cleanItemsList(`${ShowRoomSettings.ClassNames.baseItemClassName}_tree`);
+          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_tree_active`);
           ShowRoomSettings.Config.tree = <string>target.dataset.itemId;
           this.treeControl();
           break;
-        case target.classList.contains('showroom__settings__section__item_light'):
+        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_light`):
           if (!ShowRoomSettings.Config.lightsFirstLauch && !ShowRoomSettings.Config.lightsON) break;
-          if (!target.classList.contains('showroom__settings__section__item_light_active')) {
-            this.cleanItemsList('showroom__settings__section__item_light');
-            target.classList.add('showroom__settings__section__item_light_active');
+          if (!target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_light_active`)) {
+            this.cleanItemsList(`${ShowRoomSettings.ClassNames.baseItemClassName}_light`);
+            target.classList.add(`${ShowRoomSettings.ClassNames.baseItemClassName}_light_active`);
             ShowRoomSettings.Config.light = <string>target.dataset.itemId;
 
             if (ShowRoomSettings.Config.lightsFirstLauch) {
@@ -316,7 +315,7 @@ export class ShowRoomSettings extends Component {
   }
 
   private addSavingsButtons(): void {
-    ShowRoomSettings.LocalFuncions.forEach((func) => {
+    ShowRoomSettings.LocalFunctions.forEach((func) => {
       const button = document.createElement('button');
       button.classList.add('default-button', `showroom__settings__${func}-button`);
       button.innerText = `${func === 'save' ? 'Сохранить' : 'Сбросить'} настройки`;
@@ -332,13 +331,13 @@ export class ShowRoomSettings extends Component {
 
   virtualStart(): void {
     const activateEq = (eq: string) => {
-      const target = <HTMLElement>document.querySelector(`.${ShowRoomSettings.ClassNames.eq}_${eq}`);
+      const target = <HTMLElement>document.querySelector(`.${ShowRoomSettings.ClassNames.baseItemClassName}_eq_${eq}`);
       if (ShowRoomSettings.Config[eq]) {
-        if (target.classList.contains(`${ShowRoomSettings.ClassNames.eq}_active`)) return;
+        if (target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`)) return;
         ShowRoomSettings.Config[eq] = false;
         target.click();
       } else {
-        if (target.classList.contains(`${ShowRoomSettings.ClassNames.eq}_active`)) {
+        if (target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`)) {
           ShowRoomSettings.Config[eq] = true;
           target.click();
         }
