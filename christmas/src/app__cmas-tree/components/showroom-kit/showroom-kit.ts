@@ -15,8 +15,7 @@ export class ShowRoomKit extends Component {
   private cart: Cart;
 
   constructor(items: DataItems, cart: Cart) {
-    super({ isExist: false, tag: ShowRoomKit.ClassNames.containerTag });
-    this.container?.classList.add(ShowRoomKit.ClassNames.container);
+    super({ isExist: false, className: ShowRoomKit.ClassNames.container, tag: ShowRoomKit.ClassNames.containerTag });
     this.itemsList = items;
     this.cart = cart;
   }

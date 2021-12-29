@@ -19,8 +19,7 @@ class Button extends Component {
   };
 
   constructor() {
-    super({ isExist: false, tag: 'div' });
-    this.container?.classList.add(Button.ClassNames.container);
+    super({ isExist: false, className: Button.ClassNames.container, tag: 'div' });
   }
 
   private genDefBtns(data: BtnsRequest): void {

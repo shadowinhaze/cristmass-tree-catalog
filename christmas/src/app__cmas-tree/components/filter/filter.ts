@@ -43,8 +43,7 @@ export class Filter extends Component {
   };
 
   constructor(data: DataItems) {
-    super({ isExist: false, tag: Filter.ClassNames.containerTag });
-    this.container?.classList.add(Filter.ClassNames.containerClassName);
+    super({ isExist: false, className: Filter.ClassNames.containerClassName, tag: Filter.ClassNames.containerTag });
     this.data = data;
     this.defaultData = data;
     this.grubExtremaForDoubleSliders(data);
@@ -414,7 +413,7 @@ export class Filter extends Component {
     }
   }
 
-  private setSorter() {
+  private setSorter(): void {
     const sorterList = <HTMLInputElement>this.container?.querySelector('.sorter__select-list');
     if (Filter.filtersConfig.sorter.length > 0) {
       sorterList.value = <string>Filter.filtersConfig.sorter[0];
@@ -423,7 +422,7 @@ export class Filter extends Component {
     }
   }
 
-  private setFavorites() {
+  private setFavorites(): void {
     const checkbox = <HTMLInputElement>this.container?.querySelector('.favorites-selector__checkbox');
     checkbox.checked = <boolean>Filter.filtersConfig.favorites[0];
   }

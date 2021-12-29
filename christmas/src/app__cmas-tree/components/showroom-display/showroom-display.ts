@@ -29,8 +29,11 @@ export class ShowRoomDisplay extends Component {
   private lights: HTMLElement | undefined;
 
   constructor() {
-    super({ isExist: false, tag: ShowRoomDisplay.ClassNames.containerTag });
-    this.container?.classList.add(ShowRoomDisplay.ClassNames.container);
+    super({
+      isExist: false,
+      className: ShowRoomDisplay.ClassNames.container,
+      tag: ShowRoomDisplay.ClassNames.containerTag,
+    });
   }
 
   setBackGround(bgPath: string): void {

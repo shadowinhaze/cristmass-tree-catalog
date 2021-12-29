@@ -19,8 +19,7 @@ export class Message extends Component {
   };
 
   constructor() {
-    super({ isExist: false, tag: Message.ClassNames.containerTag });
-    this.container?.classList.add(Message.ClassNames.container);
+    super({ isExist: false, className: Message.ClassNames.container, tag: Message.ClassNames.containerTag });
   }
 
   private cleanMessage(): void {

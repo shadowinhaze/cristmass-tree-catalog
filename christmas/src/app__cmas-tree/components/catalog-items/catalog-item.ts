@@ -27,8 +27,11 @@ export class CatalogItems extends Component {
   private cart: Cart;
 
   constructor(items: DataItems, cart: Cart) {
-    super({ isExist: false, tag: CatalogItems.ClassNames.containerTag });
-    this.container?.classList.add(CatalogItems.ClassNames.containerClassName);
+    super({
+      isExist: false,
+      className: CatalogItems.ClassNames.containerClassName,
+      tag: CatalogItems.ClassNames.containerTag,
+    });
     this.itemsList = items;
     this.cart = cart;
   }

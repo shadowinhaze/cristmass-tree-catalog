@@ -4,11 +4,14 @@ export abstract class Component {
   protected container: HTMLElement | HTMLInputElement | null;
 
   constructor(data: { isExist: boolean; className?: string; tag?: string }) {
-    this.container = data.isExist
-      ? document.querySelector('.' + data.className)
-      : data.tag
-      ? document.createElement(data.tag)
-      : null;
+    if (data.isExist) {
+      this.container = document.querySelector('.' + data.className);
+    } else {
+      this.container = document.createElement(<string>data.tag);
+      if (data.className) {
+        this.container.classList.add(data.className);
+      }
+    }
   }
 
   protected parseFromTemplate(html: string): void {

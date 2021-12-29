@@ -48,8 +48,11 @@ export class ShowRoomSettings extends Component {
   private display = new ShowRoomDisplay();
 
   constructor() {
-    super({ isExist: false, tag: ShowRoomSettings.ClassNames.containerTag });
-    this.container?.classList.add(ShowRoomSettings.ClassNames.container);
+    super({
+      isExist: false,
+      className: ShowRoomSettings.ClassNames.container,
+      tag: ShowRoomSettings.ClassNames.containerTag,
+    });
     this.getDataFromLocalStorage();
   }
 

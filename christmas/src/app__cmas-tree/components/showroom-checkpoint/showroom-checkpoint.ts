@@ -25,8 +25,11 @@ export class ShowRoomCheckpoint extends Component {
   private activeCheckpoint: string | undefined;
 
   constructor() {
-    super({ isExist: false, tag: ShowRoomCheckpoint.ClassNames.containerTag });
-    this.container?.classList.add(ShowRoomCheckpoint.ClassNames.container);
+    super({
+      isExist: false,
+      className: ShowRoomCheckpoint.ClassNames.container,
+      tag: ShowRoomCheckpoint.ClassNames.containerTag,
+    });
     this.getFromLocalStorage();
   }
 
