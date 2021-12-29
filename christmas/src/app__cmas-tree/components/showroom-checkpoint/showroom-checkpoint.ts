@@ -46,7 +46,7 @@ export class ShowRoomCheckpoint extends Component {
       const settings = { settings: this.settings.config };
       const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.innerHTML };
       const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.innerHTML };
-      const imgData = await html2canvas(display);
+      const imgData = await html2canvas(display, { logging: false });
       const checkpoint = <CheckPointData>(<unknown>{
         screenshot: <string>imgData.toDataURL('image/jpeg', 0.5),
         ...kit,
