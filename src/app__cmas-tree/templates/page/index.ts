@@ -12,7 +12,7 @@ export abstract class Page {
     protected main = new Main(),
     protected footer = new Footer(),
     protected buttons = new Button(),
-    protected message = new Message()
+    protected message = new Message(),
   ) {}
 
   abstract renderPage(): void;

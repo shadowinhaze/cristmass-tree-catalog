@@ -19,7 +19,11 @@ class Button extends Component {
   };
 
   constructor() {
-    super({ isExist: false, className: Button.ClassNames.container, tag: 'div' });
+    super({
+      isExist: false,
+      className: Button.ClassNames.container,
+      tag: 'div',
+    });
   }
 
   private genDefBtns(data: BtnsRequest): void {
@@ -36,7 +40,7 @@ class Button extends Component {
   private genNavBtns(data: BtnsRequest): HTMLElement {
     const { buttons, options } = data;
     const error = document.createElement('div');
-    error.innerText = 'Пункты меню отсутствуют';
+    error.innerText = 'There are more items more';
     if (!options) return error;
     const parent = document.createElement(options.parent);
     parent.classList.add(options.parentClassName);
@@ -54,7 +58,11 @@ class Button extends Component {
       childContainer.appendChild(child);
       parent.appendChild(childContainer);
     });
-    this.addLocator(parent, options.childClassName, options.activeChildClassName);
+    this.addLocator(
+      parent,
+      options.childClassName,
+      options.activeChildClassName,
+    );
     return parent;
   }
 
@@ -71,7 +79,10 @@ class Button extends Component {
     parent?.addEventListener('click', goTo);
   }
 
-  renderDefBtns(modificator: string | null, data: BtnsRequest): HTMLElement | null {
+  renderDefBtns(
+    modificator: string | null,
+    data: BtnsRequest,
+  ): HTMLElement | null {
     this.genDefBtns(data);
     if (modificator) {
       this.container?.classList.add(modificator);

@@ -37,7 +37,9 @@ export class ShowRoomDisplay extends Component {
   }
 
   setBackGround(bgPath: string): void {
-    const display = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.container);
+    const display = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.container)
+    );
     if (display) {
       display.style.backgroundImage = `url(${bgPath})`;
     }
@@ -53,8 +55,12 @@ export class ShowRoomDisplay extends Component {
   }
 
   setTree(treeNumber: string): void {
-    const tree = <HTMLImageElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.tree);
-    const treeMap = <SVGElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.treeMap);
+    const tree = <HTMLImageElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.tree)
+    );
+    const treeMap = <SVGElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.treeMap)
+    );
     if (tree) {
       tree.src = `${ChristmasAppPathsAndParams.treeCollection}/${treeNumber}.${ChristmasAppPathsAndParams.treeCollectionFormat}`;
     }
@@ -64,7 +70,9 @@ export class ShowRoomDisplay extends Component {
   }
 
   setSnow(): void {
-    const display = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.container);
+    const display = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.container)
+    );
     this.snow = document.createElement('div');
     this.snow.classList.add(ShowRoomDisplay.ClassNames.snowContainer);
     for (let i = 0; i < 51; i++) {
@@ -76,7 +84,9 @@ export class ShowRoomDisplay extends Component {
   }
 
   removeSnow(): void {
-    const display = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.container);
+    const display = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.container)
+    );
     if (this.snow) {
       display.removeChild(this.snow);
     }
@@ -88,10 +98,14 @@ export class ShowRoomDisplay extends Component {
   }
 
   setLights(lightColor: string): void {
-    const treeContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.treeContainer);
+    const treeContainer = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.treeContainer)
+    );
     this.setLightsColor(lightColor);
 
-    const lightsContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.lightsContainer);
+    const lightsContainer = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.lightsContainer)
+    );
     this.lights = lightsContainer || document.createElement('div');
     this.lights.innerHTML = '';
     this.lights.classList.add(ShowRoomDisplay.ClassNames.lightsContainer);
@@ -103,12 +117,17 @@ export class ShowRoomDisplay extends Component {
       for (let i = 0; i < Math.round(num * 1.5); i++) {
         const light = document.createElement('li');
         if (lightColor === 'colorful') {
-          light.classList.add(ShowRoomDisplay.ClassNames.light, `${ShowRoomDisplay.ClassNames.light}_colorful`);
+          light.classList.add(
+            ShowRoomDisplay.ClassNames.light,
+            `${ShowRoomDisplay.ClassNames.light}_colorful`,
+          );
         } else {
           light.classList.add(ShowRoomDisplay.ClassNames.light);
         }
         light.classList.add(ShowRoomDisplay.ClassNames.light);
-        light.style.transform = `translateY(${Math.random() > 0.5 ? '-' : '+'}${Math.random() * 30}px)`;
+        light.style.transform = `translateY(${Math.random() > 0.5 ? '-' : '+'}${
+          Math.random() * 30
+        }px)`;
         list.appendChild(light);
       }
       return list;
@@ -131,16 +150,24 @@ export class ShowRoomDisplay extends Component {
   }
 
   turnOffLights(): void {
-    this.lights = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.lightsContainer);
+    this.lights = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.lightsContainer)
+    );
     if (this.lights) {
-      this.lights.classList.toggle(`${ShowRoomDisplay.ClassNames.lightsContainer}_off`);
+      this.lights.classList.toggle(
+        `${ShowRoomDisplay.ClassNames.lightsContainer}_off`,
+      );
     }
   }
 
   private relocate(ev: Client): void {
-    const toysContainer = document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
+    const toysContainer = document.querySelector(
+      '.' + ShowRoomDisplay.ClassNames.toysContainer,
+    );
     const movingChild = <HTMLElement>(
-      toysContainer?.querySelector(`[data-item-id="${ev.dataTransfer?.getData('toy')}"]`)
+      toysContainer?.querySelector(
+        `[data-item-id="${ev.dataTransfer?.getData('toy')}"]`,
+      )
     );
     const offsetX = <string>ev.dataTransfer?.getData('offsetX');
     const offsetY = <string>ev.dataTransfer?.getData('offsetY');
@@ -151,13 +178,17 @@ export class ShowRoomDisplay extends Component {
   }
 
   private cloneToy(ev: Client): void {
-    const toysContainer = document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
+    const toysContainer = document.querySelector(
+      '.' + ShowRoomDisplay.ClassNames.toysContainer,
+    );
     const offsetX = <string>ev.dataTransfer?.getData('offsetX');
     const offsetY = <string>ev.dataTransfer?.getData('offsetY');
     const toyClone = document.createElement('div');
 
     toyClone.classList.add('showroom__display__toys-container__toy');
-    toyClone.style.backgroundImage = `url("${ev.dataTransfer?.getData('img')}")`;
+    toyClone.style.backgroundImage = `url("${ev.dataTransfer?.getData(
+      'img',
+    )}")`;
     toyClone.dataset.itemId = ev.dataTransfer?.getData('toy');
     toyClone.style.left = `${ev.layerX - +offsetX / 2}px`;
     toyClone.style.top = `${ev.layerY - +offsetY / 2}px`;
@@ -170,7 +201,9 @@ export class ShowRoomDisplay extends Component {
   }
 
   private removeToy(parent: HTMLElement): void {
-    const toy = <HTMLElement>parent.querySelector('.showroom__display__toys-container__toy_grabbing');
+    const toy = <HTMLElement>(
+      parent.querySelector('.showroom__display__toys-container__toy_grabbing')
+    );
     if (toy) {
       parent?.removeChild(toy);
       ShowRoomKit.badgeUpdater(<string>toy.dataset.itemId, 'incr');
@@ -178,8 +211,14 @@ export class ShowRoomDisplay extends Component {
   }
 
   static removeAllToys(): void {
-    const parent = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
-    const toys = <Array<HTMLElement>>(<unknown>parent.querySelectorAll('.showroom__display__toys-container__toy'));
+    const parent = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer)
+    );
+    const toys = <Array<HTMLElement>>(
+      (<unknown>(
+        parent.querySelectorAll('.showroom__display__toys-container__toy')
+      ))
+    );
     toys.forEach((toy) => {
       parent.removeChild(toy);
       ShowRoomKit.badgeUpdater(<string>toy.dataset.itemId, 'incr');
@@ -187,7 +226,11 @@ export class ShowRoomDisplay extends Component {
   }
 
   private addToysContainer(): void {
-    const treeContainer = <HTMLElement>this.container?.querySelector('.' + ShowRoomDisplay.ClassNames.treeContainer);
+    const treeContainer = <HTMLElement>(
+      this.container?.querySelector(
+        '.' + ShowRoomDisplay.ClassNames.treeContainer,
+      )
+    );
 
     const toysContainer = <HTMLElement>document.createElement('div');
     toysContainer.classList.add(ShowRoomDisplay.ClassNames.toysContainer);
@@ -199,12 +242,19 @@ export class ShowRoomDisplay extends Component {
 
   private addMapArea(): void {
     setTimeout(() => {
-      const tree = <HTMLImageElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.tree);
-      const toysContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
+      const tree = <HTMLImageElement>(
+        document.querySelector('.' + ShowRoomDisplay.ClassNames.tree)
+      );
+      const toysContainer = <HTMLElement>(
+        document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer)
+      );
       const width = tree.clientWidth;
       const height = tree.clientHeight;
 
-      const area = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      const area = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'svg',
+      );
       area.classList.add(ShowRoomDisplay.ClassNames.treeMap);
       area.setAttribute('width', `${width}`);
       area.setAttribute('height', `${height}`);
@@ -228,7 +278,9 @@ export class ShowRoomDisplay extends Component {
           e.dataTransfer.setData('toy', `${target.dataset.itemId}`);
           e.dataTransfer.setData('mode', 'relocate');
           e.dataTransfer.effectAllowed = 'move';
-          target.classList.toggle('showroom__display__toys-container__toy_grabbing');
+          target.classList.toggle(
+            'showroom__display__toys-container__toy_grabbing',
+          );
         }
       }
     });
@@ -236,7 +288,9 @@ export class ShowRoomDisplay extends Component {
     elParent.addEventListener('dragend', (e): void => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('showroom__display__toys-container__toy')) {
-        target.classList.toggle('showroom__display__toys-container__toy_grabbing');
+        target.classList.toggle(
+          'showroom__display__toys-container__toy_grabbing',
+        );
       }
     });
 
@@ -273,7 +327,9 @@ export class ShowRoomDisplay extends Component {
   }
 
   static updateToysContainer(oldContainer: string): void {
-    const toysContainer = <HTMLElement>document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer);
+    const toysContainer = <HTMLElement>(
+      document.querySelector('.' + ShowRoomDisplay.ClassNames.toysContainer)
+    );
     if (toysContainer) {
       toysContainer.innerHTML = oldContainer;
     }

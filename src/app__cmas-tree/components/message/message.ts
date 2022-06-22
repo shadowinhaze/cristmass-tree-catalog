@@ -12,14 +12,20 @@ export class Message extends Component {
   };
 
   private readonly messages: { [prop: string]: string } = {
-    nothing: 'Нам очень жаль, но с такими запросами эльфы-помощники не смогли ничего найти...',
+    nothing:
+      'Нам очень жаль, но с такими запросами эльфы-помощники не смогли ничего найти...',
     nothingHeader: 'Пустота...',
-    overflow: 'Вы не сможете унести со склада столько игрушек, Вам хватит и 20 видов...',
+    overflow:
+      'Вы не сможете унести со склада столько игрушек, Вам хватит и 20 видов...',
     overflowHeader: 'Корзина переполнена!',
   };
 
   constructor() {
-    super({ isExist: false, className: Message.ClassNames.container, tag: Message.ClassNames.containerTag });
+    super({
+      isExist: false,
+      className: Message.ClassNames.container,
+      tag: Message.ClassNames.containerTag,
+    });
   }
 
   private cleanMessage(): void {
@@ -32,8 +38,12 @@ export class Message extends Component {
     this.cleanMessage();
     this.parseFromTemplate(html);
 
-    const messageHeader = <HTMLElement>this.container?.querySelector('.' + Message.ClassNames.messageHeader);
-    const messageText = <HTMLElement>this.container?.querySelector('.' + Message.ClassNames.messageText);
+    const messageHeader = <HTMLElement>(
+      this.container?.querySelector('.' + Message.ClassNames.messageHeader)
+    );
+    const messageText = <HTMLElement>(
+      this.container?.querySelector('.' + Message.ClassNames.messageText)
+    );
 
     if (messageHeader) {
       messageHeader.innerText = this.messages[`${mode}Header`];
@@ -45,7 +55,9 @@ export class Message extends Component {
   }
 
   getImprignentMessage(): HTMLElement {
-    const messageBody = <HTMLElement>this.container?.querySelector('.' + Message.ClassNames.messageBody);
+    const messageBody = <HTMLElement>(
+      this.container?.querySelector('.' + Message.ClassNames.messageBody)
+    );
     messageBody.classList.add('app-main__message-body_built-in');
     return messageBody;
   }

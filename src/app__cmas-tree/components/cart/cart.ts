@@ -30,7 +30,9 @@ export class Cart extends Component {
   }
 
   private getStartCart(): Set<string> | undefined {
-    return localStorage.cart ? new Set(JSON.parse(localStorage.cart)) : this.parseData(this.defaultData);
+    return localStorage.cart
+      ? new Set(JSON.parse(localStorage.cart))
+      : this.parseData(this.defaultData);
   }
 
   private saveCartToLocalStorage(): void {

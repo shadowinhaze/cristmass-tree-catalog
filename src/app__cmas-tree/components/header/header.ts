@@ -34,8 +34,12 @@ export class Header extends Component {
   }
 
   private activateMobileMenu(): void {
-    const mobileMenu = this.container?.querySelector(`.${Header.ClassNames.mobileMenu}`);
-    const activator = this.container?.querySelector(`.${Header.ClassNames.mobileMenuActivator}`);
+    const mobileMenu = this.container?.querySelector(
+      `.${Header.ClassNames.mobileMenu}`,
+    );
+    const activator = this.container?.querySelector(
+      `.${Header.ClassNames.mobileMenuActivator}`,
+    );
 
     const toggle = () => {
       mobileMenu?.classList.toggle(Header.ClassNames.mobileMenuHiddenMod);
@@ -50,7 +54,10 @@ export class Header extends Component {
         !target?.classList.contains('search__input__line') &&
         !target?.classList.contains('search__input__icon')
       ) {
-        if (mobileMenu?.classList.contains(Header.ClassNames.mobileMenuHiddenMod)) return;
+        if (
+          mobileMenu?.classList.contains(Header.ClassNames.mobileMenuHiddenMod)
+        )
+          return;
         toggle();
       }
     };
@@ -68,8 +75,13 @@ export class Header extends Component {
   }
 
   private genNavBtns(btns: BtnsCollection): void {
-    const nav = this.container?.querySelector(`.${Header.ClassNames.navigation}`);
-    const navBtns = this.buttons.renderNav({ buttons: btns, options: Header.navParams });
+    const nav = this.container?.querySelector(
+      `.${Header.ClassNames.navigation}`,
+    );
+    const navBtns = this.buttons.renderNav({
+      buttons: btns,
+      options: Header.navParams,
+    });
     if (nav) {
       nav.innerHTML = '';
       nav.appendChild(navBtns);
@@ -77,7 +89,9 @@ export class Header extends Component {
   }
 
   private genSearch() {
-    const search = this.container?.querySelector(`.${Header.ClassNames.search}`);
+    const search = this.container?.querySelector(
+      `.${Header.ClassNames.search}`,
+    );
     const searchContent = document.createElement('div');
     searchContent.classList.add('search__input');
     searchContent.innerHTML = `<input class="search__input__line" type="text" placeholder="Найти украшение..." autofocus><span class="search__input__icon"></span>`;
@@ -85,7 +99,9 @@ export class Header extends Component {
   }
 
   private genCart() {
-    const place = this.container?.querySelector(`.${Header.ClassNames.wrapper}`);
+    const place = this.container?.querySelector(
+      `.${Header.ClassNames.wrapper}`,
+    );
     const cart = this.container?.querySelector(`.${Header.ClassNames.cart}`);
     if (!cart) {
       const newCart = document.createElement('button');

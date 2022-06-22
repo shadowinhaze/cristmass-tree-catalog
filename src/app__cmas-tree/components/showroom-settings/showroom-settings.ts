@@ -37,7 +37,14 @@ export class ShowRoomSettings extends Component {
 
   private static colorfulLightsOn = false;
 
-  private static Lights: Array<string> = ['colorful', 'red', 'green', 'yellow', 'blue', 'white'];
+  private static Lights: Array<string> = [
+    'colorful',
+    'red',
+    'green',
+    'yellow',
+    'blue',
+    'white',
+  ];
 
   private static Equipment: Array<string> = ['music', 'snow'];
 
@@ -60,12 +67,12 @@ export class ShowRoomSettings extends Component {
     isArtistColleciton: boolean,
     modificator: string,
     itemModificator: string,
-    sectionHeaderText: string
+    sectionHeaderText: string,
   ): void {
     const section = document.createElement('section');
     section?.classList.add(
       `${ShowRoomSettings.ClassNames.sectionContainer}`,
-      `${ShowRoomSettings.ClassNames.sectionContainer}_${modificator}`
+      `${ShowRoomSettings.ClassNames.sectionContainer}_${modificator}`,
     );
     const sectionHeader = document.createElement('h3');
     const sectionList = document.createElement('ul');
@@ -74,20 +81,32 @@ export class ShowRoomSettings extends Component {
 
     if (isArtistColleciton) {
       sectionItemsCollection = this.genItemsCollection(itemModificator, {
-        path: <string>ChristmasAppPathsAndParams[`${itemModificator}Collection`],
-        amount: <number>ChristmasAppPathsAndParams[`${itemModificator}CollectionAmount`],
-        format: <string>ChristmasAppPathsAndParams[`${itemModificator}CollectionFormat`],
+        path: <string>(
+          ChristmasAppPathsAndParams[`${itemModificator}Collection`]
+        ),
+        amount: <number>(
+          ChristmasAppPathsAndParams[`${itemModificator}CollectionAmount`]
+        ),
+        format: <string>(
+          ChristmasAppPathsAndParams[`${itemModificator}CollectionFormat`]
+        ),
       });
     } else {
       sectionItemsCollection = this.genItemsCollection(itemModificator);
     }
 
     this.genSettingsSectionItems(sectionList, sectionItemsCollection);
-    sectionHeader.classList.add(`${ShowRoomSettings.ClassNames.sectionContainer}__header`);
-    sectionList.classList.add(`${ShowRoomSettings.ClassNames.sectionContainer}__items`);
+    sectionHeader.classList.add(
+      `${ShowRoomSettings.ClassNames.sectionContainer}__header`,
+    );
+    sectionList.classList.add(
+      `${ShowRoomSettings.ClassNames.sectionContainer}__items`,
+    );
 
     if (modificator === 'lights') {
-      sectionList.classList.add(`${ShowRoomSettings.ClassNames.sectionContainer}__items_${modificator}`);
+      sectionList.classList.add(
+        `${ShowRoomSettings.ClassNames.sectionContainer}__items_${modificator}`,
+      );
     }
     sectionHeader.innerText = sectionHeaderText;
 
@@ -95,20 +114,23 @@ export class ShowRoomSettings extends Component {
     this.container?.appendChild(section);
   }
 
-  private genSettingsSectionItems(parent: HTMLElement, itemsCollection: Array<TransObject>): void {
+  private genSettingsSectionItems(
+    parent: HTMLElement,
+    itemsCollection: Array<TransObject>,
+  ): void {
     itemsCollection.forEach((item) => {
       const itemHTML = document.createElement('li');
       if (item.itemAdditionalModificator) {
         itemHTML.classList.add(
           `${ShowRoomSettings.ClassNames.sectionContainer}__item`,
           `${ShowRoomSettings.ClassNames.sectionContainer}__item_${item.itemModificator}`,
-          `${ShowRoomSettings.ClassNames.sectionContainer}__item_${item.itemAdditionalModificator}`
+          `${ShowRoomSettings.ClassNames.sectionContainer}__item_${item.itemAdditionalModificator}`,
         );
         itemHTML.dataset.itemId = <string>item.id;
       } else {
         itemHTML.classList.add(
           `${ShowRoomSettings.ClassNames.sectionContainer}__item`,
-          `${ShowRoomSettings.ClassNames.sectionContainer}__item_${item.itemModificator}`
+          `${ShowRoomSettings.ClassNames.sectionContainer}__item_${item.itemModificator}`,
         );
         itemHTML.style.backgroundImage = `url(${item.imgSrc})`;
         itemHTML.dataset.itemId = <string>item.id;
@@ -131,7 +153,7 @@ export class ShowRoomSettings extends Component {
       path: string;
       amount: number;
       format: string;
-    }
+    },
   ): Array<TransObject> {
     const itemsCollection: Array<TransObject> = [];
 
@@ -219,7 +241,10 @@ export class ShowRoomSettings extends Component {
   private lightControl(): void {
     const lightColor = (<string>ShowRoomSettings.Config.light).split('-')[1];
 
-    if (ShowRoomSettings.Config.lightsFirstLauch || ShowRoomSettings.colorfulLightsOn) {
+    if (
+      ShowRoomSettings.Config.lightsFirstLauch ||
+      ShowRoomSettings.colorfulLightsOn
+    ) {
       ShowRoomSettings.Config.lightsFirstLauch = false;
       ShowRoomSettings.colorfulLightsOn = false;
       this.display.setLights(lightColor);
@@ -237,7 +262,9 @@ export class ShowRoomSettings extends Component {
 
   private addListener(): void {
     const lightsActivator = <HTMLInputElement>(
-      this.container?.querySelector(`.${ShowRoomSettings.ClassNames.lightsActivator}`)
+      this.container?.querySelector(
+        `.${ShowRoomSettings.ClassNames.lightsActivator}`,
+      )
     );
 
     lightsActivator?.addEventListener('change', () => {
@@ -248,44 +275,81 @@ export class ShowRoomSettings extends Component {
     this.container?.addEventListener('click', (e) => {
       const target = <HTMLElement>e.target;
       switch (true) {
-        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_music`):
-          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`);
+        case target.classList.contains(
+          `${ShowRoomSettings.ClassNames.baseItemClassName}_eq_music`,
+        ):
+          target.classList.toggle(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`,
+          );
           ShowRoomSettings.Config.music = !ShowRoomSettings.Config.music;
           this.musicControl();
           break;
-        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_snow`):
-          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`);
+        case target.classList.contains(
+          `${ShowRoomSettings.ClassNames.baseItemClassName}_eq_snow`,
+        ):
+          target.classList.toggle(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`,
+          );
           ShowRoomSettings.Config.snow = !ShowRoomSettings.Config.snow;
           this.snowControl();
           break;
-        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_bg`):
-          this.cleanItemsList(`${ShowRoomSettings.ClassNames.baseItemClassName}_bg`);
-          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_bg_active`);
+        case target.classList.contains(
+          `${ShowRoomSettings.ClassNames.baseItemClassName}_bg`,
+        ):
+          this.cleanItemsList(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_bg`,
+          );
+          target.classList.toggle(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_bg_active`,
+          );
           ShowRoomSettings.Config.background = <string>target.dataset.itemId;
           this.backgroundControl();
           break;
-        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_tree`):
-          this.cleanItemsList(`${ShowRoomSettings.ClassNames.baseItemClassName}_tree`);
-          target.classList.toggle(`${ShowRoomSettings.ClassNames.baseItemClassName}_tree_active`);
+        case target.classList.contains(
+          `${ShowRoomSettings.ClassNames.baseItemClassName}_tree`,
+        ):
+          this.cleanItemsList(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_tree`,
+          );
+          target.classList.toggle(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_tree_active`,
+          );
           ShowRoomSettings.Config.tree = <string>target.dataset.itemId;
           this.treeControl();
           break;
-        case target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_light`):
-          if (!ShowRoomSettings.Config.lightsFirstLauch && !ShowRoomSettings.Config.lightsON) break;
-          if (!target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_light_active`)) {
-            this.cleanItemsList(`${ShowRoomSettings.ClassNames.baseItemClassName}_light`);
-            target.classList.add(`${ShowRoomSettings.ClassNames.baseItemClassName}_light_active`);
+        case target.classList.contains(
+          `${ShowRoomSettings.ClassNames.baseItemClassName}_light`,
+        ):
+          if (
+            !ShowRoomSettings.Config.lightsFirstLauch &&
+            !ShowRoomSettings.Config.lightsON
+          )
+            break;
+          if (
+            !target.classList.contains(
+              `${ShowRoomSettings.ClassNames.baseItemClassName}_light_active`,
+            )
+          ) {
+            this.cleanItemsList(
+              `${ShowRoomSettings.ClassNames.baseItemClassName}_light`,
+            );
+            target.classList.add(
+              `${ShowRoomSettings.ClassNames.baseItemClassName}_light_active`,
+            );
             ShowRoomSettings.Config.light = <string>target.dataset.itemId;
 
             if (ShowRoomSettings.Config.lightsFirstLauch) {
-              ShowRoomSettings.Config.lightsON = !ShowRoomSettings.Config.lightsON;
+              ShowRoomSettings.Config.lightsON =
+                !ShowRoomSettings.Config.lightsON;
               lightsActivator.checked = true;
             }
             this.lightControl();
           }
           break;
         case target.classList.contains('showroom__settings__save-button'):
-          localStorage.showRoomSettings = JSON.stringify(ShowRoomSettings.Config);
+          localStorage.showRoomSettings = JSON.stringify(
+            ShowRoomSettings.Config,
+          );
           break;
         case target.classList.contains('showroom__settings__reset-button'):
           localStorage.showRoomSettings = '';
@@ -297,16 +361,26 @@ export class ShowRoomSettings extends Component {
 
   private virtualStartLight(): void {
     if (ShowRoomSettings.Config.light) {
-      const light = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config.light}"]`);
+      const light = <HTMLLIElement>(
+        document.querySelector(
+          `[data-item-id="${ShowRoomSettings.Config.light}"]`,
+        )
+      );
       const lightsActivator = <HTMLInputElement>(
-        document.querySelector(`.${ShowRoomSettings.ClassNames.lightsActivator}`)
+        document.querySelector(
+          `.${ShowRoomSettings.ClassNames.lightsActivator}`,
+        )
       );
 
       if (ShowRoomSettings.Config.lightsON) {
-        const tree = document.querySelector('.showroom__display__tree-container__tree');
+        const tree = document.querySelector(
+          '.showroom__display__tree-container__tree',
+        );
         tree?.addEventListener('load', () => {
           light.click();
-          const lightColor = (<string>ShowRoomSettings.Config.light).split('-')[1];
+          const lightColor = (<string>ShowRoomSettings.Config.light).split(
+            '-',
+          )[1];
           this.display.setLights(lightColor);
           lightsActivator.checked = <boolean>ShowRoomSettings.Config.lightsON;
         });
@@ -317,8 +391,13 @@ export class ShowRoomSettings extends Component {
   private addSavingsButtons(): void {
     ShowRoomSettings.LocalFunctions.forEach((func) => {
       const button = document.createElement('button');
-      button.classList.add('default-button', `showroom__settings__${func}-button`);
-      button.innerText = `${func === 'save' ? 'Сохранить' : 'Сбросить'} настройки`;
+      button.classList.add(
+        'default-button',
+        `showroom__settings__${func}-button`,
+      );
+      button.innerText = `${
+        func === 'save' ? 'Сохранить' : 'Сбросить'
+      } настройки`;
       this.container?.append(button);
     });
   }
@@ -331,13 +410,26 @@ export class ShowRoomSettings extends Component {
 
   virtualStart(): void {
     const activateEq = (eq: string) => {
-      const target = <HTMLElement>document.querySelector(`.${ShowRoomSettings.ClassNames.baseItemClassName}_eq_${eq}`);
+      const target = <HTMLElement>(
+        document.querySelector(
+          `.${ShowRoomSettings.ClassNames.baseItemClassName}_eq_${eq}`,
+        )
+      );
       if (ShowRoomSettings.Config[eq]) {
-        if (target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`)) return;
+        if (
+          target.classList.contains(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`,
+          )
+        )
+          return;
         ShowRoomSettings.Config[eq] = false;
         target.click();
       } else {
-        if (target.classList.contains(`${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`)) {
+        if (
+          target.classList.contains(
+            `${ShowRoomSettings.ClassNames.baseItemClassName}_eq_active`,
+          )
+        ) {
           ShowRoomSettings.Config[eq] = true;
           target.click();
         }
@@ -345,7 +437,11 @@ export class ShowRoomSettings extends Component {
     };
 
     const chooseGraphics = (type: string) => {
-      const target = <HTMLLIElement>document.querySelector(`[data-item-id="${ShowRoomSettings.Config[type]}"]`);
+      const target = <HTMLLIElement>(
+        document.querySelector(
+          `[data-item-id="${ShowRoomSettings.Config[type]}"]`,
+        )
+      );
       target.click();
     };
 

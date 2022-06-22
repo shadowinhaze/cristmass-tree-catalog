@@ -1,6 +1,9 @@
 import './showroom-checkpoint.scss';
 import { Component } from '../../templates/component';
-import { Config, ShowRoomSettings } from '../showroom-settings/showroom-settings';
+import {
+  Config,
+  ShowRoomSettings,
+} from '../showroom-settings/showroom-settings';
 import { ShowRoomDisplay } from '../../components/showroom-display/showroom-display';
 import { ShowRoomKit } from '../showroom-kit/showroom-kit';
 import html2canvas from 'html2canvas';
@@ -44,8 +47,15 @@ export class ShowRoomCheckpoint extends Component {
     target.addEventListener('click', async () => {
       const display = <HTMLElement>document.querySelector('.showroom__display');
       const settings = { settings: this.settings.config };
-      const kit = { kit: <string>document.querySelector('.showroom__kit__items')?.innerHTML };
-      const toys = { toys: <string>document.querySelector('.showroom__display__toys-container')?.innerHTML };
+      const kit = {
+        kit: <string>document.querySelector('.showroom__kit__items')?.innerHTML,
+      };
+      const toys = {
+        toys: <string>(
+          document.querySelector('.showroom__display__toys-container')
+            ?.innerHTML
+        ),
+      };
       const imgData = await html2canvas(display, { logging: false });
       const checkpoint = <CheckPointData>(<unknown>{
         screenshot: <string>imgData.toDataURL('image/jpeg', 0.5),
@@ -75,7 +85,10 @@ export class ShowRoomCheckpoint extends Component {
 
   private addResetButton(): void {
     const button = document.createElement('button');
-    button.classList.add('default-button', 'showroom__checkpoint__reset-button');
+    button.classList.add(
+      'default-button',
+      'showroom__checkpoint__reset-button',
+    );
     button.innerText = 'Снять все игрушки';
     this.addResetAction(button);
     this.container?.append(button);
@@ -110,13 +123,17 @@ export class ShowRoomCheckpoint extends Component {
   }
 
   private getFromLocalStorage(): void {
-    this.checkpoints = localStorage.checkpoints ? new Set(JSON.parse(localStorage.checkpoints)) : new Set();
+    this.checkpoints = localStorage.checkpoints
+      ? new Set(JSON.parse(localStorage.checkpoints))
+      : new Set();
   }
 
   private addItemsToSaveList(): void {
     if (!this.checkpoints) return;
     if (this.checkpoints.size > 0) {
-      const list = <HTMLUListElement>this.container?.querySelector('.showroom__checkpoint__save-list');
+      const list = <HTMLUListElement>(
+        this.container?.querySelector('.showroom__checkpoint__save-list')
+      );
       if (!list) return;
       list.innerHTML = '';
       [...this.checkpoints].forEach((item, index) => {

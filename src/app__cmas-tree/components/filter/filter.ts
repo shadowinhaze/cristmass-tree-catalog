@@ -20,7 +20,9 @@ export class Filter extends Component {
 
   private defaultData: DataItems;
 
-  private static extremaDots = <{ [prop: string]: { min: number; max: number } }>{
+  private static extremaDots = <
+    { [prop: string]: { min: number; max: number } }
+  >{
     count: { min: 0, max: 0 },
     year: { min: 0, max: 0 },
   };
@@ -31,7 +33,9 @@ export class Filter extends Component {
     size: [],
   };
 
-  private static filtersConfig = <{ [prop: string]: Array<number | string | boolean> }>{
+  private static filtersConfig = <
+    { [prop: string]: Array<number | string | boolean> }
+  >{
     count: [],
     year: [],
     shape: [],
@@ -62,7 +66,11 @@ export class Filter extends Component {
   ]);
 
   constructor(data: DataItems) {
-    super({ isExist: false, className: Filter.ClassNames.containerClassName, tag: Filter.ClassNames.containerTag });
+    super({
+      isExist: false,
+      className: Filter.ClassNames.containerClassName,
+      tag: Filter.ClassNames.containerTag,
+    });
     this.data = data;
     this.defaultData = data;
     this.grubExtremaForDoubleSliders(data);
@@ -76,7 +84,8 @@ export class Filter extends Component {
       arr.forEach((item) => allValues.add(+item[extremum]));
       const allValuesSorted = [...allValues].sort((a, b) => (a < b ? -1 : 1));
       Filter.extremaDots[extremum].min = allValuesSorted[0];
-      Filter.extremaDots[extremum].max = allValuesSorted[allValuesSorted.length - 1];
+      Filter.extremaDots[extremum].max =
+        allValuesSorted[allValuesSorted.length - 1];
     });
   }
 
@@ -117,14 +126,18 @@ export class Filter extends Component {
     parent.addEventListener('click', (e) => {
       const clickTarget = <HTMLElement>e.target;
       const isProper = clickTarget.classList.contains('value-filter__item');
-      const isActive = clickTarget.classList.contains('value-filter__item_active');
+      const isActive = clickTarget.classList.contains(
+        'value-filter__item_active',
+      );
       if (isProper) {
         const filterType = clickTarget.dataset.filterType;
         const filterValue = clickTarget.dataset.filterValue;
         if (isActive) {
           clickTarget.classList.toggle('value-filter__item_active');
           if (filterType && filterValue) {
-            Filter.filtersConfig[filterType] = Filter.filtersConfig[filterType].filter((item) => item !== filterValue);
+            Filter.filtersConfig[filterType] = Filter.filtersConfig[
+              filterType
+            ].filter((item) => item !== filterValue);
           }
         } else {
           clickTarget.classList.toggle('value-filter__item_active');
@@ -188,7 +201,9 @@ export class Filter extends Component {
       if (Filter.filtersConfig[prop].length === 0) return arr;
       if (prop === 'count' || prop === 'year') {
         return arr.filter(
-          (item) => +item[prop] >= Filter.filtersConfig[prop][0] && +item[prop] <= Filter.filtersConfig[prop][1]
+          (item) =>
+            +item[prop] >= Filter.filtersConfig[prop][0] &&
+            +item[prop] <= Filter.filtersConfig[prop][1],
         );
       } else if (prop === 'sorter') {
         return sortIt(arr);
@@ -197,7 +212,9 @@ export class Filter extends Component {
       } else if (prop === 'search') {
         return searchFilterIt(arr);
       } else {
-        return arr.filter((item) => Filter.filtersConfig[prop].some((_item) => _item === item[prop]));
+        return arr.filter((item) =>
+          Filter.filtersConfig[prop].some((_item) => _item === item[prop]),
+        );
       }
     };
 
@@ -218,7 +235,9 @@ export class Filter extends Component {
   }
 
   private addDoubleSliders(): void {
-    const doubleSliders = <Array<target>>(<unknown>this.container?.querySelectorAll('.double-filter__slider'));
+    const doubleSliders = <Array<target>>(
+      (<unknown>this.container?.querySelectorAll('.double-filter__slider'))
+    );
     doubleSliders.forEach((slider) => {
       Object.keys(Filter.extremaDots).forEach((extremum) => {
         if (slider.classList.contains(`${extremum}-filter__slider`)) {
@@ -235,27 +254,34 @@ export class Filter extends Component {
 
   private addValueFilters(): void {
     const valueFiltersContainer = <HTMLElement>(
-      this.container?.querySelector('.sidebar-catalog__navigation__value-filters')
+      this.container?.querySelector(
+        '.sidebar-catalog__navigation__value-filters',
+      )
     );
     Object.keys(Filter.valuesCollection).forEach((collectionName) => {
       const valueFilter = document.createElement('li');
       valueFilter.classList.add(
         `sidebar-catalog__navigation__value-filters__${collectionName}-filter`,
-        `${collectionName}-filter`
+        `${collectionName}-filter`,
       );
       valueFilter.innerHTML = `<h3 class="filter-header ${collectionName}-filter__header">${Filter.Dictionary.get(
-        collectionName
+        collectionName,
       )} игрушек</h3>`;
       const valueFilterList = document.createElement('ul');
       valueFilterList.classList.add(
         `sidebar-catalog__navigation__value-filters__${collectionName}-filter__items`,
         `${collectionName}-filter__items`,
-        'value-filter__items'
+        'value-filter__items',
       );
       Filter.valuesCollection[collectionName].forEach((filterValue) => {
         const valueFilterItem = document.createElement('li');
-        valueFilterItem.classList.add('value-filter__item', `value-filter__item_${Filter.Dictionary.get(filterValue)}`);
-        valueFilterItem.title = `Фильтром ${Filter.Dictionary.get(collectionName)} выбрать ${filterValue}`;
+        valueFilterItem.classList.add(
+          'value-filter__item',
+          `value-filter__item_${Filter.Dictionary.get(filterValue)}`,
+        );
+        valueFilterItem.title = `Фильтром ${Filter.Dictionary.get(
+          collectionName,
+        )} выбрать ${filterValue}`;
         valueFilterItem.dataset.filterType = collectionName;
         valueFilterItem.dataset.filterValue = filterValue;
         valueFilterList.appendChild(valueFilterItem);
@@ -269,7 +295,9 @@ export class Filter extends Component {
   }
 
   private addSorter(): void {
-    const sorterList = <HTMLInputElement>this.container?.querySelector('.sorter__select-list');
+    const sorterList = <HTMLInputElement>(
+      this.container?.querySelector('.sorter__select-list')
+    );
     sorterList?.addEventListener('change', () => {
       Filter.filtersConfig.sorter[0] = sorterList.value;
       this.dataChanger();
@@ -278,7 +306,9 @@ export class Filter extends Component {
   }
 
   private showFavorites(): void {
-    const favoritesInput = <HTMLInputElement>this.container?.querySelector('.favorites-selector__checkbox');
+    const favoritesInput = <HTMLInputElement>(
+      this.container?.querySelector('.favorites-selector__checkbox')
+    );
     favoritesInput?.addEventListener('change', () => {
       Filter.filtersConfig.favorites[0] = favoritesInput.checked;
       this.dataChanger();
@@ -287,14 +317,24 @@ export class Filter extends Component {
   }
 
   private resetTags(): void {
-    const doubleSliders = <Array<target>>(<unknown>this.container?.querySelectorAll('.double-filter__slider'));
-    const valueFilterItems = <Array<HTMLElement>>(<unknown>this.container?.querySelectorAll('.value-filter__item'));
+    const doubleSliders = <Array<target>>(
+      (<unknown>this.container?.querySelectorAll('.double-filter__slider'))
+    );
+    const valueFilterItems = <Array<HTMLElement>>(
+      (<unknown>this.container?.querySelectorAll('.value-filter__item'))
+    );
     doubleSliders.forEach((slider) => slider.noUiSlider?.reset());
-    valueFilterItems.forEach((valueItem) => valueItem.classList.remove('value-filter__item_active'));
+    valueFilterItems.forEach((valueItem) =>
+      valueItem.classList.remove('value-filter__item_active'),
+    );
   }
 
   private addResetListener(): void {
-    const resetButton = <HTMLInputElement>this.container?.querySelector('.sidebar-catalog__navigation__reset__button');
+    const resetButton = <HTMLInputElement>(
+      this.container?.querySelector(
+        '.sidebar-catalog__navigation__reset__button',
+      )
+    );
     resetButton.addEventListener('click', () => {
       Object.keys(Filter.filtersConfig).forEach((item) => {
         if (item !== 'sorter' && item !== 'favorites') {
@@ -309,7 +349,9 @@ export class Filter extends Component {
 
   private addResetAllListener(): void {
     const resetAllButton = <HTMLInputElement>(
-      this.container?.querySelector('.sidebar-catalog__navigation__reset-all__button')
+      this.container?.querySelector(
+        '.sidebar-catalog__navigation__reset-all__button',
+      )
     );
     resetAllButton.addEventListener('click', () => {
       Object.keys(Filter.filtersConfig).forEach((item) => {
@@ -368,24 +410,34 @@ export class Filter extends Component {
   }
 
   private getUserSettingsFromLocal(): void {
-    Filter.filtersConfig = localStorage.userSettings ? JSON.parse(localStorage.userSettings) : Filter.filtersConfig;
+    Filter.filtersConfig = localStorage.userSettings
+      ? JSON.parse(localStorage.userSettings)
+      : Filter.filtersConfig;
   }
 
   private setDoubleSlider(key: string): void {
-    const doubleSlider = <target>this.container?.querySelector(`.${key}-filter__slider`);
+    const doubleSlider = <target>(
+      this.container?.querySelector(`.${key}-filter__slider`)
+    );
     if (Filter.filtersConfig[key].length > 0) {
       doubleSlider.noUiSlider?.set(<Array<number>>Filter.filtersConfig[key]);
     }
   }
 
   private setValueFilters(key: string): void {
-    const keyItems = <Array<HTMLElement>>(<unknown>this.container?.querySelectorAll('.value-filter__item'));
+    const keyItems = <Array<HTMLElement>>(
+      (<unknown>this.container?.querySelectorAll('.value-filter__item'))
+    );
     if (Filter.filtersConfig[key].length > 0) {
       keyItems?.forEach((item) => {
         const filterType = item.dataset.filterType;
         const filterValue = item.dataset.filterValue;
         if (filterType && filterValue) {
-          if (Filter.filtersConfig[filterType].some((_item) => _item === filterValue)) {
+          if (
+            Filter.filtersConfig[filterType].some(
+              (_item) => _item === filterValue,
+            )
+          ) {
             item.classList.add('value-filter__item_active');
           }
         }
@@ -394,7 +446,9 @@ export class Filter extends Component {
   }
 
   private setSorter(): void {
-    const sorterList = <HTMLInputElement>this.container?.querySelector('.sorter__select-list');
+    const sorterList = <HTMLInputElement>(
+      this.container?.querySelector('.sorter__select-list')
+    );
     if (Filter.filtersConfig.sorter.length > 0) {
       sorterList.value = <string>Filter.filtersConfig.sorter[0];
     } else {
@@ -403,7 +457,9 @@ export class Filter extends Component {
   }
 
   private setFavorites(): void {
-    const checkbox = <HTMLInputElement>this.container?.querySelector('.favorites-selector__checkbox');
+    const checkbox = <HTMLInputElement>(
+      this.container?.querySelector('.favorites-selector__checkbox')
+    );
     checkbox.checked = <boolean>Filter.filtersConfig.favorites[0];
   }
 

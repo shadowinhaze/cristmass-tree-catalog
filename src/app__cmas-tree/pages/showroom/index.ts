@@ -44,7 +44,9 @@ export class ShowRoom extends Page {
 
   private async setDefaultComponents(): Promise<void> {
     const dataGrabber = new DataGrabber();
-    const defaultData = await dataGrabber.getData(<string>ChristmasAppPathsAndParams.catalogData);
+    const defaultData = await dataGrabber.getData(
+      <string>ChristmasAppPathsAndParams.catalogData,
+    );
     this.cart = new Cart(defaultData);
     this.kit = new ShowRoomKit(defaultData, this.cart);
   }

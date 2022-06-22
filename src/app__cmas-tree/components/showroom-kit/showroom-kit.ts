@@ -15,7 +15,11 @@ export class ShowRoomKit extends Component {
   private cart: Cart;
 
   constructor(items: DataItems, cart: Cart) {
-    super({ isExist: false, className: ShowRoomKit.ClassNames.container, tag: ShowRoomKit.ClassNames.containerTag });
+    super({
+      isExist: false,
+      className: ShowRoomKit.ClassNames.container,
+      tag: ShowRoomKit.ClassNames.containerTag,
+    });
     this.itemsList = items;
     this.cart = cart;
   }
@@ -29,7 +33,9 @@ export class ShowRoomKit extends Component {
 
   static badgeUpdater(id: string, mode: string): void {
     const dockId = id.split('-')[0];
-    const dockAmount = <HTMLSpanElement>document.querySelector(`[data-dock-id="${dockId}"] span`);
+    const dockAmount = <HTMLSpanElement>(
+      document.querySelector(`[data-dock-id="${dockId}"] span`)
+    );
 
     if (dockAmount) {
       const currentAmount = +dockAmount.innerText;
@@ -37,14 +43,18 @@ export class ShowRoomKit extends Component {
         if (currentAmount - 1 < 0) return;
         if (currentAmount - 1 === 0) {
           if (dockAmount.parentElement) {
-            dockAmount.parentElement.classList.toggle('showroom__kit__item_out');
+            dockAmount.parentElement.classList.toggle(
+              'showroom__kit__item_out',
+            );
           }
         }
         dockAmount.innerText = `${+currentAmount - 1}`;
       } else if (mode === 'incr') {
         if (currentAmount + 1 === 1) {
           if (dockAmount.parentElement) {
-            dockAmount.parentElement.classList.remove('showroom__kit__item_out');
+            dockAmount.parentElement.classList.remove(
+              'showroom__kit__item_out',
+            );
           }
         }
         dockAmount.innerText = `${+currentAmount + 1}`;
@@ -103,7 +113,10 @@ export class ShowRoomKit extends Component {
         if (e.dataTransfer) {
           e.dataTransfer.setData('offsetX', `${e.offsetX}`);
           e.dataTransfer.setData('offsetY', `${e.offsetY}`);
-          e.dataTransfer.setData('toy', `${target.dataset.itemId}-${Date.now()}`);
+          e.dataTransfer.setData(
+            'toy',
+            `${target.dataset.itemId}-${Date.now()}`,
+          );
           e.dataTransfer.setData('img', <string>target.src);
           e.dataTransfer.setData('mode', 'fromCollection');
           e.dataTransfer.effectAllowed = 'copy';

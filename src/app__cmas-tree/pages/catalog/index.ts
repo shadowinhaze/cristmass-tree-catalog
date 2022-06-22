@@ -1,7 +1,10 @@
 import './catalog.scss';
 import { Page } from '../../templates/page';
 import { PageIds, PageIdsRU, ChristmasAppPathsAndParams } from '../../app';
-import { DataGrabber, DataItems } from '../../components/data-grabber/data-grabber';
+import {
+  DataGrabber,
+  DataItems,
+} from '../../components/data-grabber/data-grabber';
 import { Cart } from '../../components/cart/cart';
 import { CatalogItems } from '../../components/catalog-items/catalog-item';
 import { Filter } from '../../components/filter/filter';
@@ -38,7 +41,9 @@ export class Catalog extends Page {
 
   private async setDefaultComponents(): Promise<void> {
     const dataGrabber = new DataGrabber();
-    const defaultData = await dataGrabber.getData(<string>ChristmasAppPathsAndParams.catalogData);
+    const defaultData = await dataGrabber.getData(
+      <string>ChristmasAppPathsAndParams.catalogData,
+    );
     this.cart = new Cart(defaultData);
     this.filter = new Filter(defaultData);
     this.catalogItems = new CatalogItems(defaultData, this.cart);
@@ -75,7 +80,9 @@ export class Catalog extends Page {
       this.main.updateContent('catalog-showcase', mess);
       return;
     }
-    const updatedCatalogItems = <HTMLElement>this.catalogItems?.getContent(data);
+    const updatedCatalogItems = <HTMLElement>(
+      this.catalogItems?.getContent(data)
+    );
     this.main.updateContent('catalog-showcase', updatedCatalogItems);
   }
 }

@@ -38,21 +38,32 @@ export class CatalogItems extends Component {
 
   private genList(html: string): void {
     this.itemsList.forEach((item) => {
-      const card = <HTMLElement>document.createElement(CatalogItems.CardStructure.cardTag);
-      card.classList.add(CatalogItems.CardStructure.cardBemClassName, CatalogItems.CardStructure.cardClassName);
+      const card = <HTMLElement>(
+        document.createElement(CatalogItems.CardStructure.cardTag)
+      );
+      card.classList.add(
+        CatalogItems.CardStructure.cardBemClassName,
+        CatalogItems.CardStructure.cardClassName,
+      );
       card.style.backgroundImage = `url("${ChristmasAppPathsAndParams.toysImg}/${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}")`;
       card.dataset.cardId = item.id;
       card.innerHTML = html;
       Object.keys(item).forEach((chunk) => {
-        card.innerHTML = card.innerHTML.replace(`***${chunk}***`, `${item[chunk]}`);
+        card.innerHTML = card.innerHTML.replace(
+          `***${chunk}***`,
+          `${item[chunk]}`,
+        );
       });
-      if (this.cart.cart?.has(item.id)) this.changeCatalogItemStatus(card, true);
+      if (this.cart.cart?.has(item.id))
+        this.changeCatalogItemStatus(card, true);
       this.container?.appendChild(card);
     });
   }
 
   private changeCatalogItemStatus(item: HTMLElement, activate: boolean): void {
-    const star = <HTMLInputElement>item.querySelector('.' + CatalogItems.CardStructure.cardStar);
+    const star = <HTMLInputElement>(
+      item.querySelector('.' + CatalogItems.CardStructure.cardStar)
+    );
     if (activate) {
       item.classList.add(CatalogItems.CardStructure.favoriteCardClassName);
       star.checked = true;
@@ -62,13 +73,19 @@ export class CatalogItems extends Component {
     }
   }
 
-  private addSavingDevice(parent: HTMLElement | null, targetClassName: string, favClassName: string): void {
+  private addSavingDevice(
+    parent: HTMLElement | null,
+    targetClassName: string,
+    favClassName: string,
+  ): void {
     parent?.addEventListener(
       'click',
       (event: Event): void => {
         event.preventDefault();
         const target = <HTMLElement>event.target;
-        const card = <HTMLElement>target.closest(CatalogItems.CardStructure.cardTag) || target;
+        const card =
+          <HTMLElement>target.closest(CatalogItems.CardStructure.cardTag) ||
+          target;
         const properCard = card.classList.contains(targetClassName);
         const isFavoriteCard = card.classList.contains(favClassName);
         const size = this.cart.cart?.size;
@@ -90,7 +107,7 @@ export class CatalogItems extends Component {
           }
         }
       },
-      true
+      true,
     );
   }
 
@@ -104,7 +121,7 @@ export class CatalogItems extends Component {
     this.addSavingDevice(
       this.container,
       CatalogItems.CardStructure.cardClassName,
-      CatalogItems.CardStructure.favoriteCardClassName
+      CatalogItems.CardStructure.favoriteCardClassName,
     );
     return this.container;
   }
