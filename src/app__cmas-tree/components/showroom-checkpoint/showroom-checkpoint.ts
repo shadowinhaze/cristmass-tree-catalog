@@ -39,7 +39,7 @@ export class ShowRoomCheckpoint extends Component {
   private genHeader(): void {
     const header = document.createElement('h3');
     header.classList.add('showroom__checkpoint__header');
-    header.innerText = 'Сохранения';
+    header.innerText = 'Saved';
     this.container?.prepend(header);
   }
 
@@ -78,7 +78,7 @@ export class ShowRoomCheckpoint extends Component {
   private addSaveButton(): void {
     const button = document.createElement('button');
     button.classList.add('default-button', 'showroom__checkpoint__save-button');
-    button.innerText = 'Сохранить работу';
+    button.innerText = 'Save my work';
     this.addSaveAction(button);
     this.container?.append(button);
   }
@@ -89,7 +89,7 @@ export class ShowRoomCheckpoint extends Component {
       'default-button',
       'showroom__checkpoint__reset-button',
     );
-    button.innerText = 'Снять все игрушки';
+    button.innerText = 'Remove all toys';
     this.addResetAction(button);
     this.container?.append(button);
   }
@@ -142,7 +142,7 @@ export class ShowRoomCheckpoint extends Component {
         checkpoint.classList.add('showroom__checkpoint__save-list__item');
         checkpoint.style.backgroundImage = `url("${data.screenshot}")`;
         checkpoint.dataset.checkpointState = `${index++}`;
-        checkpoint.title = `Загрузить сохранение ${index++}`;
+        checkpoint.title = `Download save #${index++}`;
         list?.append(checkpoint);
       });
     }

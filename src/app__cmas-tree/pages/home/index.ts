@@ -1,7 +1,7 @@
 import './home.scss';
 import html from './home.html';
 import { Page } from '../../templates/page';
-import { PageIds, PageIdsRU } from '../../app';
+import { PageIds, PageIdsEng } from '../../app';
 
 export class HomePage extends Page {
   static readonly ClassNames = {
@@ -11,11 +11,11 @@ export class HomePage extends Page {
 
   static homeButtons = [
     {
-      name: PageIdsRU.catalog,
+      name: PageIdsEng.catalog,
       link: PageIds.catalog,
     },
     {
-      name: PageIdsRU.showroom,
+      name: PageIdsEng.showroom,
       link: PageIds.showroom,
     },
   ];

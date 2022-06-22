@@ -9,10 +9,10 @@ const enum PageIds {
   showroom = 'showroom',
 }
 
-const enum PageIdsRU {
-  main = 'дом',
-  catalog = 'каталог',
-  showroom = 'шоу-рум',
+const enum PageIdsEng {
+  main = 'home',
+  catalog = 'catalog',
+  showroom = 'show-room',
 }
 
 const ChristmasAppPathsAndParams: { [prop: string]: string | number } = {
@@ -69,4 +69,4 @@ class ChristmasApp {
   }
 }
 
-export { PageIds, PageIdsRU, ChristmasAppPathsAndParams, ChristmasApp };
+export { PageIds, PageIdsEng, ChristmasAppPathsAndParams, ChristmasApp };

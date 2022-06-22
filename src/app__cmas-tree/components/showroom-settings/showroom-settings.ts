@@ -395,9 +395,7 @@ export class ShowRoomSettings extends Component {
         'default-button',
         `showroom__settings__${func}-button`,
       );
-      button.innerText = `${
-        func === 'save' ? 'Сохранить' : 'Сбросить'
-      } настройки`;
+      button.innerText = `${func === 'save' ? 'Save' : 'Reset'} settings`;
       this.container?.append(button);
     });
   }
@@ -451,10 +449,15 @@ export class ShowRoomSettings extends Component {
   }
 
   getContent() {
-    this.genSettingsSection(false, 'equipments', 'eq', 'Праздничная атмосфера');
-    this.genSettingsSection(true, 'models', 'tree', 'Модель');
-    this.genSettingsSection(true, 'backgrounds', 'bg', 'Окружение');
-    this.genSettingsSection(false, 'lights', 'light', 'Гирлянда');
+    this.genSettingsSection(
+      false,
+      'equipments',
+      'eq',
+      'Celebration atmosphere',
+    );
+    this.genSettingsSection(true, 'models', 'tree', 'Model');
+    this.genSettingsSection(true, 'backgrounds', 'bg', 'Environment');
+    this.genSettingsSection(false, 'lights', 'light', 'Lights');
     this.addSavingsButtons();
 
     this.setMusic();

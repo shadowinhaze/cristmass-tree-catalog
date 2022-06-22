@@ -1,6 +1,6 @@
 import './showroom.scss';
 import { Page } from '../../templates/page';
-import { PageIds, PageIdsRU, ChristmasAppPathsAndParams } from '../../app';
+import { PageIds, PageIdsEng, ChristmasAppPathsAndParams } from '../../app';
 import { DataGrabber } from '../../components/data-grabber/data-grabber';
 import { Cart } from '../../components/cart/cart';
 import { ShowRoomSettings } from '../../components/showroom-settings/showroom-settings';
@@ -16,17 +16,17 @@ export class ShowRoom extends Page {
 
   static navInfo = [
     {
-      name: PageIdsRU.main,
+      name: PageIdsEng.main,
       link: PageIds.main,
       current: false,
     },
     {
-      name: PageIdsRU.catalog,
+      name: PageIdsEng.catalog,
       link: PageIds.catalog,
       current: false,
     },
     {
-      name: PageIdsRU.showroom,
+      name: PageIdsEng.showroom,
       link: PageIds.showroom,
       current: true,
     },

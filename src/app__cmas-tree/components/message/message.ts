@@ -13,11 +13,11 @@ export class Message extends Component {
 
   private readonly messages: { [prop: string]: string } = {
     nothing:
-      'Нам очень жаль, но с такими запросами эльфы-помощники не смогли ничего найти...',
-    nothingHeader: 'Пустота...',
+      'We are very sorry, but with such requests our elves helpers do not find anything...',
+    nothingHeader: 'Emptiness...',
     overflow:
-      'Вы не сможете унести со склада столько игрушек, Вам хватит и 20 видов...',
-    overflowHeader: 'Корзина переполнена!',
+      'You will not be able to carry so many toys from the warehouse, 20 types will be enough for you...',
+    overflowHeader: 'The cart is full!',
   };
 
   constructor() {

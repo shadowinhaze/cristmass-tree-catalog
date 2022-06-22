@@ -1,602 +1,542 @@
 [
   {
     "id": "1",
-    "name": "Большой шар с рисунком",
+    "name": "big patterned ball",
     "count": "2",
     "year": "1960",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "2",
-    "name": "Зелёный шар с цветами",
+    "name": "Green ball with flowers",
     "count": "5",
     "year": "2000",
-    "shape": "шар",
-    "color": "зелёный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "green",
+    "size": "big"
   },
   {
     "id": "3",
-    "name": "Красный матовый шар",
+    "name": "Red matte ball",
     "count": "3",
     "year": "1990",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "4",
-    "name": "Сосулька красная",
+    "name": "Icicle red",
     "count": "2",
     "year": "1980",
-    "shape": "фигурка",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "figure",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "5",
-    "name": "Красный виноград",
+    "name": "Red grape",
     "count": "4",
     "year": "1980",
-    "shape": "фигурка",
-    "color": "красный",
-    "size": "средний",
-    "favorite": true
+    "shape": "figure",
+    "color": "red",
+    "size": "medium"
   },
   {
     "id": "6",
-    "name": "Красный шар с рисунком",
+    "name": "Red patterned ball",
     "count": "6",
     "year": "2010",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "7",
-    "name": "Молочно-белый шар",
+    "name": "Milk White ball",
     "count": "12",
     "year": "1960",
-    "shape": "шар",
-    "color": "белый",
-    "size": "средний",
-    "favorite": true
+    "shape": "ball",
+    "color": "white",
+    "size": "medium"
   },
   {
     "id": "8",
-    "name": "Красный шар",
+    "name": "Red ball",
     "count": "10",
     "year": "2010",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "9",
-    "name": "Колокольчик старинный",
+    "name": "Ancient bell",
     "count": "2",
     "year": "1950",
-    "shape": "колокольчик",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "bell",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "10",
-    "name": "Белый шар ретро",
+    "name": "Retro white ball",
     "count": "7",
     "year": "1960",
-    "shape": "шар",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "11",
-    "name": "Шишка еловая белая",
+    "name": "White spruce cone",
     "count": "11",
     "year": "1960",
-    "shape": "шишка",
-    "color": "белый",
-    "size": "малый",
-    "favorite": false
+    "shape": "cone",
+    "color": "white",
+    "size": "small"
   },
   {
     "id": "12",
-    "name": "Белый шар с цветами",
+    "name": "White ball with flowers",
     "count": "5",
     "year": "1980",
-    "shape": "шар",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "13",
-    "name": "Шар расписной Река",
+    "name": "River Painted ball",
     "count": "3",
     "year": "1970",
-    "shape": "шар",
-    "color": "синий",
-    "size": "большой",
-    "favorite": true
+    "shape": "ball",
+    "color": "blue",
+    "size": "big"
   },
   {
     "id": "14",
-    "name": "Шар расписной Деревня",
+    "name": "ball Painted Village",
     "count": "4",
     "year": "1970",
-    "shape": "шар",
-    "color": "синий",
-    "size": "большой",
-    "favorite": true
+    "shape": "ball",
+    "color": "blue",
+    "size": "big"
   },
   {
     "id": "15",
-    "name": "Колокольчик расписной",
+    "name": "Painted bell",
     "count": "3",
     "year": "1970",
-    "shape": "колокольчик",
-    "color": "синий",
-    "size": "средний",
-    "favorite": false
+    "shape": "bell",
+    "color": "blue",
+    "size": "medium"
   },
   {
     "id": "16",
-    "name": "Шишка расписная Пейзаж",
+    "name": "Cone Painted Landscape",
     "count": "3",
     "year": "1970",
-    "shape": "шишка",
-    "color": "синий",
-    "size": "средний",
-    "favorite": true
+    "shape": "cone",
+    "color": "blue",
+    "size": "medium"
   },
   {
     "id": "17",
-    "name": "Шишка расписная",
+    "name": "Painted cone",
     "count": "7",
     "year": "1970",
-    "shape": "шишка",
-    "color": "красный",
-    "size": "средний",
-    "favorite": false
+    "shape": "cone",
+    "color": "red",
+    "size": "medium"
   },
   {
     "id": "18",
-    "name": "Желтый шар с бантом",
+    "name": "Yellow ball with a bow",
     "count": "2",
     "year": "2010",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "19",
-    "name": "Желтый шар с паетками",
+    "name": "Yellow sequin ball",
     "count": "12",
     "year": "1980",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "20",
-    "name": "Красный шар с бантом",
+    "name": "Red ball with a bow",
     "count": "8",
     "year": "1950",
-    "shape": "шар",
-    "color": "красный",
-    "size": "средний",
-    "favorite": true
+    "shape": "ball",
+    "color": "red",
+    "size": "medium"
   },
   {
     "id": "21",
-    "name": "Красный шар с звёздами",
+    "name": "Red ball with stars",
     "count": "4",
     "year": "1970",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": true
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "22",
-    "name": "Шишка еловая золотая",
+    "name": "Golden spruce cone",
     "count": "11",
     "year": "1990",
-    "shape": "шишка",
-    "color": "желтый",
-    "size": "малый",
-    "favorite": false
+    "shape": "cone",
+    "color": "yellow",
+    "size": "small"
   },
   {
     "id": "23",
-    "name": "Колокольчик старинный",
+    "name": "Ancient bell",
     "count": "9",
     "year": "1950",
-    "shape": "колокольчик",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "bell",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "24",
-    "name": "Снежинка изящная",
+    "name": "Graceful snowflake",
     "count": "1",
     "year": "1940",
-    "shape": "снежинка",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "25",
-    "name": "Розовый шар с блёстками",
+    "name": "Pink Glitter ball",
     "count": "12",
     "year": "2010",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "26",
-    "name": "Рубиново-золотой шар",
+    "name": "Ruby Gold ball",
     "count": "8",
     "year": "1960",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "27",
-    "name": "Красный шар с узором",
+    "name": "Red patterned ball",
     "count": "4",
     "year": "2010",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "28",
-    "name": "Бордовый шар с узором",
+    "name": "Burgundy patterned ball",
     "count": "10",
     "year": "2010",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "29",
-    "name": "Старинный шар с цветами",
+    "name": "Vintage ball with flowers",
     "count": "5",
     "year": "1950",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": true
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "30",
-    "name": "Старинный шар с узором",
+    "name": "Vintage patterned ball",
     "count": "8",
     "year": "1950",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": true
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "31",
-    "name": "Красный шар с блёстками",
+    "name": "Red glitter ball",
     "count": "8",
     "year": "2010",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "32",
-    "name": "Синий шар Вселенная",
+    "name": "Blue ball Universe",
     "count": "11",
     "year": "1970",
-    "shape": "шар",
-    "color": "синий",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "blue",
+    "size": "big"
   },
   {
     "id": "33",
-    "name": "Синий шар со снежинкой",
+    "name": "Blue ball with snowflake",
     "count": "6",
     "year": "2010",
-    "shape": "шар",
-    "color": "синий",
-    "size": "средний",
-    "favorite": false
+    "shape": "ball",
+    "color": "blue",
+    "size": "medium"
   },
   {
     "id": "34",
-    "name": "Зелёный  шар с узором",
+    "name": "Green patterned ball",
     "count": "8",
     "year": "2010",
-    "shape": "шар",
-    "color": "зелёный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "green",
+    "size": "big"
   },
   {
     "id": "35",
-    "name": "Фигурка Лис в шарфе",
+    "name": "Fox figurine in a scarf",
     "count": "8",
     "year": "1950",
-    "shape": "фигурка",
-    "color": "желтый",
-    "size": "средний",
-    "favorite": true
+    "shape": "figure",
+    "color": "yellow",
+    "size": "medium"
   },
   {
     "id": "36",
-    "name": "Сиреневый шар Метель",
+    "name": "Lilac Snowball ball",
     "count": "1",
     "year": "2000",
-    "shape": "шар",
-    "color": "синий",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "blue",
+    "size": "big"
   },
   {
     "id": "37",
-    "name": "Зелёный  шар Метель",
+    "name": "Green ball Blizzard",
     "count": "6",
     "year": "2000",
-    "shape": "шар",
-    "color": "зелёный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "green",
+    "size": "big"
   },
   {
     "id": "38",
-    "name": "Голубой  шар Метель",
+    "name": "Blue Blizzard ball",
     "count": "6",
     "year": "2000",
-    "shape": "шар",
-    "color": "синий",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "blue",
+    "size": "big"
   },
   {
     "id": "39",
-    "name": "Красная снежинка",
+    "name": "Red snowflake",
     "count": "6",
     "year": "1990",
-    "shape": "снежинка",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "40",
-    "name": "Снежинка золотая",
+    "name": "Golden Snowflake",
     "count": "12",
     "year": "2020",
-    "shape": "снежинка",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "41",
-    "name": "Снежинка арктическая",
+    "name": "Arctic snowflake",
     "count": "11",
     "year": "2020",
-    "shape": "снежинка",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "42",
-    "name": "Зелёный шар",
+    "name": "Green ball",
     "count": "10",
     "year": "1980",
-    "shape": "шар",
-    "color": "зелёный",
-    "size": "средний",
-    "favorite": false
+    "shape": "ball",
+    "color": "green",
+    "size": "medium"
   },
   {
     "id": "43",
-    "name": "Снежинка двухцветная",
+    "name": "Two-color snowflake",
     "count": "6",
     "year": "1960",
-    "shape": "снежинка",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "44",
-    "name": "Фигурка Ангела",
+    "name": "Angel figurine",
     "count": "11",
     "year": "1940",
-    "shape": "фигурка",
-    "color": "красный",
-    "size": "средний",
-    "favorite": true
+    "shape": "figure",
+    "color": "red",
+    "size": "medium"
   },
   {
     "id": "45",
-    "name": "Снежинка новогодняя",
+    "name": "Christmas snowflake",
     "count": "1",
     "year": "1980",
-    "shape": "снежинка",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "46",
-    "name": "Фигурка Мухомор",
+    "name": "Amanita figurine",
     "count": "10",
     "year": "1950",
-    "shape": "фигурка",
-    "color": "красный",
-    "size": "малый",
-    "favorite": false
+    "shape": "figure",
+    "color": "red",
+    "size": "small"
   },
   {
     "id": "47",
-    "name": "Фигурка Колодец",
+    "name": "Well Figurine",
     "count": "6",
     "year": "1950",
-    "shape": "фигурка",
-    "color": "красный",
-    "size": "малый",
-    "favorite": false
+    "shape": "figure",
+    "color": "red",
+    "size": "small"
   },
   {
     "id": "48",
-    "name": "Желтый шар с бантом",
+    "name": "Yellow ball with a bow",
     "count": "6",
     "year": "1960",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "49",
-    "name": "Снежинка с бирюзой",
+    "name": "Snowflake with turquoise",
     "count": "4",
     "year": "1980",
-    "shape": "снежинка",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "50",
-    "name": "Колокольчик большой",
+    "name": "big bell",
     "count": "3",
     "year": "2020",
-    "shape": "колокольчик",
-    "color": "красный",
-    "size": "большой",
-    "favorite": false
+    "shape": "bell",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "51",
-    "name": "Шишка с изморозью",
+    "name": "Frost Cone",
     "count": "12",
     "year": "1970",
-    "shape": "шишка",
-    "color": "красный",
-    "size": "малый",
-    "favorite": false
+    "shape": "cone",
+    "color": "red",
+    "size": "small"
   },
   {
     "id": "52",
-    "name": "Красный шар с надписью",
+    "name": "Red ball with an inscription",
     "count": "12",
     "year": "1990",
-    "shape": "шар",
-    "color": "красный",
-    "size": "большой",
-    "favorite": true
+    "shape": "ball",
+    "color": "red",
+    "size": "big"
   },
   {
     "id": "53",
-    "name": "Снежинка серебристая",
+    "name": "Snowflake silver",
     "count": "6",
     "year": "2020",
-    "shape": "снежинка",
-    "color": "белый",
-    "size": "большой",
-    "favorite": false
+    "shape": "snowflake",
+    "color": "white",
+    "size": "big"
   },
   {
     "id": "54",
-    "name": "Зелёный шар с рисунком",
+    "name": "Green ball with pattern",
     "count": "6",
     "year": "2010",
-    "shape": "шар",
-    "color": "зелёный",
-    "size": "большой",
-    "favorite": false
+    "shape": "ball",
+    "color": "green",
+    "size": "big"
   },
   {
     "id": "55",
-    "name": "Пряничный домик",
+    "name": "Gingerbread house",
     "count": "1",
     "year": "1940",
-    "shape": "фигурка",
-    "color": "желтый",
-    "size": "большой",
-    "favorite": false
+    "shape": "figure",
+    "color": "yellow",
+    "size": "big"
   },
   {
     "id": "56",
-    "name": "Пряничный теремок",
+    "name": "Gingerbread house",
     "count": "1",
     "year": "1940",
-    "shape": "фигурка",
-    "color": "желтый",
-    "size": "малый",
-    "favorite": false
+    "shape": "figure",
+    "color": "yellow",
+    "size": "small"
   },
   {
     "id": "57",
-    "name": "Пряничная избушка",
+    "name": "Gingerbread hut",
     "count": "1",
     "year": "1940",
-    "shape": "фигурка",
-    "color": "желтый",
-    "size": "средний",
-    "favorite": false
+    "shape": "figure",
+    "color": "yellow",
+    "size": "medium"
   },
   {
     "id": "58",
-    "name": "Фигурка белого медведя",
+    "name": "Polar bear figurine",
     "count": "2",
     "year": "1980",
-    "shape": "фигурка",
-    "color": "белый",
-    "size": "средний",
-    "favorite": false
+    "shape": "figure",
+    "color": "white",
+    "size": "medium"
   },
   {
     "id": "59",
-    "name": "Желтый шар с надписью",
+    "name": "Yellow ball with an inscription",
     "count": "10",
     "year": "1990",
-    "shape": "шар",
-    "color": "желтый",
-    "size": "средний",
-    "favorite": false
+    "shape": "ball",
+    "color": "yellow",
+    "size": "medium"
   },
   {
     "id": "60",
-    "name": "Фигурка Голубь",
+    "name": "Dove figurine",
     "count": "12",
     "year": "1940",
-    "shape": "фигурка",
-    "color": "белый",
-    "size": "средний",
-    "favorite": true
+    "shape": "figure",
+    "color": "white",
+    "size": "medium"
   }
 ]

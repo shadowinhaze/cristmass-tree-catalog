@@ -46,23 +46,42 @@ export class Filter extends Component {
     search: [''],
   };
 
+  // private static Dictionary = new Map([
+  //   ['желтый', 'yellow'],
+  //   ['зелёный', 'green'],
+  //   ['красный', 'red'],
+  //   ['белый', 'white'],
+  //   ['синий', 'darkblue'],
+  //   ['шар', 'ball'],
+  //   ['фигурка', 'figure'],
+  //   ['колокольчик', 'bell'],
+  //   ['шишка', 'cone'],
+  //   ['снежинка', 'snowflake'],
+  //   ['большой', 'xl'],
+  //   ['средний', 'm'],
+  //   ['малый', 's'],
+  //   ['shape', 'Shape'],
+  //   ['color', 'Color'],
+  //   ['size', 'Size'],
+  // ]);
+
   private static Dictionary = new Map([
-    ['желтый', 'yellow'],
-    ['зелёный', 'green'],
-    ['красный', 'red'],
-    ['белый', 'white'],
-    ['синий', 'darkblue'],
-    ['шар', 'ball'],
-    ['фигурка', 'figure'],
-    ['колокольчик', 'bell'],
-    ['шишка', 'cone'],
-    ['снежинка', 'snowflake'],
-    ['большой', 'xl'],
-    ['средний', 'm'],
-    ['малый', 's'],
-    ['shape', 'Форма'],
-    ['color', 'Цвет'],
-    ['size', 'Размер'],
+    ['yellow', 'yellow'],
+    ['green', 'green'],
+    ['red', 'red'],
+    ['white', 'white'],
+    ['blue', 'darkblue'],
+    ['ball', 'ball'],
+    ['figure', 'figure'],
+    ['bell', 'bell'],
+    ['cone', 'cone'],
+    ['snowflake', 'snowflake'],
+    ['big', 'xl'],
+    ['medium', 'm'],
+    ['small', 's'],
+    ['shape', 'Shape'],
+    ['color', 'Color'],
+    ['size', 'Size'],
   ]);
 
   constructor(data: DataItems) {
@@ -264,9 +283,9 @@ export class Filter extends Component {
         `sidebar-catalog__navigation__value-filters__${collectionName}-filter`,
         `${collectionName}-filter`,
       );
-      valueFilter.innerHTML = `<h3 class="filter-header ${collectionName}-filter__header">${Filter.Dictionary.get(
+      valueFilter.innerHTML = `<h3 class="filter-header ${collectionName}-filter__header">Toys ${Filter.Dictionary.get(
         collectionName,
-      )} игрушек</h3>`;
+      )}</h3>`;
       const valueFilterList = document.createElement('ul');
       valueFilterList.classList.add(
         `sidebar-catalog__navigation__value-filters__${collectionName}-filter__items`,
@@ -279,9 +298,9 @@ export class Filter extends Component {
           'value-filter__item',
           `value-filter__item_${Filter.Dictionary.get(filterValue)}`,
         );
-        valueFilterItem.title = `Фильтром ${Filter.Dictionary.get(
+        valueFilterItem.title = `By filter ${Filter.Dictionary.get(
           collectionName,
-        )} выбрать ${filterValue}`;
+        )} select ${filterValue}`;
         valueFilterItem.dataset.filterType = collectionName;
         valueFilterItem.dataset.filterValue = filterValue;
         valueFilterList.appendChild(valueFilterItem);

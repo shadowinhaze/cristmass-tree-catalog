@@ -94,7 +94,7 @@ export class Header extends Component {
     );
     const searchContent = document.createElement('div');
     searchContent.classList.add('search__input');
-    searchContent.innerHTML = `<input class="search__input__line" type="text" placeholder="Найти украшение..." autofocus><span class="search__input__icon"></span>`;
+    searchContent.innerHTML = `<input class="search__input__line" type="text" placeholder="Find toy..." autofocus><span class="search__input__icon"></span>`;
     search?.appendChild(searchContent);
   }
 

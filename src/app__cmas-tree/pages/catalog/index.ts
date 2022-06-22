@@ -1,6 +1,6 @@
 import './catalog.scss';
 import { Page } from '../../templates/page';
-import { PageIds, PageIdsRU, ChristmasAppPathsAndParams } from '../../app';
+import { PageIds, PageIdsEng, ChristmasAppPathsAndParams } from '../../app';
 import {
   DataGrabber,
   DataItems,
@@ -23,17 +23,17 @@ export class Catalog extends Page {
 
   static navInfo = [
     {
-      name: PageIdsRU.main,
+      name: PageIdsEng.main,
       link: PageIds.main,
       current: false,
     },
     {
-      name: PageIdsRU.catalog,
+      name: PageIdsEng.catalog,
       link: PageIds.catalog,
       current: true,
     },
     {
-      name: PageIdsRU.showroom,
+      name: PageIdsEng.showroom,
       link: PageIds.showroom,
       current: false,
     },

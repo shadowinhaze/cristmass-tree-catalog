@@ -27,7 +27,7 @@ export class ShowRoomKit extends Component {
   private genHeader(): void {
     const header = document.createElement('h3');
     header.classList.add('showroom__kit__header');
-    header.innerText = 'Избранная коллекция';
+    header.innerText = 'Favorite collection';
     this.container?.prepend(header);
   }
 
@@ -75,7 +75,7 @@ export class ShowRoomKit extends Component {
         img.src = `${ChristmasAppPathsAndParams.toysImg}/${item.id}.${ChristmasAppPathsAndParams.toysImgFormat}`;
         img.classList.add('showroom__kit__item__img');
         img.dataset.itemId = item.id;
-        img.alt = `Игрушка ${item.name}`;
+        img.alt = `Toy ${item.name}`;
         img.draggable = true;
 
         const cardAmount = document.createElement('span');
