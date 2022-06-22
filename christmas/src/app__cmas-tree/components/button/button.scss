@@ -1,0 +1,81 @@
+@import '../../app.scss';
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 4%;
+  row-gap: 1em;
+}
+
+.buttons-container_home-theme {
+  width: 50%;
+  max-width: 750px;
+  @media screen and (max-width: 700px) {
+    width: 90%;
+    column-gap: 1%;
+  }
+}
+
+.buttons-container__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48%;
+  height: 50px;
+  padding: 1.5rem 0;
+
+  outline: none;
+  border: thick double $green;
+  border-width: 5px;
+  border-radius: 2rem;
+
+  @include defFont;
+  @include defSize;
+  text-transform: capitalize;
+
+  background: white;
+  @include defAnimation(all);
+
+  &:hover {
+    cursor: pointer;
+    font-weight: 600;
+    background: $red;
+    color: white;
+    border: solid 5px white;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 49%;
+  }
+
+  @media screen and (max-width: 460px) {
+    width: 100%;
+  }
+}
+
+.default-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 2em;
+  width: 100%;
+  @include defFont;
+  background: white;
+  border: 2px solid $green;
+  border-radius: 2rem;
+  @include defAnimation(all);
+  
+  &:hover {
+    cursor: pointer;
+    background: $green;
+    color: white;
+  }
+
+  &:active {
+    background: $red;
+  }
+}

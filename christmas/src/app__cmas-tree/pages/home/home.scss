@@ -1,0 +1,72 @@
+@import '../../app.scss';
+
+.app-main_home-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 2em;
+  background: center / cover no-repeat url(@img/cmt-main-bg.jpg);
+}
+
+.title-banner {
+  box-sizing: border-box;
+  width: 50%;
+  max-width: 750px;
+  padding: 4em;
+  background: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  border: thick double $green;
+  border-radius: 2rem;
+
+  @media screen and (max-width: 700px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 560px) {
+    padding: 2em;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 1em 0;
+  }
+}
+
+.title-banner__header {
+  position: relative;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 2rem;
+  color: $green;
+  text-transform: capitalize;
+  margin: 0 0 3rem;
+
+  &::after {
+    position: absolute;
+    left: 0;
+    top: 140%;
+    height: 5px;
+    width: 100%;
+    // background: center / 50% space url(@svg/cm-pattern.svg);
+    background: $red;
+    content: '';
+  }
+
+  // @media screen and (max-width: 700px) {
+  //   &::after {
+  //     top: 125%;
+  //     height: 50%;
+  //     background-size: 70%;
+  //   }
+  // }
+
+  @media screen and (max-width: 700px) {
+    font-size: 1.75rem;
+  }
+}
+
+.title-banner__subheader {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  margin: 0;
+}

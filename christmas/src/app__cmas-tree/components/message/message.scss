@@ -1,0 +1,49 @@
+@import '../../app.scss';
+
+.app-main__message-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba($green, .85);
+  z-index: 100;
+
+  &_hidden {
+    display: none;
+  }
+}
+
+.app-main__message-body {
+  box-sizing: border-box;
+  padding: 2em;
+  max-width: 450px;
+  @include defFont;
+  border-radius: 2rem;
+  background: white;
+  @media screen and (max-width: 480px) {
+    max-width: 90%;
+  }
+
+  &__header {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: $green;
+    @media screen and (max-width: 380px) {
+      font-size: 25px;
+    }
+  }
+
+  &__text {
+    text-align: center;
+  }
+
+  &_built-in {
+    margin: 0 auto;
+  }
+
+}

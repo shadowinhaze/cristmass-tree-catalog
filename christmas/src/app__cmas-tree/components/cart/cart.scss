@@ -1,0 +1,32 @@
+@import '../../app.scss';
+
+.favorites {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  background: transparent;
+  border: none;
+
+  &__display {
+    position: absolute;
+    top: -50%;
+    right: -80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2em .5em;
+    @include defFont;
+    color: white;
+    background: $red;
+    border-radius: 1rem;
+  }
+
+  &::after {
+    content: '\f79c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 30px;
+  }
+}

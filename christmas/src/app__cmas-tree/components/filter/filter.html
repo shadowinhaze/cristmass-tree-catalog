@@ -1,0 +1,39 @@
+<nav class="sidebar-catalog__navigation">
+  <ul class="sidebar-catalog__navigation__range-filters">
+    <li class="sidebar-catalog__navigation__range-filters__year-filter double-filter year-filter">
+      <h3 class="filter-header year-filter__header">Год выпуска</h3>
+      <div class="double-filter__slider year-filter__slider"></div>
+    </li>
+    <li class="sidebar-catalog__navigation__range-filters__count-filter double-filter count-filter">
+      <h3 class="filter-header count-filter__header">Количество на складе</h3>
+      <div class="double-filter__slider count-filter__slider"></div>
+    </li>
+  </ul>
+  <ul class="sidebar-catalog__navigation__value-filters"></ul>
+  <div class="sidebar-catalog__navigation__reset">
+    <button class="sidebar-catalog__navigation__reset__button default-button">Сбросить фильтры</button>
+  </div>
+  <div class="sidebar-catalog__navigation__sorter">
+    <h3 class="filter-header sorter__header">Способ сортировки</h3>
+    <label class="filter-header sidebar-catalog__navigation__sorter__label sorter__label">
+      <select class="sidebar-catalog__navigation__sorter__select-list sorter__select-list default-button">
+        <option value="" disabled selected>Выберите способ сортировки</option>
+        <option value="name-ascending">Наименования от А до Я</option>
+        <option value="name-descending">Наименования от Я до А</option>
+        <option value="count-ascending">По количеству - возрастание</option>
+        <option value="count-descending">По количеству - убывание</option>
+        <option value="year-ascending">По году - возрастание</option>
+        <option value="year-descending">По году - убывание</option>
+      </select>
+    </label>
+  </div>
+  <div class="sidebar-catalog__navigation__favorites-selector">
+    <h3 class="filter-header favorites-selector__header">Только избранное</h3>
+    <label class="favorites-selector__label" title="Только избранное">
+      <input type="checkbox" class="favorites-selector__checkbox"><i class="favorites-selector__icon fa fa-star"></i>
+    </label>
+  </div>
+  <div class="sidebar-catalog__navigation__reset-all">
+    <button class="sidebar-catalog__navigation__reset-all__button default-button">Обнулить настройки</button>
+  </div>
+</nav>
